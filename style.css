@@ -1,0 +1,1463 @@
+/* Font Setup */
+@font-face {
+  font-family: 'Panchang-Medium';
+  src: url('../fonts/OTF/Panchang-Medium.oft') format('woff2'),
+       url('../fonts/Panchang-Medium.woff') format('woff'),
+       url('../fonts/Panchang-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-display: swap;
+  font-style: normal;
+}
+
+/* Global */
+* {
+  box-sizing: border-box;
+  cursor: url("img/crosshair3.png") 16 16, auto;
+  
+}
+
+html, body {
+  --border-radius: 100px;
+  --radius-left: 100px 0 0 100px; 
+  --radius-right: 0 100px 100px 0;
+  --radius-none: 0;
+  margin: 5;
+  padding: 5;
+  background: black;
+  color: white;
+  font-size: 30px;
+  font-family: 'Panchang-Medium', sans-serif;
+  
+}
+
+section {
+  width: 100%;
+  height: 100vh;
+
+  
+}
+
+nav {
+  position: fixed;
+  width: 100%;
+  height: 100px;
+  margin-top: 4px; 
+  top: 0;
+  left: 0;
+  font-size: 20px;
+  z-index: 9999;  
+}
+
+nav ul {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  list-style: none;
+  margin-left: 100px;
+}
+
+nav ul li a {
+  color: white;
+  font-family: monospace;
+}
+
+h1 {
+  font-size: 90px;
+  margin: 0;
+}
+
+h2 {
+  font-size: 60px;
+  margin: 0;
+}
+
+h3 {
+  font-size: 16px;
+  margin: 0;
+}
+
+h4 {
+  font-size: 16px;
+  margin: 0;
+  margin-top: 20px; 
+  margin-right: 100px;
+}
+
+h5 {
+font-size: 16px;
+margin: 0;
+margin-top: 20px; 
+margin-right: 100px;
+}
+
+a {
+  color: white;
+  text-decoration: underline;
+  font-family: monospace;
+}
+
+section {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 100px);
+  top: 100px;
+  z-index: 2;
+  padding: 50px;
+  border: 20px; 
+}
+
+section.sticky {
+  position: sticky;
+  margin-top: 100px;
+}
+
+section.full-screen {
+  height: 100vh;
+  top: 0;
+  margin-top: 0;
+  z-index: 3;
+}
+
+section.about article {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  border-radius: var(--border-radius);
+  padding: 3.25vw;
+  
+  
+}
+
+section.about article .title {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  border-radius: var(--border-radius);
+  padding: 3.125vw;
+  
+}
+
+section.about article .title h3 {
+  align-items: end;
+  margin-bottom: 140px;
+  margin-left: 10px;
+  
+}
+
+section.about article .description {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  border-radius: var(--border-radius);
+  padding: 2.25vw;
+  color: white;
+  
+}
+
+section.empty article h1 {
+  margin-left: 45px;
+  list-style: none;
+  
+}
+
+/* Landing hero that holds both 3D and text/images */
+#landing-page {
+  position: relative;
+  background: transparent;
+  overflow: hidden; /* keep canvas & images inside this hero */
+}
+
+
+/* Unmute button */
+
+#audio-toggle {
+  position: fixed;
+  top: 40px;
+  right: 40px;
+  z-index: 9999;
+  background: black;
+  color: white;
+  border: 1px solid white;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-right: 55px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  opacity: 0.8;
+  display: inline-block;
+  margin-left: 0;
+  margin-bottom: 0;
+}
+
+#audio-toggle:hover {
+  background: white;
+  color: black;
+  cursor: url("img/crosshair4.png") 16 16, auto;
+}
+
+
+#pic1 {
+  margin-top: 50px;
+}
+
+section.services article {
+  display: flex;
+  width: 100%;
+  
+  
+  
+}
+
+section.services figure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-basis: 56.25vw;
+  margin: 0;
+  background:black;
+  border-radius: var(--radius-left);
+}
+
+section.services .text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-basis: 43.75vw;
+  background: black;
+  padding: 3.125vw;
+  border-radius: var(--radius-right);
+
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 1.4;
+  letter-spacing: 0.5px;
+
+
+
+
+  
+}
+
+
+#alt {
+border-radius: 0!important;
+}
+
+section.services h4 {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.4;
+  letter-spacing: 0.5px;
+
+  color: white;
+  opacity: 0.8;
+
+  transform: skewX(-5deg);
+
+
+
+
+
+font-weight: 300; 
+
+width: fit-content;
+max-width: 90%; 
+
+
+}
+
+section.services h2 {
+  font-family: 'Syne', sans-serif;     /* same family */
+  font-size: 34px;                     /* a bit lighter, matches terra-title scale */
+  font-weight: 500;                    /* softer weight like terra-title */
+  line-height: 1.1;                    /* slightly taller, matches paragraph rhythm */
+  letter-spacing: 0.5px;               /* gentle spacing, dictionary-like */
+  
+  text-transform: uppercase;
+  transform: skewX(-5deg);
+  opacity: 0.8; 
+
+  margin-left: 10px;
+}
+
+section.services h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.4;
+  letter-spacing: 0.5px;
+
+  opacity: 0.8;
+  color: white;
+
+  transform: skewX(-5deg);
+
+  margin-left: 10px;
+}
+
+
+
+ /* Text content sits above 3D canvas */
+#landing-page article,
+#landing-page .duality-title,
+#landing-page .duality-subtitle,
+#landing-page .description {
+  position: relative;
+  z-index: 1;
+}
+
+/* Underlay images sit behind the 3D canvas */
+.terrarium-underlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+
+section.contact {
+  position: bottom;
+  margin-left: 100px;
+  flex: 1;
+  display: flex;
+ 
+  border-radius: var(--border-radius);
+  padding: 3.25vw;
+}
+
+
+
+/* Float Animation */
+
+section.services figure img {
+    animation-name: float;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: cubic-bezier(.77,.28,.42,.93);
+}
+
+@keyframes float {
+  0% {
+      transform: translateY(-20px);
+  
+  }
+  100% {
+      transform: translateY(20px);
+  }
+}
+
+/* ==== DROPDOWN NAVIGATION MENU ==== */
+
+.nav-menu {
+  position: relative;
+  margin-left: 100px;
+}
+
+/* Trigger button */
+.nav-menu > button {
+  background: black;
+  color: white;
+  border: 1px solid white;
+  padding: 8px 16px;
+  cursor: pointer;
+  line-height: 1;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  opacity: 0.8;
+  display: inline-block;
+}
+
+.nav-menu > button:hover {
+  background: white;
+  color: black;
+  cursor: url("img/crosshair4.png") 16 16, auto;
+}
+
+/* Panel under the button */
+.menu-panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 8px;
+
+  background: black;
+  color: white;
+  border: 1px solid white;
+  border-radius: 8px;      /* match button radius */
+  opacity: 0.8;
+
+  display: none;           /* hidden by default */
+  flex-direction: column;
+  width: 220px;
+  padding: 8px 0;
+  z-index: 10000;
+
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  line-height: 1.4;
+}
+
+/* When JS adds .open, show the panel */
+.menu-panel.open {
+  display: flex;
+}
+
+/* Each "view" inside the panel (root, contact, media, etc.) */
+.menu-view {
+  display: none;
+  flex-direction: column;
+}
+
+/* Root view (Contact | Media) shown first */
+.menu-view.menu-root {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* Section title inside sub-views */
+.menu-title {
+  padding: 8px 16px;
+  border-bottom: 1px solid white;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+/* Root options: Contact | Media */
+.menu-option {
+  background: transparent;
+  border: none;
+  color: white;
+  text-align: left;
+  padding: 8px 16px;
+  width: 100%;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  border-radius: 8px;
+}
+
+.menu-option:hover {
+  background: white;
+  color: black;
+  cursor: url("img/crosshair4.png") 16 16, auto;
+}
+
+/* Back button in sub-views */
+.menu-back {
+  background: transparent;
+  border: none;
+  color: white;
+  text-align: left;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  border-radius: 8px;
+  padding: 8px 16px;
+  width: 100%;         /* FULL WIDTH */
+  display: block;      /* Behave like a row */
+  border-radius: 8px;
+}
+
+.menu-back:hover {
+  background: white;
+  color: black;
+  cursor: url("img/crosshair4.png") 16 16, auto;
+}
+
+/* Links inside views (contact details, media links etc.) */
+.menu-view a {
+  color: white;
+  text-decoration: none;
+  padding: 8px 16px;
+  display: block;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  border-radius: 8px;
+}
+
+.menu-view a:hover {
+  background: white;
+  color: black;
+  cursor: url("img/crosshair4.png") 16 16, auto;
+}
+
+
+
+
+
+/* Glitch Effect */
+#servicesTitle {
+  position: relative;
+  display: inline-block;
+  font-size: 20px;
+  bottom: -180px;
+  left: 240px;
+
+}
+
+#servicesTitle:hover {
+  color: transparent;
+}
+
+#servicesTitle:hover::after {
+  content: "Duality Studios";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  pointer-events: none;
+}
+
+#servicesTitle {
+  position: relative;
+  display: inline-block;
+  overflow: visible;
+}
+
+#servicesTitle:hover {
+  color: transparent;
+  cursor: url("img/crosshair4.png") 16 16, auto;
+}
+
+#servicesTitle:hover::after,
+#servicesTitle:hover::before {
+  content: "Duality Studios";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: inherit;
+  font-family: inherit;
+  pointer-events: none;
+}
+
+#servicesTitle:hover::before {
+  color: #6EF0B5;
+  animation: glitch1 0.3s infinite;
+}
+
+#servicesTitle:hover::after {
+  color: #00E8FF;
+  animation: glitch2 0.3s infinite;
+}
+
+@keyframes glitch1 {
+  0% { transform: translate(0,0); opacity: 1; }
+  20% { transform: translate(-3px,3px); }
+  40% { transform: translate(3px,-2px); }
+  60% { transform: translate(-2px,-3px); opacity: 0.8; }
+  80% { transform: translate(2px,2px); }
+  100% { transform: translate(0,0); opacity: 1; }
+}
+
+@keyframes glitch2 {
+  0% { transform: translate(0,0); opacity: 1; }
+  20% { transform: translate(3px,-3px); }
+  40% { transform: translate(-3px,2px); opacity: 0.7; }
+  60% { transform: translate(2px,3px); }
+  80% { transform: translate(-2px,-2px); }
+  100% { transform: translate(0,0); opacity: 1; }
+}
+
+#servicesTitle,
+#creatorGlitch {
+  position: relative;
+  display: inline-block;
+  overflow: visible;
+}
+
+#servicesTitle:hover,
+#servicesTitle:hover + #creatorGlitch {
+  color: transparent;
+}
+
+@font-face {
+  font-family: 'Neuropol';
+  src: url('fonts/neuropol-x.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+#servicesTitle:hover::before,
+#servicesTitle:hover::after,
+#servicesTitle:hover + #creatorGlitch::before,
+#servicesTitle:hover + #creatorGlitch::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  font-size: inherit;
+  font-family: 'Neuropol', sans-serif;
+  pointer-events: none;
+}
+
+#servicesTitle:hover::before,
+#servicesTitle:hover::after {
+  content: "Duality Studios";
+  
+}
+
+#servicesTitle:hover + #creatorGlitch::before,
+#servicesTitle:hover + #creatorGlitch::after {
+  content: "Designed and engineered by Jordan Levi Sax using HTML, CSS, and JavaScript";
+  left: 25px; 
+}
+
+#servicesTitle:hover::before,
+#servicesTitle:hover + #creatorGlitch::before {
+  color: #66FFCC;
+  animation: glitch1 0.3s infinite;
+}
+
+#servicesTitle:hover::after,
+#servicesTitle:hover + #creatorGlitch::after {
+  color: #8EF6D2;
+  animation: glitch2 0.3s infinite;
+}
+
+#servicesTitle:hover + #creatorGlitch {
+    transform: translateX(40px);
+  }
+
+
+/* Typewriter Effect */  
+.typewriter-cursor::after {
+  content: "|";
+  margin-left: 4px;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* track Info Animation */  
+
+#trackInfo {
+  position: fixed;
+  top: 50px;
+  right: 185px;
+  z-index: 9999;
+  font-size: 11px;
+  font-family: monospace;
+  color: white;
+  white-space: pre;
+
+  /* start hidden + slightly to the right */
+  opacity: 0;
+  transform: translateX(14px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* when music is playing, JS adds .playing */
+#trackInfo.playing,
+.track-info.playing {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+
+#trackInfo::after {
+  content: "▶";
+  margin-left: 8px;
+  animation: blinkPlay 1s step-end infinite;
+  display: inline-block;
+  transform: translateY(1px);
+}
+
+@keyframes blinkPlay {
+  50% { opacity: 0; }
+}
+
+
+/* Case Study Section */
+
+.case-study {
+display: flex;
+width: 100%;
+background: transparent;
+color: white;
+padding: 150px 60px 80px;
+gap: 80px;
+position: relative;
+z-index: 10;
+height: auto;
+top: auto;
+font-size: 12px;
+line-height: 1.4;
+font-weight: 300;
+
+
+}
+
+.case-study h1,
+.case-study h3,
+.case-study h4,
+.case-study h5,
+.case-study p {
+
+color: white;
+line-height: 1.2;
+margin: 0 0 20px;
+opacity: 0.8;
+}
+
+.case-study h2 {
+
+font-size: 15px;
+line-height: 1.4;
+font-weight: 300;  
+opacity: 0.8;
+margin-left: 10px;
+
+}
+
+/* LEFT: sticky column */
+.case-left {
+flex: 1;
+position: sticky;
+top: 110px;
+align-self: flex-start;
+background: transparent;
+  font-size: 12px;
+  line-height: 1.4;
+  font-weight: 300;
+
+
+  font-family: 'Syne', sans-serif;     /* same family */
+  font-size: 35px;                     /* a bit lighter, matches terra-title scale */
+  font-weight: 500;                    /* softer weight like terra-title */
+  line-height: 1.1;                    /* slightly taller, matches paragraph rhythm */
+  letter-spacing: 0.5px;               /* gentle spacing, dictionary-like */
+  
+  text-transform: uppercase;
+
+    
+  
+  font-weight: 100;  /* same tone as other text */
+  margin-left: 50px;
+
+
+}
+
+.case-left h1 {
+font-size: 80px;
+line-height: 0.9;
+margin: 0 0 20px;
+font-weight: 300;  
+transform: skewX(-5deg);
+opacity: 0.8;
+
+
+}
+
+.case-left h3 {
+font-size: 20px;
+margin: 100px;
+font-weight: 300;  
+transform: skewX(-5deg);
+opacity: 0.8;
+
+}
+
+/* RIGHT: scrolling content */
+.case-right {
+background: transparent;
+flex: 1.4;
+
+
+}
+
+.case-right p {
+font-size: 16px;
+line-height: 1.4;
+border: 2px solid white;
+border-radius: 40px;
+padding: 30px 40px;
+width: 90%;
+margin: 30px auto;
+transform: skewX(-5deg);
+font-weight: 300; 
+
+width: fit-content;
+max-width: 90%; 
+
+
+}
+
+.case-block {
+margin-bottom: 200px;
+}
+
+.case-video {
+width: 90%;
+border-radius: 14px;
+pointer-events: none;
+display: block;
+margin: 0 0 40px 0;
+transform: skewX(0deg);
+}
+
+
+
+.dark-mute {
+filter: invert(1) brightness(0.75) contrast(0.9);
+}
+
+.light-mute{
+filter: invert(1) brightness(0.25) contrast(0.9);
+border-radius: 0 !important;
+}
+
+.mouse{
+margin-top: 100px;
+filter: invert(0) brightness(0.45) contrast(0.9);
+}
+
+
+
+.services:has(.mouse:hover) {
+filter: none !important;
+}
+
+.row-mini {
+display: flex;
+gap: 20px;
+margin-bottom: 40px;
+align-items: flex-start;
+}
+
+.video-mini {
+width: 28%;
+border-radius: 14px;
+pointer-events: none;
+display: block;
+transform: skewX(0deg);
+}
+
+
+
+.no-radius-section img,
+.no-radius-section figure,
+.no-radius-section .text {
+border-radius: var(--radius-none);
+}
+
+#alt .text {
+border-radius: 0 !important;
+overflow: visible; 
+padding: 0;
+}
+
+#alt {
+--border-radius: 0;
+--radius-left: 0;
+--radius-right: 0;
+}
+
+/* Scroll Effect */
+#smooth-scroll {
+position: relative;
+width: 100%;
+}
+
+
+
+/* ================================
+   TERRARIUM UNDERLAY SYSTEM
+   ================================ */
+
+/* About section is the stacking context */
+section.about {
+  position: sticky;   
+  top: 0;
+}
+
+/* Content stays above the underlay */
+section.about .about-content,
+section.about article,
+section.about h1,
+section.about h3,
+section.about p {
+  position: relative;
+  z-index: 10;
+  opacity: 100;
+}
+
+/* Underlay wrapper fills the entire section and sits behind */
+.terrarium-underlay {
+  position: absolute;
+  inset: 0;                 /* top:0; right:0; bottom:0; left:0 */
+  z-index: -1;              /* pushes it behind content */
+  pointer-events: none;     /* prevents blocking scroll/clicks */
+}
+
+/* Images inside the underlay behave like a background */
+.terrarium-underlay img {
+  position: absolute;
+  object-fit: cover;
+  opacity: 0.9;
+  filter: invert(0) brightness(0.5) contrast(0.9);
+}
+
+/* ---------------------------------
+   TERRARIUM IMAGES – INITIAL STATE
+   --------------------------------- */
+
+/* Base state: in DOM but invisible, no animation yet */
+.main-terra-pic {
+  position: absolute;
+  left: -150px;
+  bottom: 0%;
+  width: 600px;
+
+  --flip: 1;
+  --rot: 0deg;
+
+  opacity: 0;
+  animation: none;
+}
+
+.terra-2 {
+  position: absolute;
+  right: -300px;
+  top: -15%;            /* move UP (more negative = higher) */
+  width: 1000px;
+
+  transform: skewX(-5deg);
+  --flip: -1;
+  --rot: -3deg;
+
+  opacity: 0;
+  animation: none;
+}
+
+/* ---------------------------------
+   WHEN 3D SEQUENCE IS COMPLETE
+   (body gets .page-loaded in JS)
+   --------------------------------- */
+
+   body.page-loaded .main-terra-pic {
+    animation:
+      subtleFloat 8s ease-in-out infinite,
+      fluorescentOn 1.8s steps(22, end) forwards,
+      breathingGlow 7.5s ease-in-out 1.8s infinite;
+  }
+  
+  body.page-loaded .terra-2 {
+    animation:
+      subtleFloat 10s ease-in-out infinite,
+      fluorescentOn 1.8s steps(26, end) 1s forwards,
+      breathingGlow 8.5s ease-in-out 2s infinite;
+      animation-delay: 0s, 0s, 2s;
+
+  }
+  
+
+@keyframes subtleFloat {
+  0% {
+    transform: translateY(0px) translateX(0px) scaleX(var(--flip)) rotate(var(--rot));
+  }
+  50% {
+    transform: translateY(-18px) translateX(8px) scaleX(var(--flip)) rotate(calc(var(--rot) + 0.3deg));
+  }
+  100% {
+    transform: translateY(0px) translateX(0px) scaleX(var(--flip)) rotate(var(--rot));
+  }
+}
+
+@keyframes fluorescentOn {
+  0%   { opacity: 0;   filter: brightness(0.1) contrast(1.5); transform: scaleX(var(--flip)) rotate(var(--rot)); }
+  8%   { opacity: 1;   filter: brightness(1.8) contrast(1.3); transform: scaleX(var(--flip)) rotate(calc(var(--rot) + 0.4deg)); }
+  16%  { opacity: 0.2; filter: brightness(0.3) contrast(1.2); transform: scaleX(var(--flip)) rotate(var(--rot)); }
+  24%  { opacity: 1;   filter: brightness(1.6) contrast(1.3); transform: scaleX(var(--flip)) rotate(calc(var(--rot) - 0.3deg)); }
+  34%  { opacity: 0.1; filter: brightness(0.2) contrast(1);   transform: scaleX(var(--flip)) rotate(var(--rot)); }
+  45%  { opacity: 1;   filter: brightness(1.9) contrast(1.5); transform: scaleX(var(--flip)) rotate(calc(var(--rot) + 0.4deg)); }
+  60%  { opacity: 0.4; filter: brightness(0.6) contrast(1.1); transform: scaleX(var(--flip)) rotate(var(--rot)); }
+  80%  { opacity: 0.7; filter: brightness(0.9) contrast(1.1); transform: scaleX(var(--flip)) rotate(calc(var(--rot) + 0.1deg)); }
+  100% { opacity: 0.5; filter: brightness(0.85) contrast(1.05); transform: scaleX(var(--flip)) rotate(var(--rot)); }
+}
+
+@keyframes breathingGlow {
+  0% {
+    opacity: 0.40;
+    filter: brightness(0.70) contrast(1.0);
+  }
+  50% {
+    opacity: 0.60;
+    filter: brightness(1.00) contrast(1.08);
+  }
+  100% {
+    opacity: 0.40;
+    filter: brightness(0.70) contrast(1.0);
+  }
+}
+
+
+
+
+
+/* (Optional) Remove border radii if needed for full-bleed imgs */
+.no-radius-section img,
+.no-radius-section figure,
+.no-radius-section .text {
+  border-radius: 0;
+}
+
+
+.duality-title {
+  font-family: 'Syne', sans-serif;     /* same family */
+  font-size: 35px;                     /* a bit lighter, matches terra-title scale */
+  font-weight: 500;                    /* softer weight like terra-title */
+  line-height: 1.1;                    /* slightly taller, matches paragraph rhythm */
+  letter-spacing: 0.5px;               /* gentle spacing, dictionary-like */
+  
+  text-transform: uppercase;
+  transform: skewX(-5deg);
+  opacity: 0.8;                       /* same tone as other text */
+
+  /* positioning you already had */
+  margin-top: -350px;
+  margin-left: 240px;
+  margin-bottom: 0px;
+  color: white;
+  max-width: 200px; 
+
+  font-weight: 100;
+
+  animation: 
+  fluorescentOn 1.8s steps(22, end) forwards,
+  subtleFloat 3s ease-in-out infinite,
+
+  
+  
+  
+            
+}
+
+/* Base text style shared by subtitle + terra block */
+.duality-subtitle,
+#terra-def {
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  line-height: 1.4;
+  font-weight: 300;
+  opacity: 0.8;
+  transform: skewX(-5deg);
+  max-width: 400px; 
+  min-width: 80px;  
+  animation: 
+  fluorescentOn 1.8s steps(22, end) forwards,
+  subtleFloat 3s ease-in-out infinite,
+  
+}
+
+/* Terra block positioning */
+#terra-def {
+  margin-left: -450px;  /* keep your current position */
+  margin-top: 0;
+}
+
+
+
+/* Subtitle positioning only (no visual difference otherwise) */
+.duality-subtitle {
+  display: block;
+  margin-top: -160px;
+  margin-left: -80px;
+  margin-right: 200px;
+  padding: 0;           /* remove box feel so it matches text */
+  border: none;
+  border-radius: 0;
+  max-width: 80px; /* ← forces it to break into more lines */
+  min-height: 2.8em;
+}
+/* Container styling (matches subtitle aesthetic) */
+#terra-def {
+  font-family: 'Syne', sans-serif;
+  transform: skewX(-5deg);
+  margin-left: 50px;
+  margin-top: -200px; /* adjust to taste */
+  max-width: 520px;
+  line-height: 1.4;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+/* CONTROL THE POSITION OF THE ENTIRE TYPED PARAGRAPH */
+.terra-block {
+  position: relative;
+  z-index: 50;        /* puts it above underlay */
+  width: 100%;
+  max-width: 400px;   /* keeps text width stable */
+  margin-left: 250px;  /* adjust left-right position */
+  margin-top: -40px;  /* adjust vertical position */
+}
+
+/* Container for the whole typed block */
+#terra-def {
+  font-family: 'Syne', sans-serif;
+  transform: skewX(-5deg);
+  max-width: 200px;
+  line-height: 1.4;
+  font-size: 12px;
+  opacity: 0.8;
+
+  /* tweak these to move the block around */
+  margin-left: -420px;   /* horizontal position */
+  margin-top: 0;       /* start with 0 so it doesn't fly off-screen */
+}
+
+/* Title paragraph */
+#terra-def .terra-title {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  opacity: 0.8;
+  display: inline-block;
+  border-radius: 8px;
+  margin-left: 0;
+  margin-bottom: 0px;
+}
+
+/* italic definition line */
+#terra-def .terra-italic {
+  font-style: italic;
+  font-weight: 300;
+  font-size: 13px;
+  display: inline-block;
+  margin-bottom: 0px;
+  opacity: 0.8;
+}
+
+/* general paragraphs */
+#terra-def p {
+  margin-bottom: 16px;
+
+  
+}
+
+
+.typewriter-cursor::after {
+  content: "|";
+  margin-left: 4px;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.terra-styled .terra-title,
+.terra-styled .terra-italic {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.3);
+  opacity: 0.8;
+}
+
+
+/* =========================
+   LOADER / 3D TERRARIUM
+   ========================= */
+
+/* Stop scroll while we're still on the "intro" state */
+body.loading {
+  overflow: hidden;
+}
+
+
+
+
+/* Full opacity while loading / intro */
+body.loading #loader-canvas {
+  opacity: 1;
+}
+
+/* Slightly dimmed 3D once the homepage is active */
+body.page-loaded #loader-canvas {
+  opacity: 0.8; /* tweak 0.7–0.85 to taste */
+}
+
+
+
+/* The ONE box: the SPACE text pill */
+.loader-subtitle {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+
+  padding: 10px 28px;
+  border-radius: 999px;
+
+  background: rgba(0,0,0,0.55);
+  border: 1px solid rgba(102,255,204,0.7);
+  color: #6ef0b5;
+
+  box-shadow:
+    0 0 8px rgba(102,255,204,0.7),
+    0 0 20px rgba(0,150,120,0.3);
+}
+
+
+
+
+/* While we are in the LOADING state:
+   the overlay becomes a full-screen cover, interactive 3D */
+body.loading #loader-overlay {
+  position: fixed;    /* cover the entire viewport */
+  inset: 0;
+  background: #000;   /* solid so homepage isn't visible yet */
+  z-index: 9000;
+  pointer-events: all; /* allow mouse interaction with Babylon */
+}
+
+/* Once the space animation is COMPLETE and JS has switched to .page-loaded:
+   the overlay drops back into the landing section as a background 3D layer */
+body.page-loaded #loader-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 0;
+  pointer-events: none; /* 3D still animates, but no more drag/hover */
+}
+
+
+
+
+
+
+/* ============================= */
+/* ADDITIONS FOR BABYLON LOADER  */
+/* ============================= */
+
+/* Put the 3D loader UNDER the nav + unmute (they're z-index: 9999) */
+#loader-overlay {
+background: #000000;   /* full black intro */
+z-index: 900;          /* lower than nav / unmute */
+}
+
+/* Babylon canvas fills overlay */
+#loader-canvas {
+width: 100%;
+height: 100%;
+display: block;
+touch-action: none;
+outline: none;
+}
+
+
+.loader-ui {
+  position: fixed;
+  bottom: 10vh;  /* roughly ~50–70px depending on screen */
+  left: 0%;
+  transform: translateX(45%);
+  opacity: 0.8;
+ 
+}
+
+.loader-title {
+font-size: 0.75rem;
+letter-spacing: 0.2em;
+text-transform: uppercase;
+}
+
+
+/* Make sure nav + unmute stay above everything */
+nav,
+#unmute,
+#trackInfo {
+position: fixed;
+z-index: 1000;
+}
+
+/* Unmute attention flicker */
+@keyframes unmute-flicker {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: none;
+  }
+  50% {
+    opacity: 0.25;
+    box-shadow: 0 0 18px rgba(102, 255, 204, 0.9); /* neon-ish glow */
+  }
+}
+
+/* This class will be toggled by JS */
+.unmute-flicker {
+  animation: unmute-flicker 0.25s linear 3; /* 0.25s * 3 = ~0.75s total */
+}
+
+
+
+/* =========================
+   LOADING SCREEN
+   ========================= */
+
+/* Prevent scroll while loading */
+body.loading {
+  overflow: hidden;
+}
+
+
+/* 3D canvas for loading scene (stays behind UI) */
+#loader-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+/* Title text */
+.loader-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 18px;
+  font-weight: 300;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.loader-subtitle {
+  font-family: monospace;       /* same as menu font */
+  font-size: 14px;              /* match */
+  font-weight: 600;             /* match */
+  letter-spacing: 0.5px;        /* match */
+  text-transform: none;         /* menu button is NOT uppercase */
+      
+  color: white;                 /* match menu text */
+  background: black;            /* match menu bg */
+  border: 1px solid white;      /* match menu border */
+  border-radius: 8px;           /* match menu radius */
+
+  padding: 8px 16px;            /* match menu padding */
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: default;
+  pointer-events: none;
+
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+
+/* Optional spinner (if you’re using it) */
+.loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.loader-ring {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 3px solid rgba(148, 163, 184, 0.45);
+  border-top-color: #38bdf8;
+  animation: spin 0.9s linear infinite;
+}
+
+.loader-text {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #cbd5f5;
+  opacity: 0.8;
+}
+
+/* Rotation keyframes */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .loader-ring {
+    animation: none;
+  }
+  #loader-overlay {
+    transition: none;
+  }
+}
+
+/* Fade in SPACE box after 5 seconds */
+@keyframes spaceAppear {
+  0% { opacity: 0; }
+  100% { opacity: 0.8; }
+}
+
+.loader-subtitle {
+  opacity: 0;                          /* start invisible */
+  animation: spaceAppear 0.6s ease forwards;
+  animation-delay: 10s;                 /* 5-second delay before showing */
+  
+}
+
+/* Fullscreen overlay that covers homepage, but sits under nav/unmute */
+#loader-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;          /* or transparent if you want */
+  color: #e5e7eb;
+  z-index: 500;        
+  opacity: 1;
+  pointer-events: all;       /* okay while loading */
+  transition: opacity 0.4s ease;
+
+}
+
+
