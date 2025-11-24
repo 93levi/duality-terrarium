@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>二面性製作所</title>
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="loading">
+
+  <!-- Navigation Bar (visible immediately) -->
+  <nav>
+    <ul>
+      <li class="nav-menu">
+        <!-- Main Dropdown (Menu, Contact, Media) -->
+        <button type="button" id="menuToggle" class="menu-toggle">Menu ▾</button>
+
+        <div class="menu-panel menu-overlay" id="menuPanel">
+         
+            <!-- Root Menu -->
+          <div class="menu-view menu-root" id="menuRoot">
+            <button class="menu-option" data-view="contact">Contact</button>
+            <button class="menu-option" data-view="media">Media</button>
+          </div>
+          
+          <!-- Contact links -->
+          <div class="menu-view menu-contact" id="menuContact">
+            <button class="menu-back" data-back>● Back</button>
+            <a href="mailto:iceblastmgmt@gmail.com">Email</a>
+            <a href="https://instagram.com/absol.live" target="_blank">Instagram</a>
+            <a href="https://line.me/R/ti/p/93.levi" target="_blank">Line</a>
+          </div>
+          <!-- Media links -->
+          <div class="menu-view menu-media" id="menuMedia">
+            <button class="menu-back" data-back>● Back</button>
+            <a href="https://absol.live/gallery" target="_blank">Shoots: Absol</a>
+            <a href="https://mixmag.asia/read/levi-tenshiesque-ep-clippart-lo-fi-rap-music" target="_blank">Music : Mixmag</a>
+            <a href="https://www.instagram.com/p/C-8PFh4JoVi/" target="_blank">Events: Sabukaru</a>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Music Button (visible immediately) -->
+  <audio id="site-audio" src="music/滝.mp3" preload="auto" loop></audio>
+  <button id="audio-toggle">Unmute</button>
+  <div class="track-info" id="trackInfo"></div>
+  
+
+  
+  <!-- MAIN CONTENT -->
+
+  
+  <!-- Landing Page -->
+  <section id="landing-page" class="about sticky">
+      <!-- Img Underlay -->
+
+      
+      <!-- Landing Page Content  -->
+    <div class="empty"></div>
+    <article>
+        <header class="duality-title">
+            Duality Terrarium
+        </header>
+        <h2 class="duality-subtitle" id="dualitySubtitle" > Designed and engineered by Jordan Levi Sax using HTML, CSS, JavaScript, and Babylon </h2>
+      <div class="title">
+      </div>
+
+      <div class="description">
+        <div class="terra-block">
+        <div id="terra-def">
+
+            <p>Terrarium (Noun)</p>
+          
+            <p class="terra-italic">terra “earth” + arium “vessel”</p>
+          
+            <p>
+              A bespoke archive of botanical flora and fauna, delicately encased within an ornate
+              glass vessel where life is sustained through a finely tuned composition of
+              light and soil.
+            </p>
+          
+            <p>
+              A slice of nature, suspended and illuminated in an ethereal other-world where the
+              organic and the artificial coexist in an elegant living embodiment of duality:
+            </p>
+          
+            <p class="terra-italic">
+              intricate engineering seamlessly intertwined with artistic cultivation.
+            </p>
+          
+            <p>
+              Guided by this ethos, Duality Terrarium by Jordan Levi Sax is a project devoted to
+              crafting immersive, avant-garde digital experiences for artists, brands and fashion
+              houses that act as their own bespoke digital Terrarium.
+            </p>
+          
+            <p>
+              Scroll down to learn more about the mind behind the project, and some of the dualities that fuel it. 
+            </p>
+          
+          </div>
+        </div>
+          
+      </div>
+    </article>
+
+
+    <div class="terrarium-underlay">
+        <img src="img/ter1.png" class="main-terra-pic" width="500">
+        <img src="img/ter2.png" class="terra-2" width="2000">
+    </div>
+
+
+<!-- 3D Loading Overlay (covers screen, sits under nav/unmute) -->
+<div id="loader-overlay">
+    <canvas id="loader-canvas"></canvas>
+    <div class="loader-ui">
+        <div class="loader-subtitle">
+          Drag:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Move Around<br>
+          Scroll:&nbsp;&nbsp;&nbsp;Look Inside<br>
+          Spacebar: Open Terrarium
+        </div>
+      </div>
+    </div>   
+    
+    <!-- Babylon core + materials (for terrarium) -->
+    <script src="https://cdn.babylonjs.com/babylon.js"></script>
+    <script src="https://cdn.babylonjs.com/materialsLibrary/babylon.materials.min.js"></script>
+    <script src="terrarium.js"></script> 
+    
+        
+  </section>
+
+  <!-- Feature 1/3 -->
+  <section id="services1" class="services services-creative sticky">
+    <figure>
+      <img id="pic1" src="img/技術性.png" width="400" />
+    </figure>
+    <div class="text">
+      <h2 class="style-match-header">Multidisciplinary </h2>
+      <h3>Creativity | Technicality</h3>
+      <h4>
+        I'm a multidisciplinary creative with work ranging from creative direction and web desgin for online fashion editorials and events with ABSOL, to music production and videography with Clipp Art Records. In the final year of my computer science degree, I'm working to merge these two worlds of creativity and technicality in my pursuit of using design and web development to create interactive experiences for artists and fashion labels.
+      </h4>
+    </div>
+  </section>
+
+  <!-- Feature 2/3 -->
+  <section id="services2" class="services services-phyical sticky">
+    <figure>
+      <img src="img/魚.png" width="450" />
+    </figure>
+    <div class="text">
+      <h2 class="style-match-header" >Bilingual</h2>
+      <h3>Japanese | English</h3>
+      <h4>
+        After completing an exchange program at Meiji University in Tokyo as a New Colombo Plan Scholarship recipient, I was able to achieve fluency in Japanese, passing the Japanese Language Proficiency Test N2, a benchmark for high-level fluency and industry level comprehension. I hope to use these skills in tandem with my connections in the Tokyo fashion scene to collaborate with local brands on cutting-edge digital experiences.
+      </h4>
+    </div>
+  </section>
+
+  <!-- Feature 3/3 -->
+  <section id="services3" class="services services-trend sticky">
+    <figure>
+      <img src="img/地球.png" width="500" />
+    </figure>
+    <div class="text">
+      <h2 class="style-match-header" >Retro-Futurist </h2>
+      <h3>Futurism | Nostalgia </h3>
+      <h4>
+        Through all of my work, whether it be music or creative direction, I always love weaving in themes of retro-futurism. My love for web design is also rooted in this duality. I aim to take the ornate design and ethereal energy of early-2000s flash websites and translate them into a modern framework. Im currently working with Sydney-based fashion label From The 13th to create a digital look-book experience for their new collection that will aim to incorporate this duality.
+      </h4>
+    </div>
+  </section>
+
+  <!-- Case Study Underlay -->
+  <section id="alt" class="services services-trend sticky no-radius-section">
+    <figure>
+      <div class="text">
+        <img src="img/mouse.png" class="mouse" width="400">
+      </div>
+    </figure>
+    <div class="text">
+      <img src="img/boots.jpg.png" class="light-mute" width="500">
+    </div>
+    <div class="text">
+      <img src="img/boots-white.png" class="light-mute" width="520">
+    </div>
+  </section>
+
+  <!-- Case Study Section -->
+  <section id="case-study" class="case-study">
+    <!-- LEFT: sticky title -->
+    <div class="case-left">
+      <h2>Digital Fashion Marketing</h2>
+      <h1>Work Experience<br>Case Study</h1>
+
+    </div>
+
+    <!-- RIGHT: Scrolling Content -->
+    <div class="case-right">
+      <div class="case-block">
+        <div class="row-mini">
+          <video
+            src="video/kaiten1.mp4.mov"
+            autoplay
+            muted
+            loop
+            playsinline
+            class="video-mini">
+          </video>
+
+          <video
+            src="video/kaiten4.mp4.mov"
+            autoplay
+            muted
+            loop
+            playsinline
+            class="video-mini">
+          </video>
+
+          <video
+            src="video/kaiten2.mp4.mov"
+            autoplay
+            muted
+            loop
+            playsinline
+            class="video-mini">
+          </video>
+        </div>
+
+        <p class="invert-text">
+          Last year, I took on the role of Chief Social Media Strategist for Brisbane’s biggest vintage clothing retailer, Brik Market.
+          I was tasked with completely reimagining the brand’s social media marketing strategy to expand the online store’s global following. 
+          I began with a full UX and trend analysis, deep diving into niche online vintage fashion communities to understand what would resonate most with our target demographic.
+          <br><br>
+          During my research phase, I identified a highly relevant niche: V-Kei, an archival Japanese fashion subculture that was experiencing a major resurgence online. 
+          This trend was generating a lot of excitement in the archive fashion community,
+          and with this insight, I set out to create content that felt natural, archival, and culturally authentic, the kind of material our audience might encounter on their feed as a rare cultural artefact from the subculture they were currently exploring.
+          <br><br>
+          The goal was to build trust in the brand’s cultural capital. 
+          Instead of feeling advertised to, users would perceive Brik Market as a genuine tastemaker whose curation reflected this aesthetic they were so eager to learn more about.
+          To execute this vision, I launched a content series called <i>Cult Fashion Cinema</i>, highlighting niche art-house films that incorporated V-Kei styling in a lo-fi, archival-feeling format that blended seamlessly into users feeds.
+          <br><br>
+          After weeks of research, planning, and content development, I published the first video to instagram, focusing on the film <i>Oresama</i>. a piece of media that although relatively unknown, captured the energy of V-Kei perfectly.
+          Within hours the post went viral, reaching over 200,000 views in the first week. It has since accumulated 13,000+ likes and 2,400+ shares, in turn super charging click-through rate and bringing in countless new followers to Brik Market, 
+          a massive jump from the few thousand views that previous posts were receiving.<br><br>
+
+          This project significantly strengthened my ability to:<br><br>
+            ● Forecast and capitalize on emerging trends<br><br>
+            ● Understand and analyze online demographics<br><br>
+            ● Develop effective social media strategies<br><br>
+            ● Increase click-through rates and conversions<br><br>
+            ● Drive real growth in reach, followers, and sales
+        </p>
+
+        <h2><br><br><br><br></h2>
+
+
+        <video 
+          src="video/miyavi.mp4"
+          autoplay
+          muted
+          loop
+          playsinline
+          class="case-video">
+        </video>
+
+      
+      </div>
+    </div>
+  </section>
+
+  <!-- JS SCRIPTS -->
+
+  <script src="https://cdn.babylonjs.com/babylon.js"></script>
+  <script src="terrarium.js"></script>
+  <script src="main.js"></script>
+
+</body>
+</html>
