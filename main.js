@@ -1,11 +1,15 @@
 // ==============================
 //  MAIN PAGE CONFIG
 // ==============================
+// Disable browser's automatic scroll restoration on reload
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
+} 
+// Keyboard key to trigger space entry
 const CONFIG = {
-    LOADER_KEY: "Space",       // Keyboard key to trigger space entry
+    LOADER_KEY: "Space",       
     SCROLL_TARGET_ID: "landing-page",
   };
-  
   // ==============================
   //  HELPER: SMOOTH SCROLL
   // ==============================
