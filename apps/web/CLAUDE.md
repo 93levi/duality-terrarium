@@ -1217,10 +1217,38 @@ of five two-line boxes. Only the two standalone "scroll down" cues (landing page
   heavy one). Fixing this means giving `mountScene` a real dispose, mirroring `terrarium.js`'s
   approach. `mountFlashcardSession` is a SECOND caller of the same un-disposed `mountScene` now, so
   home → a genki lesson → home → a genki lesson leaks the exact same way — one real fix (giving
-  `mountScene` a dispose) covers both call sites, not two separate fixes.
+  `mountScene` a dispose) covers both call sites, not two separate fixes. **Confirmed directly, post-
+  deploy (2026-09-09):** `tick()`'s own `requestAnimationFrame(tick)` (the file's render loop) has no
+  matching `cancelAnimationFrame` anywhere in the file, and `mountScene`'s returned object carries no
+  `dispose` key at all — contrast `terrarium.js`'s own `dispose()`, which properly disposes renderer/
+  controls/materials/textures. Practical effect isn't visual (loading a new character already clears
+  the old one correctly, that path is fine) — each home↔dictionary/lesson round-trip just leaves one
+  more invisible, still-running render loop competing for GPU/CPU in the background, which is why the
+  live site reads as progressively laggier the more you navigate within one session rather than being
+  slow from a cold load.
 - `#back-to-home-btn` is deliberately unstyled (plain HTML button) — a real design pass was
   explicitly deferred until the dictionary↔home round-trip itself was proven working. The flashcard
   session's own exit button is at the same "functional, unstyled" stage — no design pass yet either.
+- **`public/about-terrarium/`'s own Babylon scene is TEMPORARILY replaced with a static image
+  (2026-09-09), not fixed properly.** Real, reported problem: this page runs a genuinely separate
+  second 3D engine (own shaders, own textures, own render loop) that gets fully destroyed and rebuilt
+  from scratch on every single open — first time or fifth time — since closing it tears the iframe
+  down entirely (the earlier fix for a real background-GPU-drain bug, "About overlay" above). That
+  full cold-start, happening synchronously on every click, was reported directly as "insane" lag, on
+  an M4 — meaning it's a real problem, not a weak-hardware edge case. For the initial MVP deploy,
+  swapped for a static capture of exactly what the live scene actually renders (`img/terrarium-
+  static.png`, a real `canvas.toDataURL()` grab of the moss column, transparent background, cropped —
+  not a mockup) — `index.html`'s own `#loader-canvas` is now that `<img>`; the real `<canvas>` and
+  both `<script src>` tags (Babylon CDN + `terrarium.js`) are commented out immediately below it, not
+  deleted — restoring is deleting the img and un-commenting those three lines, nothing else. **The
+  real fix, still to do:** either (a) preload the iframe/engine once during idle time after the home
+  page settles, and PAUSE its render loop on close instead of destroying it (resume on reopen) — safe
+  here specifically because, unlike the main terrarium, About's iframe is 100% hidden when closed, no
+  partially-visible frozen-strip problem to worry about — or (b) keep this as a permanent short,
+  crossfade-looped VIDEO of the real idle animation instead of a live engine at all (video decode is
+  hardware-accelerated and vastly cheaper than a live WebGL engine; a true seamless loop of the actual
+  animation needs ~105s, per this file's own idle-spin/sway-rate math worked out the same day, so a
+  real version of this would use a short capture crossfaded at the seam, not a raw loop-point cut).
 - About overlay ("About overlay" above): the main terrarium staying fully live/rendering the whole time
   About is open (not paused, not torn down) is now a settled decision, not a deferred one — see that
   section's own "Terrarium pause/resume, tried and reverted" for why pausing genuinely doesn't work
@@ -1232,6 +1260,18 @@ of five two-line boxes. Only the two standalone "scroll down" cues (landing page
 - No responsive/mobile handling for the home page at all (desktop-only, by request) — the
   dictionary view's own `@media (max-width: 700px)` block in `style.css` doesn't apply to it, and
   flashcard mode has none of its own either.
+- **No real boot-loading screen — flagged post-deploy (2026-09-09), not started.** `main.js` calls
+  `mountHome()` immediately on load (bottom of the file) with no gate at all — the terrarium starts
+  rendering the instant JS runs, however rough that first GPU warm-up looks on a given device. The
+  only "loading" state anywhere in this app is the per-character swoop inside Dictionary mode, and
+  even that is tied to a fixed scripted duration (`LOAD_SWOOP.durationMs`, 4.6s in `theme.js`), not to
+  real readiness — the character's own JSON fetch is normally instant, so it's just "always play this
+  animation," not a genuine progress signal. A real fix would gate first paint on actual readiness:
+  `renderer.compileAsync(scene, camera)` (confirmed present in the installed three@0.185.1) force-
+  compiles every material/shader in the terrarium before the first visible frame — the real source of
+  first-load roughness, independent of network speed — combined with waiting on `document.fonts.ready`
+  and any other critical fetches before hiding a loading overlay. Distinct from, and a bigger scope
+  than, the existing per-character swoop; do this as its own pass, not a tweak to that.
 
 ### This session's sandbox limitations — worse than previously documented
 

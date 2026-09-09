@@ -83,7 +83,9 @@ function easeOutCubic(t) {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const cameraStartPos = { x: 0, y: 9.5, z: 0.3 } // Ultra-zoomed out (disk view)
-const birdsEyePos = { x: 0, y: 8.5, z: 0.5 } // Resting position (overhead view)
+const birdsEyePos = { x: 0, y: 18.6, z: 1.0 } // Resting position (overhead view) — doubled the
+  // distance (was y:8.5,z:0.5 originally) so the terrarium reads roughly half its apparent size on
+  // welcome/select; same ratio/angle preserved, just twice as far away, 2026-09-09
 const birdsEyeDuration = 2500 // 2.5 seconds - slow reveal of the terrarium
 
 // Select-mode entrance target — 80% of the way from birds-eye's near-vertical polar angle toward

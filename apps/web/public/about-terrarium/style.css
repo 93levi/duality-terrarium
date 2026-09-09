@@ -2328,6 +2328,13 @@ body.loading {
   width: 100%;
   height: 100%;
 }
+/* TEMP MVP SWAP (2026-09-09) — #loader-canvas is a static <img> for now, not a <canvas>; the real
+   scene stretched to fill this 100%/100% box on its own every frame, a static image needs object-fit
+   to do the same without distorting. Remove this rule if the img is ever swapped back for the real
+   canvas. */
+#loader-canvas {
+  object-fit: contain;
+}
 
 
 /* Title text */

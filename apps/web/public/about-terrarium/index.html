@@ -69,12 +69,21 @@
         <img src="img/ter2.png" class="terra-2" width="2000">
     </div>
 
-        <canvas id="loader-canvas"></canvas>
+        <!-- TEMP MVP SWAP (2026-09-09) — live Babylon scene replaced with a static capture of what
+             it actually renders, to kill the cold-start/re-render cost on every open (a live second
+             engine, its own shader compile, its own render loop) for the initial deploy. Real fix
+             (preload once + pause/resume instead of destroy/rebuild, OR keep this as a permanent
+             static/video swap) is tracked in apps/web/CLAUDE.md's "Known gaps" section — restore by
+             deleting this img and un-commenting the canvas + two script tags below, unchanged. -->
+        <img id="loader-canvas" src="img/terrarium-static.png" alt="" />
 
         <div id="about-loading">読み込み中...</div>
 
+        <!--
+        <canvas id="loader-canvas"></canvas>
         <script src="https://cdn.babylonjs.com/babylon.js" defer></script>
-    <script src="terrarium.js" defer></script>
+        <script src="terrarium.js" defer></script>
+        -->
 
   </section>
 

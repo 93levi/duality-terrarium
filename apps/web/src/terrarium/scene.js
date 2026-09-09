@@ -53,10 +53,12 @@ export function createScene(container) {
   const controls = new OrbitControls(camera, renderer.domElement)
   controls.target.set(0, 0.18, 0) // Orbit center (slight offset from origin)
 
-  // Distance constraints — must encompass every animated camera position (birds-eye ≈ 8.3,
-  // entrance start ≈ 9.3) or controls.update() will clamp/snap the camera mid-swoop.
+  // Distance constraints — must encompass every animated camera position (birds-eye ≈ 18.6, doubled
+  // 2026-09-09 to shrink the terrarium's apparent size on welcome/select; entrance start ≈ 9.3) or
+  // controls.update() will clamp/snap the camera mid-swoop — this is exactly what silently capped the
+  // very first attempt at that change back down to the old 12.0 ceiling, confirmed live.
   controls.minDistance = 0.7
-  controls.maxDistance = 12.0
+  controls.maxDistance = 22.0
 
   controls.minPolarAngle = 0.05 // Prevent flipping over the top
   controls.maxPolarAngle = Math.PI * 0.52 // Allow a low ground-scraping view later
