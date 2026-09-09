@@ -1,0 +1,26 @@
+{
+  "_schema": "Two kinds of override, applied on top of the dial's default verdict. component_overrides apply globally, everywhere that element name appears. pair_overrides apply only to a specific parent->child relationship — for when an element is fine on its own but is a coincidental shape-match in one specific context (see 貝/目 below).",
+
+  "component_overrides": [
+    {
+      "element": "毎",
+      "useful": true,
+      "reason": "Corpus-structural frequency (12 characters) undercounts real-world importance — 毎日/毎年/毎回 are among the most common words in the language. Frequency-in-the-writing-system and frequency-in-actual-use aren't the same axis; this is the case that proved it."
+    }
+  ],
+
+  "pair_overrides": [
+    {
+      "parent_element": "貝",
+      "child_element": "目",
+      "useful": false,
+      "reason": "目 (eye) is a coincidental stroke shape-match inside 貝's decomposition, not a real perceived sub-meaning — 貝 is understood as an atomic shell/money pictograph, not \"eye + eight\". Surfacing it would teach a false association. Scoped to this pairing only; 目 elsewhere is unaffected."
+    },
+    {
+      "parent_element": "貝",
+      "child_element": "八",
+      "useful": false,
+      "reason": "Same reasoning as 貝/目 above — coincidental shape match, not real compositional meaning."
+    }
+  ]
+}

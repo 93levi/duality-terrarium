@@ -1,0 +1,2439 @@
+/* Font Setup — fixed from the original: its own @font-face pointed at
+   '../fonts/OTF/Panchang-Medium.oft' (wrong path, and '.oft' isn't even a real extension —
+   should've been '.otf'), so this 404'd on every load and the whole page silently fell back to
+   plain sans-serif. Real files vendored locally below instead. */
+@font-face {
+  font-family: 'Panchang-Medium';
+  src: url('fonts/Panchang-Medium.woff2') format('woff2'),
+       url('fonts/Panchang-Medium.woff') format('woff'),
+       url('fonts/Panchang-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-display: swap;
+  font-style: normal;
+}
+
+/* Scanline overlay — moved here from the main kanji-terrarium app's own style.css (its
+   #about-panel .nora-moss-content::after comment has the "why here now" reasoning). ONE look now, not
+   two — used to switch between a dark "loading" mode and a light "loaded" mode at the same moment the
+   loading blink ended, but the dark mode only ever worked visually because it sat over the bright
+   terrarium/images; once those got hidden behind the SAME loading state (main.js's own comment on
+   .scanlines-loaded, further down), the dark lines were sitting over a plain black background with
+   nothing to contrast against — dark-on-black is just invisible, so the "CRT" appeared to vanish
+   entirely for the whole loading window, then "come back" once the bright content faded in. Real,
+   reported bug, not a taste call — reverted to a single light recipe, genuinely visible against
+   anything behind it (black background during loading, or the terrarium/images once revealed), so
+   there's nothing left to break by hiding/revealing content behind it independently. Fixed,
+   full-viewport, on top of everything (z-index far above anything else on this page),
+   pointer-events:none so it never blocks scroll or any interaction.
+
+   `rgba(255,255,255,0.06)` — this page's OWN full-strength recipe, independent of
+   `#viewer-scanline-overlay` (apps/web/src/style.css, the dictionary/flashcards 3D viewer's own CRT
+   layer) — the two used to both trace back to one number (that file's own overlay was defined as
+   "half of this one"), which in practice read as this page ALSO landing at half strength once its
+   `filter: blur(var(--about-overlay-blur))` (applied to the whole iframe from the parent app,
+   apps/web/src/style.css's `#about-panel iframe`) softened this pattern's own contrast down to match.
+   Explicit correction: these are two genuinely separate strengths now, tuned independently — this one
+   doubled (0.03 → 0.06) to read as full strength despite that outer blur; the viewer's own 0.015 is
+   untouched, no longer described as a fraction of this value. Retune each on its own from here. */
+#scanline-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.06) 0px,
+    rgba(255, 255, 255, 0.06) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+}
+
+/* Global */
+* {
+  box-sizing: border-box;
+  /* Original had a custom crosshair cursor here (img/crosshair3.png) — removed per explicit
+     request: plain default cursor throughout this embedded page (see index.html's own header
+     comment for the full list of what changed vs. the original). */
+}
+
+/* This file still carries a fair amount of dead CSS from the original — rules for the Menu,
+   audio player/Unmute button, and loader instructional overlay (#loader-overlay/.loader-ui/
+   .loader-title/.loader-subtitle/body.loading, further down) whose markup no longer exists in
+   index.html. Left in place rather than pruned: matching zero elements, it's inert, and this file
+   already mixes several editing passes (duplicate selectors like #loader-canvas/.loader-subtitle
+   appear more than once) — safer to leave the dead weight than risk cutting something still load-
+   bearing while only skimming a file this size. Worth a real cleanup pass later, not blocking now. */
+
+html, body {
+  --border-radius: 100px;
+  --radius-left: 100px 0 0 100px;
+  --radius-right: 0 100px 100px 0;
+  --radius-none: 0;
+  margin: 5;
+  padding: 5;
+  background: black;
+  color: white;
+  font-size: 30px;
+  font-family: 'Panchang-Medium', sans-serif;
+
+}
+
+/* Hides the typewriter targets from the very first paint — real bug, caught by actually watching a
+   fresh load: their real, final words are baked straight into this file's HTML (not injected by JS),
+   so without this the browser paints that full text at least once before main.js's typewriter
+   functions get a chance to run and blank it — a flash of the finished text, then it vanishes, then
+   it types back in. `visibility: hidden`, deliberately not `display: none`/`opacity: 0` — those two
+   typewriter functions both measure real layout height (offsetHeight) BEFORE blanking the text, and
+   visibility:hidden is the one hiding method that keeps an element fully laid-out and measurable
+   while genuinely painting nothing. Each function's own `style.visibility = 'visible'` (main.js) is
+   the only thing that ever turns this back on, at the exact instant there's nothing but empty space
+   to reveal. */
+#dualitySubtitle,
+#terra-def {
+  visibility: hidden;
+}
+
+/* The REST of the hero — title, the terrarium underlay images, the Babylon canvas — used to render
+   immediately at first paint too, same as everything else in this file's raw HTML. Explicit request,
+   and a real coherence fix: with the title/images/terrarium already fully visible, the fake-loading
+   message floating in the middle didn't actually read as "loading" — there was nothing left TO load,
+   visibly. Hidden here (opacity:0, not visibility:hidden — nothing here needs the "still measurable"
+   property that trick exists for; a plain fade is fine) and revealed by the SAME `.scanlines-loaded`
+   class main.js already adds to <body> the instant the fake-loading blink ends (style.css's own
+   #scanline-overlay comment) — one flag, one moment, drives the scanline switch AND this reveal AND
+   the typewriter starting, all together, instead of three separately-timed things. Babylon itself
+   keeps rendering behind the scenes regardless of the canvas's own opacity — this only ever hides the
+   PAINT, never pauses the scene, so there's no separate "is it ready yet" to coordinate against. */
+.duality-title,
+.terrarium-underlay,
+#loader-canvas {
+  opacity: 0 !important;
+  transition: opacity 500ms ease;
+}
+body.scanlines-loaded .duality-title,
+body.scanlines-loaded .terrarium-underlay,
+body.scanlines-loaded #loader-canvas {
+  opacity: 1 !important;
+}
+/* `!important` on both states above — real, confirmed bug without it: this file already carries its
+   own opacity rules for two of these three elements (`.duality-title` itself sets `opacity: 0.8`
+   further down; `body.page-loaded #loader-canvas` sets `opacity: 0.8` too, and `body.page-loaded` is
+   ALWAYS true here — index.html's own <body class="page-loaded">, never toggled). Both those rules
+   either match later in source order (`.duality-title`, equal specificity, cascade order wins) or are
+   simply MORE specific (`body.page-loaded #loader-canvas` beats a plain `#loader-canvas`) — either
+   way, without `!important` here this element stayed visibly at 0.8 opacity the WHOLE time, loading
+   blink included, confirmed directly via getComputedStyle mid-load. `.terrarium-underlay` (the plain
+   wrapper div) has no such competing rule, so it doesn't strictly need this — kept `!important` too
+   anyway, for one consistent, unambiguous rule instead of two different specificity stories for three
+   elements meant to behave identically. */
+
+/* Scrollbar — deliberately untouched. Two real attempts at making it "always visible" (styling the
+   native `::-webkit-scrollbar` directly, then a fully custom-built indicator element driven by JS)
+   were both tried and reverted — explicit request to stop and just let the browser's own default
+   scrollbar do whatever it normally does, rather than keep iterating on this specific piece. If this
+   gets revisited later: the custom-element version (git history / this file's own earlier revisions)
+   worked correctly and was verified end-to-end — reverted for other reasons (see the request itself),
+   not because it was broken. */
+
+/* Fake-loading flourish before the typewriter starts (index.html's own comment on the element, and
+   main.js's playLoadingBlink, have the full context). Same jade-glow recipe kanji-terrarium's own
+   dictionary-mode loading text uses (apps/web/src/style.css's #viewer-loading) — ported by eye, not
+   shared code. `display:none` at rest, same "only occupies space/paints while actually active"
+   pattern #viewer-loading itself uses — .is-visible is what actually starts the blink.
+
+   `position: fixed`, not `absolute` — real, confirmed bug without it: `absolute` centers within
+   #landing-page (its nearest positioned ancestor), and #landing-page carries `section.sticky`'s own
+   `margin-top: 100px` (further down this file — leftover space from when there was a fixed nav bar up
+   top, before the Menu was removed entirely, "About overlay" in apps/web/CLAUDE.md). That 100px offset
+   meant "centered in #landing-page" landed visibly BELOW the real center of the screen — confirmed via
+   getBoundingClientRect: landing-page's own top sat at y=100 in a 720px-tall viewport, so its center
+   fell at y=410, not the screen's true center at y=360. `fixed` centers on the actual viewport instead,
+   same treatment #scanline-overlay already gets, immune to whatever any section's own margin does. */
+#about-loading {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  font: 22px/1 'Panchang-Medium', sans-serif;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow:
+    0 0 3px rgba(206, 255, 218, 0.7),
+    0 0 8px rgba(206, 255, 218, 0.5),
+    0 0 18px rgba(206, 255, 218, 0.3),
+    0 0 36px rgba(206, 255, 218, 0.16);
+  /* Used to carry its own extra LOCAL blur() on top of the parent app's iframe-level filter
+     (apps/web/src/style.css's --about-overlay-blur) — reported directly as reading heavy, not
+     "subtle glass," once actually seen live: the two blurs compound (this element's own filter
+     blurs its text BEFORE the parent's iframe-wide filter blurs the whole composited page again on
+     top of that), and 22px text turned out more sensitive to a stacked blur than the tuning reasoning
+     here originally accounted for. Removed — no local filter at all now, so this label just picks up
+     the SAME shared page-wide blur every other element on this page already gets from the parent
+     (one number, one source of truth), rather than a second, heavier one layered on for one element. */
+}
+/* Three hard on/off blinks in well under a second (320ms × 3 ≈ 960ms) — its own cadence, deliberately
+   faster than #viewer-loading's own continuous 1.6s pulse (that one's a real, open-ended "still
+   working" status; this is a fixed, three-beat flourish with a definite end, explicit request:
+   "blink three times, one second max"). steps(1, end), a hard square-wave cut not a smooth fade —
+   same "old-school terminal" register every other blink in the source app's own design language uses
+   (search-caret-blink, apps/web/src/style.css), not this specific keyframe, just the same idea.
+   `animation-iteration-count: 3` (not `infinite`) is what lets main.js's playLoadingBlink await a
+   single `animationend` event to know exactly when this is genuinely over. */
+#about-loading.is-visible {
+  display: flex;
+  animation: about-loading-blink 320ms steps(1, end) 3;
+}
+@keyframes about-loading-blink {
+  0%, 49% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0.15;
+  }
+}
+
+section {
+  width: 100%;
+  height: 100vh;
+
+
+}
+
+nav {
+  position: fixed;
+  width: 100%;
+  height: 100px;
+  margin-top: 4px; 
+  top: 0;
+  left: 0;
+  font-size: 20px;
+  z-index: 9999;  
+}
+
+nav ul {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  list-style: none;
+  margin-left: 100px;
+}
+
+nav ul li a {
+  color: white;
+  font-family: monospace;
+}
+
+h1 {
+  font-size: 90px;
+  margin: 0;
+}
+
+h2 {
+  font-size: 60px;
+  margin: 0;
+}
+
+h3 {
+  font-size: 16px;
+  margin: 0;
+}
+
+h4 {
+  font-size: 16px;
+  margin: 0;
+  margin-top: 20px; 
+  margin-right: 100px;
+}
+
+h5 {
+font-size: 16px;
+margin: 0;
+margin-top: 20px; 
+margin-right: 100px;
+}
+
+a {
+  color: white;
+  text-decoration: underline;
+  font-family: monospace;
+}
+
+section {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 100px);
+  top: 100px;
+  z-index: 2;
+  padding: 50px;
+  border: 20px; 
+}
+
+section.sticky {
+  position: sticky;
+  margin-top: 100px;
+}
+
+section.full-screen {
+  height: 100vh;
+  top: 0;
+  margin-top: 0;
+  z-index: 3;
+}
+
+section.about article {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  border-radius: var(--border-radius);
+  padding: 3.25vw;
+  
+  
+}
+
+section.about article .title {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  border-radius: var(--border-radius);
+  padding: 3.125vw;
+  
+}
+
+section.about article .title h3 {
+  align-items: end;
+  margin-bottom: 140px;
+  margin-left: 10px;
+  
+}
+
+section.about article .description {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  border-radius: var(--border-radius);
+  padding: 2.25vw;
+  color: white;
+  
+}
+
+section.empty article h1 {
+  margin-left: 45px;
+  list-style: none;
+  
+}
+
+/* Landing hero that holds both 3D and text/images */
+#landing-page {
+  position: relative;
+  background: transparent;
+  overflow: hidden; /* keep canvas & images inside this hero */
+}
+
+/* Scroll-down hint — REWORKED, explicit follow-up request. No longer absolutely positioned against
+   #landing-page's own (page-wide) box — that centered it under the whole page, not under
+   "Scroll down to learn more about the project." specifically, since #terra-def's own column
+   (max-width: 400px, further down this file) isn't centered on the page itself. Now a plain
+   in-flow block, last child of #terra-def (index.html) — `text-align: center` centers it under
+   THAT column's own width for free, no position math needed, and it naturally sits right where the
+   paragraph above it ends rather than needing an independent "bottom of the section" calculation. */
+.scroll-hint {
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* #alt (mouse/boots) variant, explicit request — same arrow, different context: no text column to
+   sit in flow under here, so this positions absolutely instead, bottom-center of the section itself
+   (`section` base rule already gives #alt `position: relative`, the containing block this resolves
+   against). z-index/pointer-events kept the same reasoning `#landing-page`'s own original absolute
+   version used before it moved into `#terra-def` — never blocks a click meant for anything else. */
+.scroll-hint--alt {
+  position: absolute;
+  left: 50%;
+  bottom: 40px;
+  transform: translateX(-50%);
+  z-index: 5;
+  pointer-events: none;
+  margin-top: 0;
+  /* Real, confirmed bug this fixes — #alt stays fully sticky-locked (top:100, unmoving) for a long
+     stretch of scroll while "Duality Terrarium" is ALREADY scrolling into view underneath it (a
+     normal, non-sticky element in #case-study, moving at ordinary scroll speed regardless of #alt's
+     own stuck state) — and this arrow's own z-index (5, above both sections' z-index:2) lets it
+     paint on top of that newly-visible title regardless of which section "owns" the screen. `.is-
+     hidden` (toggled by main.js's scroll check, same tick-loop pattern as everywhere else on this
+     page) fades it out once Duality Terrarium first becomes visible, back in on scroll-up — real-
+     time, reversible, not a one-shot animation. */
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+.scroll-hint--alt.is-hidden {
+  opacity: 0;
+}
+
+/* Also reworked — a solid bevelled triangle now, not the earlier two-hairline-strokes chevron.
+   That distinction matters more than color or glow ever did: a thin-outline icon IS a modern
+   flat-design convention on its own, regardless of what color it's drawn in — period (2000s) UI
+   chrome was solid, filled shapes with a simple light-to-shade gradient giving a slight embossed
+   read, not line art. `clip-path` cuts the div into a downward triangle; the gradient runs across
+   that same shape (light top edge, darker point) for a plain, restrained bevel — one soft drop
+   shadow via `filter: drop-shadow` (follows the clipped triangle shape, unlike box-shadow, which
+   would draw around the div's original rectangle) for a touch of dimensionality, not a glow or a
+   shine sweep — this project already tried and rejected an actual glossy Aero/Aqua sweep once
+   (mossBox.js's own tileEnter() comment): it read as a modern loading shimmer, "the opposite of a
+   late-2000s glass aesthetic despite looking gentler." Sized down from the original 20px-wide
+   chevron to 13px — "a tad smaller," explicit request — the bounce motion (unchanged, still
+   `scroll-hint-bounce`, still `linear` not eased — see that keyframe's own reasoning below) is what
+   keeps it "catching enough to the eye" at the smaller size, not sheer size or brightness. */
+.scroll-hint-arrow {
+  display: inline-block;
+  width: 13px;
+  height: 9px;
+  clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #f2f2f2 55%, #a9b4b6 100%);
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.55));
+  /* `linear`, not `ease-in-out` — this project's own kanji-terrarium sibling app is explicit about
+     why (theme.js's own DETACH_ZOOM/LOAD_SWOOP comments): an eased ramp on a small looping motion
+     reads as "modern and ai," constant speed the whole way through is what actually lands as
+     deliberate instead. Same fix, ported here on purpose (no shared code between these two apps,
+     apps/web/CLAUDE.md's own "About overlay" section). */
+  animation: scroll-hint-bounce 1.8s linear infinite;
+}
+@keyframes scroll-hint-bounce {
+  0%, 100% { transform: translateY(0); opacity: 0.35; }
+  50% { transform: translateY(8px); opacity: 1; }
+}
+
+
+/* Unmute button */
+
+#audio-toggle {
+  position: fixed;
+  top: 40px;
+  right: 40px;
+  z-index: 9999;
+  background: black;
+  color: white;
+  border: 1px solid white;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-right: 55px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  opacity: 0.8;
+  display: inline-block;
+  margin-left: 0;
+  margin-bottom: 0;
+}
+
+#audio-toggle:hover {
+  background: white;
+  color: black;
+  cursor: url("img/crosshair4.png") 16 16, auto;
+}
+
+
+#pic1 {
+  margin-top: 50px;
+}
+
+section.services article {
+  display: flex;
+  width: 100%;
+  
+  
+  
+}
+
+section.services figure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-basis: 56.25vw;
+  margin: 0;
+  background:black;
+  border-radius: var(--radius-left);
+}
+
+section.services .text {
+  display: flex;
+  flex-direction: column;
+  /* GENUINELY TRIED `flex-start` here, reverted — real, confirmed regression, not a guess. The intent
+     was sound (centering was burning real height on a wasted top gap for the now-much-longer
+     #services1/2/3 copy) but the execution broke something else: `section.services figure` (below)
+     was never touched, still `align-items: center` — so the IMAGE stayed vertically centered in its
+     own column while the text jumped to the top of its own, and the two columns no longer lined up
+     against each other the way the design actually depends on. Confirmed specifically by viewing this
+     through the REAL `#about-panel` iframe embed in the main app (not this file loaded directly) —
+     the iframe's real height differs from a bare browser tab, and that's where the mismatch actually
+     read as broken; testing this file in isolation didn't catch it. Back to `center`, matching
+     `figure`'s own alignment again. If this gets revisited, `figure`'s own `align-items` would need to
+     move too, together, not `.text` alone — worth trying explicitly, not assuming it fixes it. */
+  justify-content: center;
+  flex-basis: 43.75vw;
+  background: black;
+  padding: 3.125vw;
+  border-radius: var(--radius-right);
+
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 1.4;
+  letter-spacing: 0.5px;
+
+
+
+
+  
+}
+
+
+#alt {
+border-radius: 0!important;
+}
+
+section.services h4 {
+  font-family: 'Syne', sans-serif;
+  /* 12px now (was 14px) — later explicit request: match the landing page's own #terra-def paragraph
+     size ("Terrarium (Noun)"'s body copy) exactly. This base rule is always overridden in practice by
+     each slide's own #services1/2/3 h4 (higher specificity, same three values) — updated here too so
+     the number isn't left stale/misleading for whichever rule actually applies. */
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 1.4;
+  letter-spacing: 0.5px;
+
+  color: white;
+  opacity: 0.8;
+
+  transform: skewX(-5deg);
+
+
+
+
+
+font-weight: 300; 
+
+/* Justified, standing convention for every services paragraph going forward, not just #services1 —
+   explicit request. Real dependency, not a style-only add: `width: fit-content` (the old value) sizes
+   the block to exactly its own widest line, leaving zero slack for `justify` to distribute — it would
+   have been a visual no-op. Swapped to a real, fixed `width: 90%` (not just an upper bound) so every
+   line actually has room to stretch into; `max-width: 90%` alone would do nothing extra once width is
+   already fixed to it, so it's removed rather than kept redundant. */
+width: 90%;
+text-align: justify;
+
+
+}
+
+section.services h2 {
+  font-family: 'Syne', sans-serif;     /* same family */
+  font-size: 34px;                     /* a bit lighter, matches terra-title scale */
+  font-weight: 500;                    /* softer weight like terra-title */
+  line-height: 1.1;                    /* slightly taller, matches paragraph rhythm */
+  letter-spacing: 0.5px;               /* gentle spacing, dictionary-like */
+  
+  text-transform: uppercase;
+  transform: skewX(-5deg);
+  opacity: 0.8; 
+
+  margin-left: 10px;
+}
+
+section.services h3 {
+  font-family: 'Syne', sans-serif;
+  /* 13px now (was 16px) — later explicit request, "bump it down a good bit" — still a notch above
+     the body paragraphs' own 12px (#services1/2/3 h4, above) so the subheading still reads as a
+     step between the h2 title and the body copy, just a much smaller step than 16px was. */
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.5px;
+
+  opacity: 0.8;
+  color: white;
+
+  transform: skewX(-5deg);
+
+  margin-left: 10px;
+}
+
+/* #services1 (PROBLEM SPACE) — three <h4> paragraphs now (source was five, one per source paragraph
+   — explicit request to merge 1+2 and 3+4, leave 5 alone), skewed as ONE shared group instead of
+   individually. The real mechanism, confirmed by how CSS transforms actually work, not guessed:
+   `skewX` shears an element's OWN local coordinate space, from ITS OWN top edge — put the same skewX
+   on several separate stacked blocks and each one's shear resets independently, so the group reads as
+   disconnected fragments, not one continuous slant. `.problem-space-body` (index.html) wraps every
+   paragraph in one element and carries the ONLY skewX now; `#services1 h4` itself turns
+   section.services h4's own `transform: skewX(-5deg)` back off, so a paragraph doesn't get sheared
+   TWICE (once by its own inherited rule, once by the wrapper). Because the shear now applies to the
+   whole paragraph stack as a single shape, the slant genuinely carries downward across paragraph
+   breaks instead of restarting at each one — small margins between paragraphs are safe again for
+   exactly that reason.
+
+   `#services1 h2` gets the SAME turned-back-off treatment now too, for the same reason — explicit
+   request ("make sure the title still sits in line with the slant"): `<h2>` moved INSIDE
+   `.problem-space-body` (index.html) alongside the paragraphs, so section.services h2's own
+   independent `transform: skewX(-5deg)` had to come off here too, or the title would shear a SECOND
+   time on top of the wrapper's own shear. With both off and the title genuinely part of the same
+   skewed element as the paragraphs beneath it, the whole block — title included — reads as one
+   continuous slanted shape instead of the title sitting at its own, disconnected angle.
+
+   Widened toward .text specifically for this section (55vw/45vw vs. every OTHER slide's own untouched
+   56.25vw/43.75vw split) so a bigger, more readable font — 14px again, matching every other slide,
+   not the smaller 12px an earlier pass used to force-fit this same copy into the narrower default
+   column — still fits the ~217-word source copy inside this section's fixed sticky-section height
+   (style.css's own `section.sticky`, `height: calc(100vh - 100px)`, no scroll). `overflow-y: auto` on
+   .text is a deliberate safety net, not the primary fix — this should fit without ever needing to
+   scroll on a normal desktop viewport, but a shorter window (a laptop, a smaller iframe) scrolling
+   internally beats content silently clipping or bleeding into the next section. */
+#services1 figure {
+  flex-basis: 45vw;
+}
+#services1 .text {
+  flex-basis: 55vw;
+  overflow-y: auto;
+  max-height: 100%;
+}
+/* Real, measured cause of "title still doesn't line up with the slant" (getBoundingClientRect, not
+   guessed): turning off h2's own individual skewX (above) wasn't the whole story — section.services
+   h2 (style.css) ALSO carries its own `margin-left: 10px` that h4 never had, so even sharing the same
+   wrapper skew, the title's left edge sat ~10px further right than the pure skew math from its Y
+   position alone would predict — confirmed by comparing actual left-edge deltas between stacked
+   elements against skewX(-5deg)'s own known slope (-0.0875 px of x per px of y) before landing on
+   this fix. Zeroed here so the title's left edge falls exactly where the shared wrapper's shear
+   actually puts it, same as every paragraph beneath it. */
+/* margin-bottom: 7px matches h4's own `margin: 0 0 0.5em` (below) at h4's ACTUAL font-size —
+   0.5em × 14px = 7px. A literal `0.5em` here would NOT match: h2 sits at 34px, so the same em value
+   would compute to a visually bigger gap (17px) than the one between paragraphs, even though the
+   number "0.5em" looks identical in both rules — a fixed px value is what actually makes the two
+   gaps equal, not the same em multiplier. margin-top: 0 (folded into the shorthand) keeps the title
+   flush against .text's own padding-top now that justify-content is flex-start (above) — nothing
+   pushing it down from above any more. */
+#services1 h2 {
+  transform: none;
+  margin: 0 0 7px;
+}
+/* The new subheading tagline (index.html) reuses `section.services h3`'s own dormant styling
+   verbatim (font/opacity/skew — a real, ported-but-unused rule that had no matching <h3> anywhere
+   in the markup until now) — same "turn the inherited skewX back off, let the shared wrapper below
+   carry the only one" treatment h2/h4 already get, for the identical reason: `.problem-space-body`
+   is the ONE element allowed to skew, so title/subheading/paragraphs shear as one continuous shape
+   instead of each resetting its own shear from its own top edge. */
+#services1 h3 {
+  transform: none;
+  margin: 0 0 10px;
+}
+#services1 h4 {
+  font-size: 12px;
+  line-height: 1.3;
+  transform: none;
+  margin: 0 0 0.5em;
+}
+#services1 h4:last-child {
+  margin-bottom: 0;
+}
+#services1 .problem-space-body {
+  transform: skewX(-5deg);
+}
+
+/* #services2 (CORE CONCEPT) — identical treatment to #services1 just above, different section, own
+   class name (.core-concept-body, index.html) — see that block's own comments for the full mechanism
+   (shared-wrapper skewX so title+paragraphs shear as one continuous shape instead of each element
+   resetting its own shear from its own top edge; h2's individual skewX AND its own inherited
+   `margin-left: 10px` both zeroed for the same "title lines up with the slant" reason; figure/.text
+   widened toward .text so a readable 14px font still fits the source copy in this section's own fixed
+   sticky-section height; `text-align: justify` is the general section.services h4 rule already, no
+   per-section override needed). Not merged into a shared selector with #services1 despite being
+   identical right now — each slide's own swap has landed as its own explicit pass so far, and a future
+   slide might reasonably want different numbers; safe to consolidate into one shared class later if
+   every slide ends up wanting the exact same treatment. */
+#services2 figure {
+  flex-basis: 45vw;
+}
+#services2 .text {
+  flex-basis: 55vw;
+  overflow-y: auto;
+  max-height: 100%;
+}
+/* Same fixed-px reasoning as #services1 h2, above — 7px matches h4's own 0.5em AT h4's actual 14px
+   font-size, not the same em value at h2's own (much bigger) 34px. */
+#services2 h2 {
+  transform: none;
+  margin: 0 0 7px;
+}
+/* Same subheading treatment as #services1 h3, above — its own comment has the full reasoning. */
+#services2 h3 {
+  transform: none;
+  margin: 0 0 10px;
+}
+#services2 h4 {
+  font-size: 12px;
+  line-height: 1.3;
+  transform: none;
+  margin: 0 0 0.5em;
+}
+#services2 h4:last-child {
+  margin-bottom: 0;
+}
+#services2 .core-concept-body {
+  transform: skewX(-5deg);
+}
+
+/* #services3 (DESIGN LANGUAGE) — identical treatment to #services1/#services2 above, own class name
+   (.design-language-body, index.html). See #services1's own comment for the full mechanism writeup. */
+#services3 figure {
+  flex-basis: 45vw;
+}
+#services3 .text {
+  flex-basis: 55vw;
+  overflow-y: auto;
+  max-height: 100%;
+}
+#services3 h2 {
+  transform: none;
+  margin: 0 0 7px;
+}
+/* Same subheading treatment as #services1 h3, above — its own comment has the full reasoning. */
+#services3 h3 {
+  transform: none;
+  margin: 0 0 10px;
+}
+#services3 h4 {
+  font-size: 12px;
+  line-height: 1.3;
+  transform: none;
+  margin: 0 0 0.5em;
+}
+#services3 h4:last-child {
+  margin-bottom: 0;
+}
+#services3 .design-language-body {
+  transform: skewX(-5deg);
+}
+
+
+
+ /* Text content sits above 3D canvas */
+#landing-page article,
+#landing-page .duality-title,
+#landing-page .duality-subtitle,
+#landing-page .description {
+  position: relative;
+  z-index: 1;
+}
+
+/* Underlay images sit behind the 3D canvas */
+.terrarium-underlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+
+section.contact {
+  position: bottom;
+  margin-left: 100px;
+  flex: 1;
+  display: flex;
+ 
+  border-radius: var(--border-radius);
+  padding: 3.25vw;
+}
+
+
+
+/* Float Animation */
+
+section.services figure img {
+    animation-name: float;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: cubic-bezier(.77,.28,.42,.93);
+}
+
+@keyframes float {
+  0% {
+      transform: translateY(-20px);
+  
+  }
+  100% {
+      transform: translateY(20px);
+  }
+}
+
+/* ==== DROPDOWN NAVIGATION MENU ==== */
+
+.nav-menu {
+  position: relative;
+  margin-left: 100px;
+}
+
+/* Trigger button */
+.nav-menu > button {
+  background: black;
+  color: white;
+  border: 1px solid white;
+  padding: 8px 16px;
+  cursor: pointer;
+  line-height: 1;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  opacity: 0.8;
+  display: inline-block;
+}
+
+.nav-menu > button:hover {
+  background: white;
+  color: black;
+  cursor: url("img/crosshair4.png") 16 16, auto;
+}
+
+/* Panel under the button */
+.menu-panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 8px;
+
+  background: black;
+  color: white;
+  border: 1px solid white;
+  border-radius: 8px;      /* match button radius */
+  opacity: 0.8;
+
+  display: none;           /* hidden by default */
+  flex-direction: column;
+  width: 220px;
+  padding: 8px 0;
+  z-index: 10000;
+
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  line-height: 1.4;
+}
+
+/* When JS adds .open, show the panel */
+.menu-panel.open {
+  display: flex;
+}
+
+/* Each "view" inside the panel (root, contact, media, etc.) */
+.menu-view {
+  display: none;
+  flex-direction: column;
+}
+
+/* Root view (Contact | Media) shown first */
+.menu-view.menu-root {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* Section title inside sub-views */
+.menu-title {
+  padding: 8px 16px;
+  border-bottom: 1px solid white;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+/* Root options: Contact | Media */
+.menu-option {
+  background: transparent;
+  border: none;
+  color: white;
+  text-align: left;
+  padding: 8px 16px;
+  width: 100%;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  border-radius: 8px;
+}
+
+.menu-option:hover {
+  background: white;
+  color: black;
+  cursor: url("img/crosshair4.png") 16 16, auto;
+}
+
+/* Back button in sub-views */
+.menu-back {
+  background: transparent;
+  border: none;
+  color: white;
+  text-align: left;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  border-radius: 8px;
+  padding: 8px 16px;
+  width: 100%;         /* FULL WIDTH */
+  display: block;      /* Behave like a row */
+  border-radius: 8px;
+}
+
+.menu-back:hover {
+  background: white;
+  color: black;
+  cursor: url("img/crosshair4.png") 16 16, auto;
+}
+
+/* Links inside views (contact details, media links etc.) */
+.menu-view a {
+  color: white;
+  text-decoration: none;
+  padding: 8px 16px;
+  display: block;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  border-radius: 8px;
+}
+
+.menu-view a:hover {
+  background: white;
+  color: black;
+  cursor: url("img/crosshair4.png") 16 16, auto;
+}
+
+
+
+
+
+/* Glitch Effect */
+#servicesTitle {
+  position: relative;
+  display: inline-block;
+  font-size: 20px;
+  bottom: -180px;
+  left: 240px;
+
+}
+
+#servicesTitle:hover {
+  color: transparent;
+}
+
+#servicesTitle:hover::after {
+  content: "Duality Studios";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  pointer-events: none;
+}
+
+#servicesTitle {
+  position: relative;
+  display: inline-block;
+  overflow: visible;
+}
+
+#servicesTitle:hover {
+  color: transparent;
+  cursor: url("img/crosshair4.png") 16 16, auto;
+}
+
+#servicesTitle:hover::after,
+#servicesTitle:hover::before {
+  content: "Duality Studios";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: inherit;
+  font-family: inherit;
+  pointer-events: none;
+}
+
+#servicesTitle:hover::before {
+  color: #6EF0B5;
+  animation: glitch1 0.3s infinite;
+}
+
+#servicesTitle:hover::after {
+  color: #00E8FF;
+  animation: glitch2 0.3s infinite;
+}
+
+@keyframes glitch1 {
+  0% { transform: translate(0,0); opacity: 1; }
+  20% { transform: translate(-3px,3px); }
+  40% { transform: translate(3px,-2px); }
+  60% { transform: translate(-2px,-3px); opacity: 0.8; }
+  80% { transform: translate(2px,2px); }
+  100% { transform: translate(0,0); opacity: 1; }
+}
+
+@keyframes glitch2 {
+  0% { transform: translate(0,0); opacity: 1; }
+  20% { transform: translate(3px,-3px); }
+  40% { transform: translate(-3px,2px); opacity: 0.7; }
+  60% { transform: translate(2px,3px); }
+  80% { transform: translate(-2px,-2px); }
+  100% { transform: translate(0,0); opacity: 1; }
+}
+
+#servicesTitle,
+#creatorGlitch {
+  position: relative;
+  display: inline-block;
+  overflow: visible;
+}
+
+#servicesTitle:hover,
+#servicesTitle:hover + #creatorGlitch {
+  color: transparent;
+}
+
+@font-face {
+  font-family: 'Neuropol';
+  src: url('fonts/neuropol-x.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+#servicesTitle:hover::before,
+#servicesTitle:hover::after,
+#servicesTitle:hover + #creatorGlitch::before,
+#servicesTitle:hover + #creatorGlitch::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  font-size: inherit;
+  font-family: 'Neuropol', sans-serif;
+  pointer-events: none;
+}
+
+#servicesTitle:hover::before,
+#servicesTitle:hover::after {
+  content: "Duality Studios";
+  
+}
+
+#servicesTitle:hover + #creatorGlitch::before,
+#servicesTitle:hover + #creatorGlitch::after {
+  content: "Designed and engineered by Jordan Levi Sax using HTML, CSS, and JavaScript";
+  left: 25px; 
+}
+
+#servicesTitle:hover::before,
+#servicesTitle:hover + #creatorGlitch::before {
+  color: #66FFCC;
+  animation: glitch1 0.3s infinite;
+}
+
+#servicesTitle:hover::after,
+#servicesTitle:hover + #creatorGlitch::after {
+  color: #8EF6D2;
+  animation: glitch2 0.3s infinite;
+}
+
+#servicesTitle:hover + #creatorGlitch {
+    transform: translateX(40px);
+  }
+
+
+/* Typewriter Effect */  
+.typewriter-cursor::after {
+  content: "|";
+  margin-left: 4px;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* track Info Animation */  
+
+#trackInfo {
+  position: fixed;
+  top: 50px;
+  right: 185px;
+  z-index: 9999;
+  font-size: 11px;
+  font-family: monospace;
+  color: white;
+  white-space: pre;
+
+  /* start hidden + slightly to the right */
+  opacity: 0;
+  transform: translateX(14px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* when music is playing, JS adds .playing */
+#trackInfo.playing,
+.track-info.playing {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+
+#trackInfo::after {
+  content: "▶";
+  margin-left: 8px;
+  animation: blinkPlay 1s step-end infinite;
+  display: inline-block;
+  transform: translateY(1px);
+}
+
+@keyframes blinkPlay {
+  50% { opacity: 0; }
+}
+
+
+/* Case Study Section */
+
+.case-study {
+display: flex;
+width: 100%;
+background: transparent;
+color: white;
+padding: 150px 60px 80px;
+gap: 80px;
+position: relative;
+z-index: 10;
+height: auto;
+top: auto;
+font-size: 12px;
+line-height: 1.4;
+font-weight: 300;
+
+
+}
+
+.case-study h1,
+.case-study h3,
+.case-study h4,
+.case-study h5,
+.case-study p {
+
+color: white;
+line-height: 1.2;
+margin: 0 0 20px;
+opacity: 0.8;
+}
+
+.case-study h2 {
+
+font-size: 15px;
+line-height: 1.4;
+font-weight: 300;  
+opacity: 0.8;
+margin-left: 10px;
+
+}
+
+/* LEFT: four independently-sticky titles — REWORKED, explicit request, replacing the old single
+   sticky `.case-left` (h2+h1, always fully visible together) with a chained reveal-and-stack
+   sequence. Full mechanism/rationale in index.html's own comment right above this section's markup
+   — this file only has the "how":
+
+   `.case-left` itself is NO LONGER sticky (its four children are, individually) — just a plain
+   stretched flex column now. `align-self: flex-start` is gone on purpose: without it, `.case-left`
+   stretches to `.case-right`'s own full height (the flex row's default `align-items: stretch`,
+   unopposed), which these four titles need real room within to travel and lock at different scroll
+   depths — confined to the OLD short (~120px) box, there'd be nowhere for four separate lock points
+   to live. margin-left kept at 50px (was on `.case-left` itself; now the shared base for every
+   `.stack-title`, since that's where the actual text lives now). */
+.case-left {
+flex: 1;
+position: relative;
+background: transparent;
+margin-left: 50px;
+}
+
+/* REAL, CONFIRMED REGRESSION from the first pass — fixed here. The old shared `.case-left` rule
+   carried declarations that applied to BOTH children via inheritance (`text-transform: uppercase`,
+   `letter-spacing: 0.5px`, both inherited properties) that got dropped entirely when `.case-left`
+   was stripped down to a plain layout container. Restored below on the shared `.stack-title` base so
+   every title keeps them, not just re-added piecemeal per element. */
+.stack-title {
+font-family: 'Syne', sans-serif;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+position: sticky;
+}
+
+/* "Duality Terrarium" specifically — its own size/line-height stay a genuine subheading, not
+   unified with the other three (35px vs. `.stack-title--main`'s 40px, 1.1 vs. 0.9 line-height) —
+   real values restored from the old `.case-left`'s own declarations (its LAST-declared, actually-
+   effective ones — that rule had several properties set more than once, redundantly, before this
+   rework). `font-weight`, though, now DOES match `.stack-title--main`'s own 700 — explicit
+   request, reversing an earlier "weight 100, kept genuinely distinct" decision: this element used
+   to be lighter than the other three on purpose, now it's meant to read as bold like the rest of
+   this whole title family. skewX/opacity were never on the old h2 either (confirmed by re-reading
+   the old rule split — they were `.case-left h1`-only) — still kept absent here for that same
+   reason, not added back by mistake. */
+.stack-title--sub {
+font-size: 35px;
+font-weight: 700;
+line-height: 1.1;
+}
+
+/* Technology / System Architecture / Flow Diagram — the old `.case-left h1`'s own real values,
+   restored verbatim (40px/0.9/skewX(-5deg)/0.8 opacity). font-weight went through TWO passes, not
+   one: first bumped from an old 300 to 700, on the assumption that "Core Concept"/"Problem
+   Space"/"Design Philosophy" (`.style-match-header`, further up this file) read bold purely from
+   the base `h2` rule's own browser default, since `.style-match-header` itself sets no font-weight
+   — a real, confirmed-wrong assumption, never actually checked against the rule that's genuinely
+   applying: `section.services h2` (further up this file) DOES set an explicit weight, 500, not
+   whatever a bare `<h2>` defaults to. Confirmed live (both sides' `getComputedStyle`, same
+   `font-family: Syne, sans-serif` fallback since Syne is never actually loaded anywhere on this
+   page — no `@font-face`, no Google Fonts `<link>` — so both genuinely render in the same fallback
+   sans, weight is the only thing that could be making them look different, and it was, 700 vs 500)
+   that 700 was matching a guess, not the real number — corrected to 500 to actually match. */
+.stack-title--main {
+font-size: 40px;
+line-height: 0.9;
+font-weight: 500;
+transform: skewX(-5deg);
+opacity: 0.8;
+}
+
+/* "Duality Terrarium" — explicit follow-up request: stop trying to match its old pre-rework size
+   (35px, "the same original value" from before this whole stack existed) — it read as the same
+   size as everything else regardless, and matching old history wasn't the actual goal any more.
+   Genuinely small now, a real caption sitting under "TECHNOLOGY" (the word above it, not a fraction
+   of its own former self) — 15px, sized to sit comfortably inside that word's own width once
+   rendered. `!important` on every property here on purpose, not defensive overkill for its own
+   sake: this exact element already had ONE confirmed real collision tonight (`.case-study h2`,
+   dead CSS elsewhere in this file that silently won on specificity the moment this became a real
+   <h2>) — `!important` here means no OTHER still-undiscovered legacy rule can quietly do the same
+   thing again. */
+#stack-duality {
+top: 110px !important;
+/* 62 — LATEST rework: Duality itself is now the one that target-matches the flow-strip's own first
+   line, not Technology. Explicit request: "treat them all as one block" — Duality+Technology read as
+   one flush unit (Technology sits right under Duality, zero gap, see that rule's own comment below),
+   and THAT combined block's own top edge (Duality's own line) is what should land on the box's first
+   line, not whichever title happens to be second.
+
+   REAL, CONFIRMED BUG in the first version of this number (30px, not 62px) — worth reading before
+   trusting ANY target measurement in this stack again: 30 was `.flow-strip`'s own BOUNDING BOX top
+   edge, not its actual first line of text. `.flow-strip` carries 30px of its own padding-top before
+   `.flow-strip-tagline` (the real first visible line, "Reactive, robust, client side...") even
+   starts — so the box edge and the real text sat 32px apart the whole time. "The first line of TEXT
+   in the box" (the literal, explicit ask) means the text node itself, never a container's own
+   padded box edge — that distinction matters everywhere in this stack, not just here (see
+   `#stack-flow`'s own comment below for a second, even larger instance of the same mistake). 62 =
+   `.flow-strip-tagline`'s own real position (relative to `.case-left`'s top, at scroll:0) minus 0
+   (Duality has nothing before it in this stack) — confirmed to a 0px diff via the scroll-pinned
+   direct-comparison method (`#stack-technology`'s own comment below has the full method writeup).
+   Re-derive fresh, scroll-pinned, against `.flow-strip-tagline` specifically (not `.flow-strip`
+   itself) if the flow-strip's own content ever changes. */
+margin-top: 62px !important;
+font-size: 15px !important;
+font-weight: 300 !important;
+line-height: 1.3 !important;
+letter-spacing: 0.5px !important;
+opacity: 0.8 !important;
+transform: none !important;
+}
+
+/* GAP — a full line break's worth of space (36px, matching the main titles' own line-height) between
+   each LOCKED title, EXCEPT Duality Terrarium -> Technology: that pair stays flush, no gap, treated
+   as ONE block (explicit request, current design — Duality's own comment above has the full "why").
+   So #stack-technology's own top has NO +36 in it (just duality's real height), while
+   #stack-architecture and #stack-flow still each add the full 36px gap on top of that.
+
+   THIS PAIRING FLIPPED TWICE — worth knowing the history before changing it again: originally
+   Duality was a fixed, untargeted anchor (top:110/margin-top:0) and Technology alone target-matched
+   the flow-strip. That read as "first one sitting too high" once the other two pairs were fixed to
+   genuinely track their own boxes, so Technology was given its own margin-top instead (making IT the
+   one that matched the flow-strip, Duality still fixed above it) — which fixed the visible symptom
+   but was later judged the wrong TWO ELEMENTS to have done it to: Duality and Technology are meant to
+   read as one flush block, so it's that block's own leading edge (Duality) that should track the box,
+   not its second line. Current, settled design: Duality target-matches, Technology reverts to
+   margin-top:0 (flush under Duality again, like the very first version) — see Duality's own comment
+   above for the derivation.
+
+   TWO REAL LESSONS from re-deriving these values across that whole back-and-forth, worth reading
+   before touching any margin-top in this stack again:
+
+   1. THIS SANDBOX'S OWN SCROLL POSITION DRIFTS ON ITS OWN, measurably, with nothing driving it —
+      confirmed directly: `window.scrollTo(0, 0)` followed by a **separate** tool call moments later
+      read back `scrollY` in the thousands, with no scroll input in between. Verifying alignment by
+      scrolling to a computed "transition point" and trusting it holds (this project's own established
+      pattern elsewhere) is NOT reliable for this specific page/session — screenshots taken this way
+      came back showing a completely different, stale scroll position too, even with the pin still
+      actively running during the screenshot itself. The only reliable check found: pin scroll to 0
+      with a tight `setInterval(() => window.scrollTo(0,0), 10)` for the duration of the read, and
+      compare each title's own `getBoundingClientRect()` DIRECTLY against its target's, both read via
+      plain `absTop = el => el.getBoundingClientRect().top + scrollY` at scroll:0 — never reconstruct
+      a position from the top/margin-top formula and compare against that, and don't trust a
+      screenshot of a scrolled-to "transition point" in this sandbox, pinned or not.
+   2. A REAL CASCADE BUG, caught by that direct comparison, not guessed: giving an EARLIER title in
+      this stack a new or changed margin-top pushes every LATER element's own natural landing down by
+      that same amount, in normal document flow — so every title AFTER the one that changed needs its
+      own margin-top re-derived too, not just the one whose target actually moved. Confirmed directly
+      partway through this rework: giving Technology a margin-top shifted Architecture off-target by
+      almost exactly that same amount, purely from the cascade, even though Architecture's own target
+      (the "LAYER 1" line) hadn't moved at all. `#stack-flow` is the one exception in this specific
+      chain — its own margin-top is built directly off Architecture's TARGET (a real, independent DOM
+      measurement), not off Architecture's reconstructed natural-flow position, so it happens to be
+      immune to cascades from anything earlier in the stack.
+   3. "THE FIRST LINE OF TEXT IN THE BOX" MEANS THE TEXT NODE, NEVER A CONTAINER'S OWN BOX EDGE — a
+      second real, confirmed bug, caught the same way: Duality's own target was originally measured
+      as `.flow-strip`'s own bounding-box top, which sits 32px above `.flow-strip-tagline` (the real
+      first visible line) because `.flow-strip` itself carries 30px of padding-top. Worse, on the
+      pyramid side, `.layer-diagram`'s own box edge happened to LOOK almost right (only ~1.5–17px off)
+      purely by coincidence — but the pyramid is laid out visually BOTTOM-UP (DATA SOURCE at the
+      bottom, RUNTIME ENVIRONMENT at the top; the diagram's own header comment above has the full
+      "why"), so "LAYER 1: DATA SOURCE" (the FIRST element in DOM order) is actually the pyramid's
+      own BOTTOM-most, LAST-rendered line — a naive `querySelector('strong')` grab of "the first one
+      in the markup" landed on text 344px away from the box's real visual top. The genuinely correct
+      target there is RUNTIME ENVIRONMENT's own `<strong>` — confirmed by reading every tier's real
+      `getBoundingClientRect().top` and sorting them, not assumed from DOM order. Always resolve "the
+      first line of text" to a real, specific text node — `.flow-strip-tagline`, the bare `<strong>`
+      inside `.invert-text`, `.layer-diagram`'s own RUNTIME `<strong>` — never a container element,
+      and never assume DOM order matches visual order in a reordered/reversed layout. */
+#stack-technology {
+/* 130 = 110 + 20 (duality's own real height) — the LOCKED position, unaffected by margin-top below. */
+top: 130px;
+/* 0 — flush against Duality again, current design (see the GAP comment above for the full back-
+   and-forth this went through). Confirmed live: Technology's own natural position lands exactly
+   `dualityH` (19.5px) below Duality's, i.e. genuinely flush, zero extra gap. */
+margin-top: 0;
+}
+#stack-architecture {
+/* 238 = 130 + 72 (technology's real height, now TWO lines — explicit request forced a `<br>`
+   between "Rendering"/"Engine", index.html — was 36 as one line, so this and every number below
+   that references it shifted by the same +36) + 36 (the gap) */
+top: 238px;
+/* 129 — re-derived TWICE for the current design (Duality target-matches, Technology flush at
+   margin:0): once at 161px, using Duality's own (then-wrong, box-edge) target of 30px; corrected to
+   129 once Duality's own real target turned out to be 62px (`.flow-strip-tagline`, not `.flow-strip`
+   itself — see Duality's own comment above, and the GAP comment's lesson #3, for the full "text node,
+   not box edge" bug). Box2's target (the "LAYER 1: DATA SOURCE" line's own real position at scroll:0)
+   minus where Architecture would naturally start with zero margin of its own — Duality's own real
+   target (62, relative to `.case-left`'s top) plus both real heights (duality's + technology's) —
+   gives 129, confirmed to a ~0.1px diff via the scroll-pinned direct comparison. Re-derive fresh
+   (scroll-pinned, direct `absTop` comparison against the bare "LAYER 1" text node) any time content
+   above it changes, OR either Duality's or Technology's own margin-top changes again — see the GAP
+   comment's own lesson #2 above for why the latter matters. */
+margin-top: 129px;
+}
+#stack-flow {
+/* 346 = 238 + 72 (architecture's real height, unchanged — "System Architecture" already wrapped
+   two lines on its own before any of this) + 36 (the gap). Shifted by the same +36 as
+   #stack-architecture's own top, above, since it's built directly off that number. */
+top: 346px;
+/* 1366 — box3's target is NOT `.layer-diagram`'s own box edge (what this was first measured
+   against, ~5868.7px relative to `.case-left`'s top, giving 1364) — same "box edge, not text node"
+   bug the GAP comment's lesson #3 documents for Duality's own target. The pyramid is laid out
+   visually BOTTOM-UP (DATA SOURCE at the bottom, RUNTIME ENVIRONMENT at the top), so its real
+   topmost line is RUNTIME ENVIRONMENT's own `<strong>`, confirmed by reading every tier's real
+   `getBoundingClientRect().top` and sorting them rather than assuming DOM order — that real target
+   sits at ~5870.2px, only ~1.5px below the box edge this happened to be measured against before
+   (coincidentally close, not correct — confirm with the real text node, don't reuse a "close enough"
+   container edge). 1366 = that real target minus where #stack-flow naturally starts ignoring its own
+   margin (architecture's own real target, ~4432.6, + architecture's real height, 72). Confirmed to a
+   ~0.3px diff via the scroll-pinned direct comparison against RUNTIME ENVIRONMENT's own text node —
+   still genuinely UNCHANGED (to within that same small box-edge-vs-text correction) across the whole
+   Duality/Technology back-and-forth above, because it's built directly off architecture's own TARGET,
+   not off architecture's own natural-flow position — see the GAP comment's own lesson #2 for why that
+   makes it immune to cascades from earlier in the stack. Still the single most drift-prone number in
+   the whole stack on its own terms (three levels deep into compounding "natural start" math if its
+   target ever moves) — re-derive it fresh, scroll-pinned, against RUNTIME ENVIRONMENT's own text
+   node, before trusting it again. */
+margin-top: 1366px;
+}
+
+.case-left h3 {
+font-size: 10px;
+margin: 100px;
+font-weight: 300;  
+transform: skewX(-5deg);
+opacity: 0.8;
+
+}
+
+/* RIGHT: scrolling content */
+.case-right {
+background: transparent;
+flex: 1.4;
+
+
+}
+
+.case-right p {
+font-size: 14px;
+line-height: 1.4;
+border: 2px solid white;
+border-radius: 40px;
+padding: 30px 40px;
+width: 120%;
+margin: 100px auto;
+transform: skewX(-5deg);
+transform-origin: top left; /* see `.flow-strip`'s own comment, further down this file, for why every
+  box in this family anchors its skew here instead of sharing one skew on `.case-block` */
+font-weight: 500;
+max-width: 150%;
+margin-left: -25%;
+}
+/* Real, confirmed cause of "the whole layer box is a completely different font" — this rule (and its
+   ancestor .case-study) never set font-family at all, so it fell all the way back to the page's own
+   base `html, body { font-family: 'Panchang-Medium' }` (the hero-title serif font) instead of the
+   'Syne' every section.services h4 paragraph explicitly sets. Scoped to `.invert-text` specifically
+   (the one real paragraph living in this box, not every possible future .case-right p) rather than
+   editing the rule above directly, matching the same size/weight/spacing/color recipe every OTHER
+   paragraph on this page already uses.
+
+   `#case-study .case-textbox` shares this SAME rule now too, explicit request ("make sure it all
+   matches the exact same styling... as the other box") — one shared declaration instead of two
+   separately-maintained copies that could drift apart again, same reasoning `.info-row-label`/
+   `.info-row-value`'s shared rule already uses elsewhere in this project. `.case-textbox`'s own base
+   rule below still sets its OWN font-size (16px) — this overrides it back to 14px, matching
+   `.invert-text` exactly, since `#case-study .case-textbox` (id+class) beats a plain `.case-textbox`
+   (class only) on specificity regardless of source order.
+
+   The individual `skewX(-5deg)` this box already carries (`.case-right p`, above) is left alone here
+   now — see `.flow-strip`'s own comment, further down this file, for why this box family went BACK to
+   each box skewing itself (own `transform-origin: top left`) instead of one shared skew on
+   `.case-block`; there used to be a `transform: none` override right here to prevent a double-shear
+   under that shared-skew approach, removed along with it. */
+#case-study .invert-text,
+#case-study .case-textbox {
+font-family: 'Syne', sans-serif;
+font-size: 14px;
+font-weight: 300;
+letter-spacing: 0.5px;
+color: white;
+opacity: 0.8;
+}
+/* Real, confirmed cause of "the left title and right box aren't aligned as they scroll into view" —
+   measured with getBoundingClientRect at several scroll positions, not guessed: `.case-block`'s
+   content sat a CONSISTENT 100px lower than `.case-left`'s own title at every point before the
+   sticky title reaches its stuck position (e.g. 365px vs 265px, 315px vs 215px — always exactly
+   100px). Root cause: `.case-right p` (above) sets `margin: 100px auto` — that TOP 100px margin has
+   nothing above it to collide with inside `.case-right`/`.case-block` (neither has its own padding-
+   top or border-top), so it collapses straight through and pushes the entire right column down by
+   100px relative to `.case-study`'s own padding-top, which is the only thing positioning `.case-left`.
+   Zeroed here so both columns start flush at the exact same offset the moment the section scrolls
+   into view — `.case-left`'s own sticky behavior (where/when it catches) is completely untouched. */
+#case-study .invert-text {
+margin-top: 0;
+}
+
+/* `.case-block` itself no longer carries a shared skew — see `.flow-strip`'s own comment, further
+   down this file, for the real bug that caused and the reasoning that replaced it: each of the three
+   boxes in this family (`.invert-text`/`.case-textbox` above, `.flow-strip` below) now skews ITSELF,
+   `transform-origin: top left`, instead of inheriting one skew from here. */
+.case-block {
+margin-bottom: 200px;
+}
+
+.case-video {
+width: 90%;
+border-radius: 14px;
+pointer-events: none;
+display: block;
+margin: 0 0 40px 0;
+transform: skewX(0deg);
+}
+
+
+
+.dark-mute {
+filter: invert(1) brightness(0.55) contrast(0.9);
+}
+
+.light-mute{
+filter: invert(1) brightness(0.15) contrast(0.9);
+border-radius: 0 !important;
+}
+
+/* Real, confirmed bug — this `margin-top: 100px` had no comment justifying it, and no reason to be
+   here: `.mouse` and `.light-mute` (boots, below) sit in two IDENTICALLY sized/positioned boxes
+   (`figure`/`.text`, `section.services` above), both centering their own image — confirmed live via
+   getBoundingClientRect through the real `#about-panel` iframe embed (not this file loaded bare,
+   which renders this section's flex layout broken and isn't representative — same caveat #services1's
+   own comment already flags). With no extra margin, the two images land within ~2px of each other at
+   the top edge (the tiny remainder is just the two images' own different aspect ratios under
+   centering) instead of one sitting a full 100px lower than the other, which is what read as a visible
+   step/jut between them. */
+.mouse{
+filter: invert(0) brightness(0.45) contrast(0.9);
+}
+
+
+
+.services:has(.mouse:hover) {
+filter: none !important;
+}
+
+.row-mini {
+display: flex;
+gap: 20px;
+margin-bottom: 40px;
+align-items: flex-start;
+}
+
+.video-mini {
+width: 28%;
+border-radius: 14px;
+pointer-events: none;
+display: block;
+transform: skewX(0deg);
+}
+
+/* Live-generation flow strip — see index.html's own much longer comment right above this diagram's
+   markup for the full rationale (why it's separate from the pyramid, which 3 of 5 steps already
+   exist elsewhere on the page). This file only has the "how":
+
+   Same family as `.invert-text`/`.case-textbox`: border/radius/padding/width/margin-left match
+   `.case-right p` verbatim (120%/150%/-25%, above) — genuinely identical local rectangles, not just
+   similar-looking ones.
+
+   ALIGNMENT ACROSS ALL THREE BOXES — how this actually gets solved, current approach, after several
+   real dead ends worth knowing before reaching for a "just nudge it with translateX" fix again:
+
+   Every box in this family (this one, `.invert-text`, `.case-textbox`) skews ITSELF —
+   `transform: skewX(-5deg); transform-origin: top left;` — instead of one shared `skewX` living on
+   `.case-block` (`#case-study .case-block` used to carry it; removed). `transform-origin: top left`
+   is load-bearing: a transform's origin point never moves under its own transform, so every box's own
+   top-left corner lands EXACTLY at its plain, un-skewed layout position (purely `width`/`margin-left`
+   math) — identical width/margin-left across all three boxes then means their top-left AND top-right
+   corners align EXACTLY, for any box height, at any viewport width, with no residual value to compute
+   or re-measure, ever. Confirmed live: 0.0000px diff on both corners, both `.flow-strip` vs
+   `.invert-text` and `.case-textbox` vs `.invert-text`, at both 1280px and 1920px viewports.
+
+   Why not the obvious one-shared-skew-on-the-parent approach: it puts every child's horizontal
+   skew-shift in terms of that child's ABSOLUTE y-position inside `.case-block`, which is fine as long
+   as nothing between two boxes changes height with viewport width — true for `.flow-strip` vs
+   `.invert-text` (a short, non-wrapping row above a paragraph), where a single measured
+   `translateX()` residual genuinely does hold at every width (confirmed two ways independently). It
+   breaks for `.case-textbox`, which sits BELOW that same reflowing paragraph: the vertical gap between
+   `.invert-text`'s top and `.case-textbox`'s top then includes `.invert-text`'s own height, which
+   shrinks and grows with viewport width (730px tall at 1920px wide, 1024px at 1280px) — so the
+   "residual" needed to realign `.case-textbox` isn't a constant at all (measured 98.3px at 1280px vs.
+   72.6px at 1920px, confirmed live, not guessed). No fixed px or % value can encode "how tall a
+   reflowed paragraph currently is," so a per-box self-anchored skew — genuinely independent of
+   everything above it — is the actual fix, not a fourth attempt at a magic number for `.case-textbox`
+   specifically. (Also worth remembering on its own: getting the LEFT edge to match with a plain
+   `translateX()` doesn't get the RIGHT edge for free unless the two boxes' widths were already
+   identical — a real, separately-confirmed mistake earlier in this box's own history, back when it
+   briefly carried extra width to (wrongly) match `.invert-text`'s rendered bounding-box width instead
+   of its actual local width.)
+
+   `margin-bottom` is the one value NOT copied from `.case-textbox` (which uses 30px) — kept at 76px,
+   the value from the immediately preceding "more space before the paragraph" request, since nothing
+   about adding a box changes that ask. */
+.flow-strip {
+  border: 2px solid white;
+  border-radius: 40px;
+  padding: 30px 40px;
+  width: 120%;
+  max-width: 150%;
+  margin: 30px auto 76px;
+  margin-left: -25%;
+  transform: skewX(-5deg);
+  transform-origin: top left; /* see the comment above — this is what makes every box in this family
+    align on both edges, at any height, at any viewport width, with no measured residual */
+  background: transparent;
+  color: white;
+  line-height: 1.4;
+  /* Real, confirmed gap: unlike `.invert-text`/`.case-textbox`, this element isn't covered by
+     `#case-study .invert-text, #case-study .case-textbox`'s shared font rule (further down this
+     file) — measured directly, it was inheriting the page's base `Panchang-Medium` serif hero font
+     instead of the 'Syne' sans-serif everything else in this section uses. Set explicitly here
+     rather than adding this new class to that shared selector, so that rule's own contract ("the
+     one shared place those live, so paragraph/box can't drift out of sync") stays about the two
+     elements it already names. */
+  font-family: 'Syne', sans-serif;
+}
+
+/* ORPHANED, explicit request: the strip's own internal "RENDERING ENGINE" label was removed from
+   index.html entirely — that name now lives on the sticky title beside the strip
+   (`#stack-technology`) instead, so the box doesn't repeat its own heading inline. Left in place,
+   unused, rather than deleted, in case a label returns here later (index.html's own comment on
+   `.flow-strip` has the full reasoning). Original comment below, kept for whoever restores it:
+
+   Explicit request: same real styling "LAYER 1: DATA SOURCE" and every other tier heading actually
+   render at — not a fresh, smaller label treatment invented for this strip. That's `#case-study
+   .invert-text, #case-study .case-textbox`'s shared rule (font-size 14px, letter-spacing 0.5px,
+   opacity 0.8) plus `#case-study strong`'s 700 weight (both further up this file) — neither reaches
+   this element automatically the same way `.flow-strip`'s own font-family fix already had to be
+   set explicitly (that rule's own comment), so the three values are repeated here on purpose, not
+   copied by accident. The 700 weight itself DOES arrive for free once the text is wrapped in
+   <strong> (index.html) — `#case-study strong` matches any <strong> anywhere inside the section,
+   nesting depth doesn't matter — so it's not redeclared here. */
+.flow-strip-label {
+  text-align: center;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  opacity: 0.8;
+  /* Widened 10px -> 22px, explicit request — more air between the title and the flow row under it. */
+  margin-bottom: 22px;
+}
+
+/* `flex-wrap: nowrap` + `justify-content: space-between` — explicit "full width" request: every
+   step and arrow spaces itself out to actually use the strip's own full width rather than clumping
+   center-left. No responsive fallback (real mobile support is out of scope for this whole page
+   already, apps/web/CLAUDE.md's own "About overlay" section) — tuned for desktop, same as
+   everything else here. */
+.flow-strip-row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+/* Each step — a real mini-box, same "2px white border, family resemblance" language the pyramid
+   tiers use, but 1px here on purpose: five of these sitting in one row next to a 2px outer pill
+   needs a lighter inner weight, or the strip reads as five equally-loud boxes competing with its
+   own edge instead of one system with five steps inside it — thinner border is what keeps the
+   OUTER pill the visually dominant shape. */
+.flow-step {
+  flex: 1 1 0;
+  min-width: 0;
+  box-sizing: border-box;
+  border: 1px solid white;
+  border-radius: 8px;
+  padding: 8px 10px;
+  text-align: center;
+}
+/* Used to deliberately break the "inner boxes stay quieter than the outer pill" rule above, for
+   this one step only — "Mesh API" was enlarged (flex:1.5, border bumped to the outer pill's own
+   2px, padding 8px → 17px) as the one non-negotiable, load-bearing stage in the row. Reverted by
+   explicit request — it read as bigger than its siblings, not as a deliberate emphasis, so this
+   step is back to plain `.flow-step` sizing like every other box in the strip. `flow-step--api`
+   (index.html) is now an unused class on that one div, left in place rather than stripped out of
+   the markup, in case this differentiation is wanted again later. */
+.flow-step--api {
+}
+.flow-step-main {
+  font-size: 11px;
+  line-height: 1.3;
+}
+.flow-step-sub {
+  font-size: 10px;
+  opacity: 0.65;
+  margin-top: 2px;
+}
+/* Reworked, explicit request: "Reactive Real-Time Generation"/"Zero Pre-Made 3D Kanji Assets" moved
+   OUT of being the row's final two steps (they weren't really pipeline stages — nothing gets
+   "pushed through" real-time generation the way stroke data gets pushed through the geometry
+   engine, index.html's own comment above has the full reasoning) and into one plain sentence
+   instead — the claim the pipeline earns by completing, not a step in it. Bold for the SAME reason
+   the pyramid's own RUNTIME ENVIRONMENT tier bolds this exact claim (`#case-study strong`, further
+   up this file) — it's the same headline fact in both places, same visual weight.
+
+   MOVED, later explicit request, from below the row to above it, taking the removed
+   `.flow-strip-label`'s old spot as the strip's opening line — `margin-top` flipped to
+   `margin-bottom` for the same reason: the 14px breathing room this rule always added between the
+   tagline and the row sits on whichever side actually separates them now. */
+.flow-strip-tagline {
+  text-align: center;
+  font-weight: 700;
+  font-size: 12px;
+  margin-bottom: 14px;
+}
+
+/* Reuses .scroll-hint-arrow's own recipe verbatim (that rule's own comment has the full "solid,
+   not thin lines; a bevel, not a glossy shine" reasoning) — same clip-path/gradient/drop-shadow,
+   just a right-pointing triangle instead of a downward one. Static now, explicit follow-up request
+   reversing a same-session addition — these four are directional markers inside a row of already-
+   busy content (five boxes, two-line labels); the pulse (`flow-arrow-pulse`, briefly added to match
+   the landing-page scroll-hint arrow's own "glow on and off" feel, per an earlier explicit request)
+   turned out to be too much motion in that context and is gone entirely, not left dormant — the
+   scroll-hint arrow keeps its own pulse unchanged, this was never about removing it everywhere. */
+.flow-arrow {
+  flex: 0 0 auto;
+  width: 9px;
+  height: 13px;
+  clip-path: polygon(0% 0%, 0% 100%, 100% 50%);
+  background: linear-gradient(90deg, #ffffff 0%, #f2f2f2 55%, #a9b4b6 100%);
+  filter: drop-shadow(1px 0 1px rgba(0, 0, 0, 0.55));
+}
+
+/* Was missing entirely — every OTHER .case-* rule above already existed here as dead CSS (this
+   file's own "dead CSS" comment near its top), matching markup that didn't exist yet; this is the
+   one genuine gap, since the case-study section's own .case-textbox div never had a matching rule
+   ported over before. Verbatim from the source (~/Desktop/DUALITY TERRARIUM/style.css). Font-size/
+   font-family are deliberately NOT set here any more — `#case-study .invert-text, #case-study
+   .case-textbox` (above) is the one shared place those live now, so this box can't drift out of sync
+   with the paragraph above it again. This rule keeps only its own real shape: border, radius, padding,
+   width, margin. */
+/* Width/margin-left (120%/150%/-25%) match `.case-right p`/`.flow-strip` verbatim, and the
+   `transform`/`transform-origin` pair matches theirs too — real, confirmed bug otherwise: this box
+   used to be its own outlier at 90%/10px, and sits BELOW a reflowing paragraph (`.invert-text`, whose
+   own height genuinely changes with viewport width), so a one-off measured translateX correction
+   (the approach that works fine for `.flow-strip`, above `.invert-text`) can't hold at every width for
+   this box the way it can for that one — see `.flow-strip`'s own comment, further up this file, for
+   the full reasoning. `transform-origin: top left` is what makes this box's own top-left/top-right
+   corners land at their plain, un-skewed layout position regardless of anything above them. */
+.case-textbox {
+border: 2px solid white;
+border-radius: 40px;
+padding: 30px 40px;
+width: 120%;
+max-width: 150%;
+margin: 30px auto;
+margin-left: -25%;
+color: white;
+line-height: 1.4;
+background: transparent;
+transform: skewX(-5deg);
+transform-origin: top left;
+}
+
+/* Architecture diagram, REBUILT as a bottom-up pyramid — explicit request, see index.html's own
+   much longer comment right above this diagram's markup for the full rationale (why the order
+   flipped, why RUNTIME ENVIRONMENT isn't a narrowing tier, why widths are fixed steps not
+   content-driven, why alignment is flush-left not centered). This file only has the "how":
+
+   `column-reverse` is what lets index.html be authored in the SAME top-to-bottom order the prose
+   paragraph above it reads in (DATA SOURCE first, `.pyramid-top-row` last) while still rendering
+   DATA SOURCE at the visual bottom — the DOM's last child becomes the visual first with this flex
+   direction, for free, no manual reordering needed.
+
+   `align-items: flex-start` is flush-left alignment for the whole stack — deliberately not the flex
+   default (stretch, which would make every tier full-width) and not centered either (see
+   index.html's comment: centering would split the empty space beside the narrow tier on both sides
+   instead of leaving one clean gap on the right for `.pyramid-runtime` to sit in). */
+.layer-diagram {
+display: flex;
+flex-direction: column-reverse;
+align-items: flex-start;
+gap: 14px;
+}
+
+/* Every tier is now a real mini-box (previously `.layer-diagram-tier` had no visual styling of its
+   own at all, pure text) — same 2px white border as the outer `.case-textbox`, explicit request
+   ("same thickness and everything"), but its own smaller radius: 40px (the outer box's own value)
+   would eat nearly half the height of a single ~80-100px-tall tier and read as a pill, not a box —
+   that only works on `.case-textbox` because IT is ~1600px tall. `box-sizing: border-box` matters
+   here specifically because the pyramid widths below are percentages — without it, each tier's
+   border+padding would add ON TOP of its percentage width instead of being included in it (the
+   exact "padding double-counts" class of bug already documented elsewhere in this project, e.g.
+   apps/web/CLAUDE.md's own regenerateBox() notes on `.nora-moss-content` — same lesson, applied
+   here before it became a real bug instead of after). */
+.layer-diagram-tier {
+box-sizing: border-box;
+border: 2px solid white;
+border-radius: 14px;
+padding: 14px 20px;
+}
+
+/* Fixed step-down widths — see index.html's comment for why these are set numbers, not derived
+   from each tier's own text length. */
+.pyramid-data { width: 100%; }
+.pyramid-classification { width: 80%; }
+.pyramid-rendering { width: 60%; }
+/* flex-shrink: 0 guards this tier's own 40% against being squeezed by `.pyramid-runtime`'s
+   `flex: 1` next to it inside `.pyramid-top-row` (below) — without it, a flex child with an
+   explicit width can still shrink under pressure from a sibling that's actively growing. */
+.pyramid-interface { width: 40%; flex-shrink: 0; }
+
+/* The top row — INTERFACE SYSTEM (the pyramid's own narrowest tier) plus RUNTIME ENVIRONMENT
+   beside it, occupying the width INTERFACE SYSTEM doesn't use. `width: 100%` here matters: as a
+   flex item of `.layer-diagram` (itself `align-items: flex-start`), this row would otherwise
+   shrink to fit only its own content instead of spanning the full pyramid width, leaving
+   `.pyramid-runtime`'s `flex: 1` nothing real to grow into. */
+.pyramid-top-row {
+display: flex;
+align-items: flex-start;
+gap: 14px;
+width: 100%;
+}
+
+/* Pinned to the right edge of the row, explicit request — `margin-left: auto` is the standard
+   flexbox "push everything else away, then stop" trick, so this shrinks to its own content width
+   instead of filling the whole leftover span (that WAS `flex: 1`, dropped) and sits flush against
+   the row's right edge with real, visible empty space between it and `.pyramid-interface`'s box —
+   reads more clearly as "sitting outside the pyramid, off to the side" than a wide filled box did.
+   `text-align: right` keeps its own two lines (different lengths: "Client-Side Rendering" vs. "Zero
+   Backend") both hugging that same right edge instead of ragging left within the shrunk box.
+   Doesn't get `.layer-diagram-tier`'s box treatment either (index.html no longer puts that class on
+   it) — no border, no background, plain text, flush against the row on BOTH exposed edges now (no
+   `padding-right`, and `padding-top: 0` as of this pass). Two earlier attempts in this same session
+   tried to fix "feels like an invisible box" by giving it SOME nonzero top inset (first 16px to
+   pixel-align its heading with `.pyramid-interface`'s own, then 14px to match the diagram's own
+   `gap` unit instead) while staying flush-right at 0 — both still read as boxy, because ANY nonzero
+   inset on one exposed edge next to a 0 inset on the other IS the asymmetry that reads as "a box
+   with its border erased but one edge of padding left behind," regardless of which specific value
+   the nonzero side uses. 0/0 is what actually removes it — this no longer pixel-aligns with
+   INTERFACE SYSTEM's own heading (that tradeoff was already accepted last pass, for the same
+   reason: exact alignment with a box this element deliberately doesn't resemble anymore isn't worth
+   preserving). */
+.pyramid-runtime {
+margin-left: auto;
+text-align: right;
+padding-top: 0;
+}
+
+.layer-diagram-item {
+padding-top: 2px;
+}
+
+/* Real, confirmed bug, applies to EVERY <strong> in this section, not just the one it was first
+   caught on — every LAYER 1-4/RUNTIME ENVIRONMENT heading, both in the prose paragraph above and
+   repeated as each tier's own diagram heading, all sit inside `#case-study .invert-text, #case-study
+   .case-textbox`'s shared `font-weight: 300` base. <strong>'s default UA rule is the RELATIVE
+   keyword `font-weight: bolder`, not a fixed 700 — per the CSS Fonts spec's own "bolder" lookup
+   table, stepping up from a base under 350 only reaches 400, not 700 (that jump only happens from a
+   350-549 base). Measured directly on the RUNTIME headline <strong> that surfaced this:
+   getComputedStyle returned 400, not bold — a 100-unit difference from the surrounding 300 text
+   isn't visually "bold" to a reader, and every other heading in this section had the exact same
+   silent problem. Explicit weight instead of the relative keyword is what actually delivers real
+   contrast, applied once here instead of per-heading. */
+#case-study strong {
+font-weight: 700;
+}
+
+
+
+.no-radius-section img,
+.no-radius-section figure,
+.no-radius-section .text {
+border-radius: var(--radius-none);
+}
+
+#alt .text {
+border-radius: 0 !important;
+overflow: visible; 
+padding: 0;
+}
+
+#alt {
+--border-radius: 0;
+--radius-left: 0;
+--radius-right: 0;
+}
+
+/* Scroll Effect */
+#smooth-scroll {
+position: relative;
+width: 100%;
+}
+
+
+
+/* ================================
+   TERRARIUM UNDERLAY SYSTEM
+   ================================ */
+
+/* About section is the stacking context */
+section.about {
+  position: sticky;   
+  top: 0;
+}
+
+/* Content stays above the underlay */
+section.about .about-content,
+section.about article,
+section.about h1,
+section.about h3,
+section.about p {
+  position: relative;
+  z-index: 10;
+  opacity: 100;
+}
+
+/* Underlay wrapper fills the entire section and sits behind */
+.terrarium-underlay {
+  position: absolute;
+  inset: 0;                 /* top:0; right:0; bottom:0; left:0 */
+  z-index: -1;              /* pushes it behind content */
+  pointer-events: none;     /* prevents blocking scroll/clicks */
+}
+
+/* Images inside the underlay behave like a background */
+.terrarium-underlay img {
+  position: absolute;
+  object-fit: cover;
+  opacity: 0.9;
+  filter: invert(0) brightness(0.5) contrast(0.9);
+}
+
+/* ---------------------------------
+   TERRARIUM IMAGES – INITIAL STATE
+   --------------------------------- */
+
+/* Base state: in DOM but invisible, no animation yet */
+.main-terra-pic {
+  position: absolute;
+  left: -150px;
+  bottom: 0%;
+  width: 600px;
+
+  --flip: 1;
+  --rot: 0deg;
+
+  opacity: 0;
+  animation: none;
+}
+
+.terra-2 {
+  position: absolute;
+  right: -300px;
+  top: -15%;            /* move UP (more negative = higher) */
+  width: 1000px;
+
+  transform: skewX(-5deg);
+  --flip: -1;
+  --rot: -3deg;
+
+  opacity: 0;
+  animation: none;
+}
+
+/* ---------------------------------
+   WHEN 3D SEQUENCE IS COMPLETE
+   (body gets .page-loaded in JS)
+   --------------------------------- */
+
+   body.page-loaded .main-terra-pic {
+    animation:
+      subtleFloat 8s ease-in-out infinite,
+      fluorescentOn 1.8s steps(22, end) forwards,
+      breathingGlow 7.5s ease-in-out 1.8s infinite;
+  }
+  
+  body.page-loaded .terra-2 {
+    animation:
+      subtleFloat 10s ease-in-out infinite,
+      fluorescentOn 1.8s steps(26, end) 1s forwards,
+      breathingGlow 8.5s ease-in-out 2s infinite;
+      animation-delay: 0s, 0s, 2s;
+
+  }
+  
+
+@keyframes subtleFloat {
+  0% {
+    transform: translateY(0px) translateX(0px) scaleX(var(--flip)) rotate(var(--rot));
+  }
+  50% {
+    transform: translateY(-18px) translateX(8px) scaleX(var(--flip)) rotate(calc(var(--rot) + 0.3deg));
+  }
+  100% {
+    transform: translateY(0px) translateX(0px) scaleX(var(--flip)) rotate(var(--rot));
+  }
+}
+
+@keyframes fluorescentOn {
+  0%   { opacity: 0;   filter: brightness(0.1) contrast(1.5); transform: scaleX(var(--flip)) rotate(var(--rot)); }
+  8%   { opacity: 1;   filter: brightness(1.8) contrast(1.3); transform: scaleX(var(--flip)) rotate(calc(var(--rot) + 0.4deg)); }
+  16%  { opacity: 0.2; filter: brightness(0.3) contrast(1.2); transform: scaleX(var(--flip)) rotate(var(--rot)); }
+  24%  { opacity: 1;   filter: brightness(1.6) contrast(1.3); transform: scaleX(var(--flip)) rotate(calc(var(--rot) - 0.3deg)); }
+  34%  { opacity: 0.1; filter: brightness(0.2) contrast(1);   transform: scaleX(var(--flip)) rotate(var(--rot)); }
+  45%  { opacity: 1;   filter: brightness(1.9) contrast(1.5); transform: scaleX(var(--flip)) rotate(calc(var(--rot) + 0.4deg)); }
+  60%  { opacity: 0.4; filter: brightness(0.6) contrast(1.1); transform: scaleX(var(--flip)) rotate(var(--rot)); }
+  80%  { opacity: 0.7; filter: brightness(0.9) contrast(1.1); transform: scaleX(var(--flip)) rotate(calc(var(--rot) + 0.1deg)); }
+  100% { opacity: 0.5; filter: brightness(0.85) contrast(1.05); transform: scaleX(var(--flip)) rotate(var(--rot)); }
+}
+
+@keyframes breathingGlow {
+  0% {
+    opacity: 0.40;
+    filter: brightness(0.70) contrast(1.0);
+  }
+  50% {
+    opacity: 0.60;
+    filter: brightness(1.00) contrast(1.08);
+  }
+  100% {
+    opacity: 0.40;
+    filter: brightness(0.70) contrast(1.0);
+  }
+}
+
+
+
+
+
+/* (Optional) Remove border radii if needed for full-bleed imgs */
+.no-radius-section img,
+.no-radius-section figure,
+.no-radius-section .text {
+  border-radius: 0;
+}
+
+
+.duality-title {
+  font-family: 'Syne', sans-serif;     /* same family */
+  font-size: 35px;                     /* a bit lighter, matches terra-title scale */
+  font-weight: 500;                    /* softer weight like terra-title */
+  line-height: 1.1;                    /* slightly taller, matches paragraph rhythm */
+  letter-spacing: 0.5px;               /* gentle spacing, dictionary-like */
+  
+  text-transform: uppercase;
+  transform: skewX(-5deg);
+  opacity: 0.8;                       /* same tone as other text */
+
+  /* positioning you already had */
+  margin-top: -350px;
+  margin-left: 240px;
+  margin-bottom: 0px;
+  color: white;
+  max-width: 200px; 
+
+  font-weight: 100;
+
+  animation: 
+  fluorescentOn 1.8s steps(22, end) forwards,
+  subtleFloat 3s ease-in-out infinite,
+
+  
+  
+  
+            
+}
+
+/* Base text style shared by subtitle + terra block */
+.duality-subtitle,
+#terra-def {
+  font-family: 'Syne', sans-serif;
+  font-size: 12px;
+  line-height: 1.4;
+  font-weight: 300;
+  opacity: 0.8;
+  transform: skewX(-5deg);
+  max-width: 400px; 
+  min-width: 80px;  
+  animation: 
+  fluorescentOn 1.8s steps(22, end) forwards,
+  subtleFloat 3s ease-in-out infinite,
+  
+}
+
+/* Terra block positioning */
+#terra-def {
+  margin-left: -450px;  /* keep your current position */
+  margin-top: 0;
+}
+
+
+
+/* Subtitle positioning only (no visual difference otherwise) */
+.duality-subtitle {
+  display: block;
+  margin-top: -160px;
+  margin-left: -80px;
+  margin-right: 200px;
+  padding: 0;           /* remove box feel so it matches text */
+  border: none;
+  border-radius: 0;
+  max-width: 80px; /* ← forces it to break into more lines */
+  min-height: 2.8em;
+}
+/* Container styling (matches subtitle aesthetic) */
+#terra-def {
+  font-family: 'Syne', sans-serif;
+  transform: skewX(-5deg);
+  margin-left: 50px;
+  margin-top: -200px; /* adjust to taste */
+  max-width: 520px;
+  line-height: 1.4;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+/* CONTROL THE POSITION OF THE ENTIRE TYPED PARAGRAPH */
+.terra-block {
+  position: relative;
+  z-index: 50;        /* puts it above underlay */
+  width: 100%;
+  max-width: 400px;   /* keeps text width stable */
+  margin-left: 250px;  /* adjust left-right position */
+  margin-top: -40px;  /* adjust vertical position */
+}
+
+/* Container for the whole typed block */
+#terra-def {
+  font-family: 'Syne', sans-serif;
+  transform: skewX(-5deg);
+  max-width: 200px;
+  line-height: 1.4;
+  font-size: 12px;
+  opacity: 0.8;
+
+  /* tweak these to move the block around */
+  margin-left: -420px;   /* horizontal position */
+  margin-top: 0;       /* start with 0 so it doesn't fly off-screen */
+}
+
+/* Title paragraph */
+#terra-def .terra-title {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  opacity: 0.8;
+  display: inline-block;
+  border-radius: 8px;
+  margin-left: 0;
+  margin-bottom: 0px;
+}
+
+/* italic definition line */
+#terra-def .terra-italic {
+  font-style: italic;
+  font-weight: 300;
+  font-size: 13px;
+  display: inline-block;
+  margin-bottom: 0px;
+  /* Real, confirmed cause of "two whole lines between Terrarium and terra" — this file has no global
+     margin reset anywhere, so this element (and the plain <p> just above it, next rule down) both
+     still carry the browser's own default <p> top margin (~1em) on top of whatever this file
+     explicitly sets, and adjacent margins don't collapse away here since the plain <p> above ALSO has
+     its own explicit margin-bottom (general "#terra-def p" rule, right below) fighting it. Zeroed so
+     the ONLY gap between the two lines is the plain <p>'s own margin-bottom, set to a single line's
+     worth just below. */
+  margin-top: 0;
+  opacity: 0.8;
+}
+
+/* general paragraphs — matches every <p> inside #terra-def with no more specific class, which is
+   currently just the plain "Terrarium (Noun)" line (index.html) — .terra-title's own CSS exists but
+   isn't actually applied to it (wrong/missing class in the markup), so this general rule is the one
+   actually styling it. margin-top:0 stops the same unreset browser-default top margin .terra-italic
+   had (this rule's own comment above); margin-bottom trimmed from 16px down to a single line's worth
+   (~1 line-height at this block's 14px/1.4 — style.css's own #terra-def, further up) instead of 16px
+   stacking with .terra-italic's own former top margin to read as two full blank lines. */
+#terra-def p {
+  margin-top: 0;
+  margin-bottom: 6px;
+}
+
+/* Same real bug as #case-study strong (style.css, that rule's own comment has the full CSS Fonts
+   spec explanation) — "Terrarium (Noun)" and "Scroll down to learn more about the project." are
+   both wrapped in bare <strong> (index.html) but sit on a 300-weight base, and <strong>'s default
+   `font-weight: bolder` only steps up to 400 from a base under 350, not 700. Measured directly here
+   too before assuming the earlier fix's reasoning still applied unverified: both returned 400. */
+#terra-def strong {
+  font-weight: 700;
+}
+
+
+.typewriter-cursor::after {
+  content: "|";
+  margin-left: 4px;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.terra-styled .terra-title,
+.terra-styled .terra-italic {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.3);
+  opacity: 0.8;
+}
+
+
+/* =========================
+   LOADER / 3D TERRARIUM
+   ========================= */
+
+/* Stop scroll while we're still on the "intro" state */
+body.loading {
+  overflow: hidden;
+}
+
+
+
+
+/* Full opacity while loading / intro */
+body.loading #loader-canvas {
+  opacity: 1;
+}
+
+/* Slightly dimmed 3D once the homepage is active */
+body.page-loaded #loader-canvas {
+  opacity: 0.8; /* tweak 0.7–0.85 to taste */
+}
+
+
+
+/* The ONE box: the SPACE text pill */
+.loader-subtitle {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+
+  padding: 10px 28px;
+  border-radius: 999px;
+
+  background: rgba(0,0,0,0.55);
+  border: 1px solid rgba(102,255,204,0.7);
+  color: #6ef0b5;
+
+  box-shadow:
+    0 0 8px rgba(102,255,204,0.7),
+    0 0 20px rgba(0,150,120,0.3);
+}
+
+
+
+
+/* While we are in the LOADING state:
+   the overlay becomes a full-screen cover, interactive 3D */
+body.loading #loader-overlay {
+  position: fixed;    /* cover the entire viewport */
+  inset: 0;
+  background: #000;   /* solid so homepage isn't visible yet */
+  z-index: 9000;
+  pointer-events: all; /* allow mouse interaction with Babylon */
+}
+
+/* Once the space animation is COMPLETE and JS has switched to .page-loaded:
+   the overlay drops back into the landing section as a background 3D layer */
+body.page-loaded #loader-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 0;
+  pointer-events: none; /* 3D still animates, but no more drag/hover */
+}
+
+
+
+
+
+
+/* ============================= */
+/* ADDITIONS FOR BABYLON LOADER  */
+/* ============================= */
+
+/* Put the 3D loader UNDER the nav + unmute (they're z-index: 9999) */
+#loader-overlay {
+background: #000000;   /* full black intro */
+z-index: 900;          /* lower than nav / unmute */
+}
+
+/* Babylon canvas fills overlay */
+#loader-canvas {
+width: 100%;
+height: 100%;
+display: block;
+touch-action: none;
+outline: none;
+}
+
+
+.loader-ui {
+  position: fixed;
+  bottom: 10vh;  /* roughly ~50–70px depending on screen */
+  left: 0%;
+  transform: translateX(45%);
+  opacity: 0.8;
+ 
+}
+
+.loader-title {
+font-size: 0.75rem;
+letter-spacing: 0.2em;
+text-transform: uppercase;
+}
+
+
+/* Make sure nav + unmute stay above everything */
+nav,
+#unmute,
+#trackInfo {
+position: fixed;
+z-index: 1000;
+}
+
+/* Unmute attention flicker */
+@keyframes unmute-flicker {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: none;
+  }
+  50% {
+    opacity: 0.25;
+    box-shadow: 0 0 18px rgba(102, 255, 204, 0.9); /* neon-ish glow */
+  }
+}
+
+/* This class will be toggled by JS */
+.unmute-flicker {
+  animation: unmute-flicker 0.25s linear 3; /* 0.25s * 3 = ~0.75s total */
+}
+
+
+
+/* =========================
+   LOADING SCREEN
+   ========================= */
+
+/* Prevent scroll while loading */
+body.loading {
+  overflow: hidden;
+}
+
+
+/* 3D canvas for loading scene (stays behind UI) */
+#loader-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+/* Title text */
+.loader-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 18px;
+  font-weight: 300;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.loader-subtitle {
+  font-family: monospace;       /* same as menu font */
+  font-size: 14px;              /* match */
+  font-weight: 600;             /* match */
+  letter-spacing: 0.5px;        /* match */
+  text-transform: none;         /* menu button is NOT uppercase */
+      
+  color: white;                 /* match menu text */
+  background: black;            /* match menu bg */
+  border: 1px solid white;      /* match menu border */
+  border-radius: 8px;           /* match menu radius */
+
+  padding: 8px 16px;            /* match menu padding */
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: default;
+  pointer-events: none;
+
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+
+/* Optional spinner (if you’re using it) */
+.loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.loader-ring {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 3px solid rgba(148, 163, 184, 0.45);
+  border-top-color: #38bdf8;
+  animation: spin 0.9s linear infinite;
+}
+
+.loader-text {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #cbd5f5;
+  opacity: 0.8;
+}
+
+/* Rotation keyframes */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .loader-ring {
+    animation: none;
+  }
+  #loader-overlay {
+    transition: none;
+  }
+}
+
+/* Fade in SPACE box after 5 seconds */
+@keyframes spaceAppear {
+  0% { opacity: 0; }
+  100% { opacity: 0.8; }
+}
+
+.loader-subtitle {
+  opacity: 0;                          /* start invisible */
+  animation: spaceAppear 0.6s ease forwards;
+  animation-delay: 10s;                 /* 5-second delay before showing */
+  
+}
+
+/* Fullscreen overlay that covers homepage, but sits under nav/unmute */
+#loader-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;          /* or transparent if you want */
+  color: #e5e7eb;
+  z-index: 500;        
+  opacity: 1;
+  pointer-events: all;       /* okay while loading */
+  transition: opacity 0.4s ease;
+
+}
+
+

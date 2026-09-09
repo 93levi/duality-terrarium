@@ -1,0 +1,9369 @@
+{
+  "3": [
+    {
+      "kanji": "一",
+      "gloss": "one",
+      "on": [
+        "イチ",
+        "イッ"
+      ],
+      "kun": [
+        "ひと"
+      ],
+      "examples": [
+        {
+          "word": "一",
+          "reading": "いち",
+          "gloss": "one"
+        },
+        {
+          "word": "一時",
+          "reading": "いちじ",
+          "gloss": "one o'clock"
+        },
+        {
+          "word": "一年生",
+          "reading": "いちねんせい",
+          "gloss": "first-year student"
+        },
+        {
+          "word": "一分",
+          "reading": "いっぷん",
+          "gloss": "one minute"
+        }
+      ]
+    },
+    {
+      "kanji": "二",
+      "gloss": "two",
+      "on": [
+        "ニ"
+      ],
+      "kun": [
+        "ふた"
+      ],
+      "examples": [
+        {
+          "word": "二",
+          "reading": "に",
+          "gloss": "two"
+        },
+        {
+          "word": "二時",
+          "reading": "にじ",
+          "gloss": "two o'clock"
+        },
+        {
+          "word": "二年生",
+          "reading": "にねんせい",
+          "gloss": "second-year student"
+        },
+        {
+          "word": "二つ",
+          "reading": "ふたつ",
+          "gloss": "two"
+        }
+      ]
+    },
+    {
+      "kanji": "三",
+      "gloss": "three",
+      "on": [
+        "サン"
+      ],
+      "kun": [
+        "みっ"
+      ],
+      "examples": [
+        {
+          "word": "三",
+          "reading": "さん",
+          "gloss": "three"
+        },
+        {
+          "word": "三時",
+          "reading": "さんじ",
+          "gloss": "three o'clock"
+        },
+        {
+          "word": "三年生",
+          "reading": "さんねんせい",
+          "gloss": "third-year student"
+        },
+        {
+          "word": "三つ",
+          "reading": "みっつ",
+          "gloss": "three"
+        }
+      ]
+    },
+    {
+      "kanji": "四",
+      "gloss": "four",
+      "on": [
+        "シ"
+      ],
+      "kun": [
+        "よん",
+        "よ",
+        "よっ"
+      ],
+      "examples": [
+        {
+          "word": "四",
+          "reading": "よん",
+          "gloss": "four"
+        },
+        {
+          "word": "四時",
+          "reading": "よじ",
+          "gloss": "four o'clock"
+        },
+        {
+          "word": "四つ",
+          "reading": "よっつ",
+          "gloss": "four"
+        },
+        {
+          "word": "四月",
+          "reading": "しがつ",
+          "gloss": "April"
+        }
+      ]
+    },
+    {
+      "kanji": "五",
+      "gloss": "five",
+      "on": [
+        "ゴ"
+      ],
+      "kun": [
+        "いつ"
+      ],
+      "examples": [
+        {
+          "word": "五",
+          "reading": "ご",
+          "gloss": "five"
+        },
+        {
+          "word": "五時",
+          "reading": "ごじ",
+          "gloss": "five o'clock"
+        },
+        {
+          "word": "五つ",
+          "reading": "いつつ",
+          "gloss": "five"
+        },
+        {
+          "word": "五分",
+          "reading": "ごふん",
+          "gloss": "five minutes"
+        }
+      ]
+    },
+    {
+      "kanji": "六",
+      "gloss": "six",
+      "on": [
+        "ロク",
+        "ロッ"
+      ],
+      "kun": [
+        "むっ"
+      ],
+      "examples": [
+        {
+          "word": "六",
+          "reading": "ろく",
+          "gloss": "six"
+        },
+        {
+          "word": "六時",
+          "reading": "ろくじ",
+          "gloss": "six o'clock"
+        },
+        {
+          "word": "六百",
+          "reading": "ろっぴゃく",
+          "gloss": "six hundred"
+        },
+        {
+          "word": "六分",
+          "reading": "ろっぷん",
+          "gloss": "six minutes"
+        }
+      ]
+    },
+    {
+      "kanji": "七",
+      "gloss": "seven",
+      "on": [
+        "シチ"
+      ],
+      "kun": [
+        "なな"
+      ],
+      "examples": [
+        {
+          "word": "七",
+          "reading": "なな",
+          "gloss": "seven"
+        },
+        {
+          "word": "七時",
+          "reading": "しちじ",
+          "gloss": "seven o'clock"
+        },
+        {
+          "word": "七つ",
+          "reading": "ななつ",
+          "gloss": "seven"
+        }
+      ]
+    },
+    {
+      "kanji": "八",
+      "gloss": "eight",
+      "on": [
+        "ハチ",
+        "ハッ"
+      ],
+      "kun": [
+        "やっ"
+      ],
+      "examples": [
+        {
+          "word": "八",
+          "reading": "はち",
+          "gloss": "eight"
+        },
+        {
+          "word": "八時",
+          "reading": "はちじ",
+          "gloss": "eight o'clock"
+        },
+        {
+          "word": "八百",
+          "reading": "はっぴゃく",
+          "gloss": "eight hundred"
+        },
+        {
+          "word": "八歳",
+          "reading": "はっさい",
+          "gloss": "eight years old"
+        }
+      ]
+    },
+    {
+      "kanji": "九",
+      "gloss": "nine",
+      "on": [
+        "キュウ",
+        "ク"
+      ],
+      "kun": [
+        "ここの"
+      ],
+      "examples": [
+        {
+          "word": "九",
+          "reading": "きゅう",
+          "gloss": "nine"
+        },
+        {
+          "word": "九時",
+          "reading": "くじ",
+          "gloss": "nine o'clock"
+        },
+        {
+          "word": "九歳",
+          "reading": "きゅうさい",
+          "gloss": "nine years old"
+        },
+        {
+          "word": "九つ",
+          "reading": "ここのつ",
+          "gloss": "nine"
+        }
+      ]
+    },
+    {
+      "kanji": "十",
+      "gloss": "ten",
+      "on": [
+        "ジュウ",
+        "ジュッ"
+      ],
+      "kun": [
+        "とお"
+      ],
+      "examples": [
+        {
+          "word": "十",
+          "reading": "じゅう",
+          "gloss": "ten"
+        },
+        {
+          "word": "十時",
+          "reading": "じゅうじ",
+          "gloss": "ten o'clock"
+        },
+        {
+          "word": "十歳",
+          "reading": "じゅっさい",
+          "gloss": "ten years old"
+        },
+        {
+          "word": "十",
+          "reading": "とお",
+          "gloss": "ten"
+        }
+      ]
+    },
+    {
+      "kanji": "百",
+      "gloss": "hundred",
+      "on": [
+        "ヒャク",
+        "ピャク",
+        "ビャク"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "六百",
+          "reading": "ろっぴゃく",
+          "gloss": "six hundred"
+        },
+        {
+          "word": "八百",
+          "reading": "はっぴゃく",
+          "gloss": "eight hundred"
+        },
+        {
+          "word": "百",
+          "reading": "ひゃく",
+          "gloss": "hundred"
+        },
+        {
+          "word": "三百",
+          "reading": "さんびゃく",
+          "gloss": "three hundred"
+        }
+      ]
+    },
+    {
+      "kanji": "千",
+      "gloss": "thousand",
+      "on": [
+        "セン",
+        "ゼン"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "千",
+          "reading": "せん",
+          "gloss": "thousand"
+        },
+        {
+          "word": "三千",
+          "reading": "さんぜん",
+          "gloss": "three thousand"
+        },
+        {
+          "word": "八千",
+          "reading": "はっせん",
+          "gloss": "eight thousand"
+        }
+      ]
+    },
+    {
+      "kanji": "万",
+      "gloss": "ten thousand",
+      "on": [
+        "マン"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "一万",
+          "reading": "いちまん",
+          "gloss": "ten thousand"
+        },
+        {
+          "word": "十万",
+          "reading": "じゅうまん",
+          "gloss": "one hundred thousand"
+        },
+        {
+          "word": "百万",
+          "reading": "ひゃくまん",
+          "gloss": "one million"
+        }
+      ]
+    },
+    {
+      "kanji": "円",
+      "gloss": "yen",
+      "on": [
+        "エン"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "百円",
+          "reading": "ひゃくえん",
+          "gloss": "one hundred yen"
+        },
+        {
+          "word": "円",
+          "reading": "えん",
+          "gloss": "circle"
+        }
+      ]
+    },
+    {
+      "kanji": "時",
+      "gloss": "time; o'clock",
+      "on": [
+        "ジ"
+      ],
+      "kun": [
+        "とき"
+      ],
+      "examples": [
+        {
+          "word": "一時",
+          "reading": "いちじ",
+          "gloss": "one o'clock"
+        },
+        {
+          "word": "二時",
+          "reading": "にじ",
+          "gloss": "two o'clock"
+        },
+        {
+          "word": "三時",
+          "reading": "さんじ",
+          "gloss": "three o'clock"
+        },
+        {
+          "word": "四時",
+          "reading": "よじ",
+          "gloss": "four o'clock"
+        }
+      ]
+    }
+  ],
+  "4": [
+    {
+      "kanji": "日",
+      "gloss": "sun; day; daytime",
+      "on": [
+        "ニ",
+        "ニチ",
+        "ニッ"
+      ],
+      "kun": [
+        "び",
+        "ひ"
+      ],
+      "examples": [
+        {
+          "word": "二日間",
+          "reading": "ふつかかん",
+          "gloss": "two days"
+        },
+        {
+          "word": "日本",
+          "reading": "にほん",
+          "gloss": "Japan"
+        },
+        {
+          "word": "日曜日",
+          "reading": "にちようび",
+          "gloss": "Sunday"
+        },
+        {
+          "word": "毎日",
+          "reading": "まいにち",
+          "gloss": "every day"
+        }
+      ]
+    },
+    {
+      "kanji": "本",
+      "gloss": "origin; book",
+      "on": [
+        "ホン"
+      ],
+      "kun": [
+        "もと"
+      ],
+      "examples": [
+        {
+          "word": "日本",
+          "reading": "にほん",
+          "gloss": "Japan"
+        },
+        {
+          "word": "本",
+          "reading": "ほん",
+          "gloss": "book"
+        },
+        {
+          "word": "日本語",
+          "reading": "にほんご",
+          "gloss": "Japanese language"
+        },
+        {
+          "word": "山本さん",
+          "reading": "やまもとさん",
+          "gloss": "Mr./Ms. Yamamoto"
+        }
+      ]
+    },
+    {
+      "kanji": "人",
+      "gloss": "person",
+      "on": [
+        "ジン",
+        "ニン"
+      ],
+      "kun": [
+        "ひと"
+      ],
+      "examples": [
+        {
+          "word": "日本人",
+          "reading": "にほんじん",
+          "gloss": "Japanese people"
+        },
+        {
+          "word": "一人で",
+          "reading": "ひとりで",
+          "gloss": "alone"
+        },
+        {
+          "word": "三人",
+          "reading": "さんにん",
+          "gloss": "three people"
+        },
+        {
+          "word": "女の人",
+          "reading": "おんなのひと",
+          "gloss": "woman"
+        }
+      ]
+    },
+    {
+      "kanji": "月",
+      "gloss": "counter for name of month; moon",
+      "on": [
+        "ゲツ",
+        "ガツ"
+      ],
+      "kun": [
+        "つき"
+      ],
+      "examples": [
+        {
+          "word": "四月",
+          "reading": "しがつ",
+          "gloss": "April"
+        },
+        {
+          "word": "月曜日",
+          "reading": "げつようび",
+          "gloss": "Monday"
+        },
+        {
+          "word": "一月",
+          "reading": "いちがつ",
+          "gloss": "January"
+        },
+        {
+          "word": "月",
+          "reading": "つき",
+          "gloss": "moon"
+        }
+      ]
+    },
+    {
+      "kanji": "火",
+      "gloss": "fire",
+      "on": [
+        "カ"
+      ],
+      "kun": [
+        "ひ"
+      ],
+      "examples": [
+        {
+          "word": "火曜日",
+          "reading": "かようび",
+          "gloss": "Tuesday"
+        },
+        {
+          "word": "火",
+          "reading": "ひ",
+          "gloss": "fire"
+        },
+        {
+          "word": "火事",
+          "reading": "かじ",
+          "gloss": "fire"
+        },
+        {
+          "word": "花火",
+          "reading": "はなび",
+          "gloss": "fireworks"
+        }
+      ]
+    },
+    {
+      "kanji": "水",
+      "gloss": "water",
+      "on": [
+        "スイ"
+      ],
+      "kun": [
+        "みず"
+      ],
+      "examples": [
+        {
+          "word": "水曜日",
+          "reading": "すいようび",
+          "gloss": "Wednesday"
+        },
+        {
+          "word": "水",
+          "reading": "みず",
+          "gloss": "water"
+        },
+        {
+          "word": "水泳",
+          "reading": "すいえい",
+          "gloss": "swimming"
+        },
+        {
+          "word": "水準",
+          "reading": "すいじゅん",
+          "gloss": "a standard"
+        }
+      ]
+    },
+    {
+      "kanji": "木",
+      "gloss": "tree; wood",
+      "on": [
+        "モク"
+      ],
+      "kun": [
+        "き"
+      ],
+      "examples": [
+        {
+          "word": "木曜日",
+          "reading": "もくようび",
+          "gloss": "Thursday"
+        },
+        {
+          "word": "木",
+          "reading": "き",
+          "gloss": "tree"
+        }
+      ]
+    },
+    {
+      "kanji": "金",
+      "gloss": "gold",
+      "on": [
+        "キン"
+      ],
+      "kun": [
+        "かね"
+      ],
+      "examples": [
+        {
+          "word": "金曜日",
+          "reading": "きにょうび",
+          "gloss": "Friday"
+        },
+        {
+          "word": "お金",
+          "reading": "おかね",
+          "gloss": "money"
+        },
+        {
+          "word": "料金",
+          "reading": "りょうきん",
+          "gloss": "charge"
+        },
+        {
+          "word": "金魚",
+          "reading": "きんぎょ",
+          "gloss": "goldfish"
+        }
+      ]
+    },
+    {
+      "kanji": "土",
+      "gloss": "earth; soil",
+      "on": [
+        "ド"
+      ],
+      "kun": [
+        "つち"
+      ],
+      "examples": [
+        {
+          "word": "土曜日",
+          "reading": "どようび",
+          "gloss": "Saturday"
+        },
+        {
+          "word": "土",
+          "reading": "つち",
+          "gloss": "soil"
+        },
+        {
+          "word": "土地",
+          "reading": "とち",
+          "gloss": "plot of land; lot; soil"
+        }
+      ]
+    },
+    {
+      "kanji": "曜",
+      "gloss": "weekday",
+      "on": [
+        "ヨウ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "日曜日",
+          "reading": "にちようび",
+          "gloss": "Sunday"
+        },
+        {
+          "word": "月曜日",
+          "reading": "げつようび",
+          "gloss": "Monday"
+        },
+        {
+          "word": "火曜日",
+          "reading": "かようび",
+          "gloss": "Tuesday"
+        },
+        {
+          "word": "水曜日",
+          "reading": "すいようび",
+          "gloss": "Wednesday"
+        }
+      ]
+    },
+    {
+      "kanji": "上",
+      "gloss": "top; above; on",
+      "on": [
+        "ジョウ"
+      ],
+      "kun": [
+        "うえ"
+      ],
+      "examples": [
+        {
+          "word": "上",
+          "reading": "うえ",
+          "gloss": "top; above"
+        },
+        {
+          "word": "上手な",
+          "reading": "じょうずな",
+          "gloss": "good at"
+        },
+        {
+          "word": "屋上",
+          "reading": "おくじょう",
+          "gloss": "rooftop"
+        },
+        {
+          "word": "〜以上",
+          "reading": "〜いじょう",
+          "gloss": "... or more"
+        }
+      ]
+    },
+    {
+      "kanji": "下",
+      "gloss": "under; beneath; below; bottom",
+      "on": [
+        "カ"
+      ],
+      "kun": [
+        "した"
+      ],
+      "examples": [
+        {
+          "word": "下",
+          "reading": "した",
+          "gloss": "under"
+        },
+        {
+          "word": "地下鉄",
+          "reading": "ちかてつ",
+          "gloss": "subway"
+        },
+        {
+          "word": "下手な",
+          "reading": "へたな",
+          "gloss": "poor at"
+        },
+        {
+          "word": "地下",
+          "reading": "ちか",
+          "gloss": "underground"
+        }
+      ]
+    },
+    {
+      "kanji": "中",
+      "gloss": "inside; within",
+      "on": [
+        "チュウ",
+        "ジュウ"
+      ],
+      "kun": [
+        "なか"
+      ],
+      "examples": [
+        {
+          "word": "中",
+          "reading": "なか",
+          "gloss": "inside"
+        },
+        {
+          "word": "中国",
+          "reading": "ちゅうごく",
+          "gloss": "China"
+        },
+        {
+          "word": "中学",
+          "reading": "ちゅうがく",
+          "gloss": "junior high school"
+        },
+        {
+          "word": "一年中",
+          "reading": "いちねんじゅう",
+          "gloss": "all year round"
+        }
+      ]
+    },
+    {
+      "kanji": "半",
+      "gloss": "half",
+      "on": [
+        "ハン"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "三時半",
+          "reading": "さんじはん",
+          "gloss": "half past three"
+        },
+        {
+          "word": "半分",
+          "reading": "はんぶん",
+          "gloss": "half"
+        },
+        {
+          "word": "半島",
+          "reading": "はんとう",
+          "gloss": "a peninsula"
+        }
+      ]
+    }
+  ],
+  "5": [
+    {
+      "kanji": "山",
+      "gloss": "mountain",
+      "on": [
+        "サン"
+      ],
+      "kun": [
+        "やま"
+      ],
+      "examples": [
+        {
+          "word": "山本さん",
+          "reading": "やまもとさん",
+          "gloss": "Mr./Ms. Yamamoto"
+        },
+        {
+          "word": "山",
+          "reading": "やま",
+          "gloss": "mountain"
+        },
+        {
+          "word": "富士山",
+          "reading": "ふじさん",
+          "gloss": "Mt. Fuji"
+        },
+        {
+          "word": "山田さん",
+          "reading": "やまださん",
+          "gloss": "Mr./Ms. Yamada"
+        }
+      ]
+    },
+    {
+      "kanji": "川",
+      "gloss": "river",
+      "on": [],
+      "kun": [
+        "かわ",
+        "がわ"
+      ],
+      "examples": [
+        {
+          "word": "川",
+          "reading": "かわ",
+          "gloss": "river"
+        },
+        {
+          "word": "小川さん",
+          "reading": "おがわさん",
+          "gloss": "Mr./Ms. Ogawa"
+        },
+        {
+          "word": "川口市",
+          "reading": "かわぐちし",
+          "gloss": "Kawaguchi city"
+        },
+        {
+          "word": "石川",
+          "reading": "いしかわ",
+          "gloss": "(a Japanese surname)"
+        }
+      ]
+    },
+    {
+      "kanji": "元",
+      "gloss": "origin",
+      "on": [
+        "ゲン"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "元気な",
+          "reading": "げんきな",
+          "gloss": "fine"
+        }
+      ]
+    },
+    {
+      "kanji": "気",
+      "gloss": "spirit; mind; energy",
+      "on": [
+        "キ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "元気な",
+          "reading": "げんきな",
+          "gloss": "fine"
+        },
+        {
+          "word": "天気",
+          "reading": "てんき",
+          "gloss": "weather"
+        },
+        {
+          "word": "電気",
+          "reading": "でんき",
+          "gloss": "electricity"
+        },
+        {
+          "word": "気分が悪い",
+          "reading": "きぶんがわるい",
+          "gloss": "to feel sick"
+        }
+      ]
+    },
+    {
+      "kanji": "私",
+      "gloss": "I",
+      "on": [
+        "シ"
+      ],
+      "kun": [
+        "わたし"
+      ],
+      "examples": [
+        {
+          "word": "私",
+          "reading": "わたし",
+          "gloss": "イ"
+        },
+        {
+          "word": "私立大学",
+          "reading": "しりつだいがく",
+          "gloss": "private university"
+        },
+        {
+          "word": "私立高校",
+          "reading": "しりつこうこう",
+          "gloss": "private high school"
+        },
+        {
+          "word": "私鉄",
+          "reading": "してつ",
+          "gloss": "a private railroad"
+        }
+      ]
+    },
+    {
+      "kanji": "今",
+      "gloss": "now; present",
+      "on": [
+        "コン"
+      ],
+      "kun": [
+        "いま"
+      ],
+      "examples": [
+        {
+          "word": "今",
+          "reading": "いま",
+          "gloss": "now"
+        },
+        {
+          "word": "今日",
+          "reading": "きょう",
+          "gloss": "today"
+        },
+        {
+          "word": "今晩",
+          "reading": "こんばん",
+          "gloss": "tonight"
+        },
+        {
+          "word": "今年",
+          "reading": "ことし",
+          "gloss": "this year"
+        }
+      ]
+    },
+    {
+      "kanji": "田",
+      "gloss": "rice field",
+      "on": [],
+      "kun": [
+        "た",
+        "だ"
+      ],
+      "examples": [
+        {
+          "word": "田中さん",
+          "reading": "たなかさん",
+          "gloss": "Mr./Ms. Tanaka"
+        },
+        {
+          "word": "山田さん",
+          "reading": "やまださん",
+          "gloss": "Mr./Ms. Yamada"
+        },
+        {
+          "word": "田んぼ",
+          "reading": "たんぼ",
+          "gloss": "rice field"
+        },
+        {
+          "word": "森田",
+          "reading": "もりた",
+          "gloss": "(a Japanese surname)"
+        }
+      ]
+    },
+    {
+      "kanji": "女",
+      "gloss": "woman; girl; female",
+      "on": [
+        "ジョ"
+      ],
+      "kun": [
+        "おんな"
+      ],
+      "examples": [
+        {
+          "word": "女の人",
+          "reading": "おんなのひと",
+          "gloss": "woman"
+        },
+        {
+          "word": "女性",
+          "reading": "じょせい",
+          "gloss": "woman"
+        },
+        {
+          "word": "女の子",
+          "reading": "おんなのこ",
+          "gloss": "girl"
+        },
+        {
+          "word": "次女",
+          "reading": "じじょ",
+          "gloss": "one's second daughter"
+        }
+      ]
+    },
+    {
+      "kanji": "男",
+      "gloss": "man; male",
+      "on": [
+        "ダン"
+      ],
+      "kun": [
+        "おとこ"
+      ],
+      "examples": [
+        {
+          "word": "男の人",
+          "reading": "おとこのひと",
+          "gloss": "man"
+        },
+        {
+          "word": "男性",
+          "reading": "だんせい",
+          "gloss": "man"
+        },
+        {
+          "word": "男の子",
+          "reading": "おとこのこ",
+          "gloss": "boy"
+        },
+        {
+          "word": "長男",
+          "reading": "ちょうなん",
+          "gloss": "one's first son"
+        }
+      ]
+    },
+    {
+      "kanji": "見",
+      "gloss": "to see",
+      "on": [
+        "ケン"
+      ],
+      "kun": [
+        "み"
+      ],
+      "examples": [
+        {
+          "word": "見る",
+          "reading": "みる",
+          "gloss": "to see"
+        },
+        {
+          "word": "見物",
+          "reading": "けんぶつ",
+          "gloss": "sightseeing"
+        },
+        {
+          "word": "花見",
+          "reading": "はなみ",
+          "gloss": "flower viewing"
+        },
+        {
+          "word": "見送る",
+          "reading": "みおくる",
+          "gloss": "to see someone off"
+        }
+      ]
+    },
+    {
+      "kanji": "行",
+      "gloss": "to go",
+      "on": [
+        "コウ",
+        "キョウ"
+      ],
+      "kun": [
+        "い"
+      ],
+      "examples": [
+        {
+          "word": "行く",
+          "reading": "いく",
+          "gloss": "to go"
+        },
+        {
+          "word": "一行目",
+          "reading": "いちぎょうめ",
+          "gloss": "first line"
+        },
+        {
+          "word": "旅行",
+          "reading": "りょこう",
+          "gloss": "travel"
+        },
+        {
+          "word": "急行",
+          "reading": "きゅうこう",
+          "gloss": "express train"
+        }
+      ]
+    },
+    {
+      "kanji": "食",
+      "gloss": "to eat",
+      "on": [
+        "ショク"
+      ],
+      "kun": [
+        "た"
+      ],
+      "examples": [
+        {
+          "word": "食べる",
+          "reading": "たべる",
+          "gloss": "to eat"
+        },
+        {
+          "word": "食べ物",
+          "reading": "たべもの",
+          "gloss": "food"
+        },
+        {
+          "word": "食事",
+          "reading": "しょくじ",
+          "gloss": "meal"
+        },
+        {
+          "word": "朝食",
+          "reading": "ちょうしょく",
+          "gloss": "breakfast"
+        }
+      ]
+    },
+    {
+      "kanji": "飲",
+      "gloss": "to drink",
+      "on": [
+        "イン"
+      ],
+      "kun": [
+        "の"
+      ],
+      "examples": [
+        {
+          "word": "飲む",
+          "reading": "のむ",
+          "gloss": "to drink"
+        },
+        {
+          "word": "飲み物",
+          "reading": "のみもの",
+          "gloss": "drink"
+        },
+        {
+          "word": "飲酒運転",
+          "reading": "いんしゅうんてん",
+          "gloss": "drunken driving"
+        }
+      ]
+    },
+    {
+      "kanji": "天",
+      "gloss": "heaven",
+      "on": [
+        "テン"
+      ],
+      "kun": [],
+      "examples": []
+    }
+  ],
+  "6": [
+    {
+      "kanji": "東",
+      "gloss": "east",
+      "on": [
+        "トウ"
+      ],
+      "kun": [
+        "ひがし"
+      ],
+      "examples": [
+        {
+          "word": "東",
+          "reading": "ひがし",
+          "gloss": "east"
+        },
+        {
+          "word": "東口",
+          "reading": "ひがしぐち",
+          "gloss": "east exit"
+        },
+        {
+          "word": "東京",
+          "reading": "とうきょう",
+          "gloss": "Tokyo"
+        },
+        {
+          "word": "南東",
+          "reading": "なんとう",
+          "gloss": "southeast"
+        }
+      ]
+    },
+    {
+      "kanji": "西",
+      "gloss": "west",
+      "on": [
+        "セイ",
+        "サイ"
+      ],
+      "kun": [
+        "にし"
+      ],
+      "examples": [
+        {
+          "word": "西",
+          "reading": "にし",
+          "gloss": "west"
+        },
+        {
+          "word": "西口",
+          "reading": "にしぐち",
+          "gloss": "west exit"
+        },
+        {
+          "word": "北西",
+          "reading": "ほくせい",
+          "gloss": "northwest"
+        },
+        {
+          "word": "関西",
+          "reading": "かんさい",
+          "gloss": "Kansai region"
+        }
+      ]
+    },
+    {
+      "kanji": "南",
+      "gloss": "south",
+      "on": [
+        "ナン"
+      ],
+      "kun": [
+        "みなみ"
+      ],
+      "examples": [
+        {
+          "word": "南",
+          "reading": "みなみ",
+          "gloss": "south"
+        },
+        {
+          "word": "南口",
+          "reading": "みなみぐち",
+          "gloss": "south exit"
+        },
+        {
+          "word": "南東",
+          "reading": "なんとう",
+          "gloss": "southeast"
+        }
+      ]
+    },
+    {
+      "kanji": "北",
+      "gloss": "north",
+      "on": [
+        "ホク",
+        "ホッ"
+      ],
+      "kun": [
+        "きた"
+      ],
+      "examples": [
+        {
+          "word": "北西",
+          "reading": "ほくせい",
+          "gloss": "northwest"
+        },
+        {
+          "word": "北",
+          "reading": "きた",
+          "gloss": "north"
+        },
+        {
+          "word": "北口",
+          "reading": "きたぐち",
+          "gloss": "north exit"
+        },
+        {
+          "word": "東北",
+          "reading": "とうほく",
+          "gloss": "Tohoku region"
+        }
+      ]
+    },
+    {
+      "kanji": "口",
+      "gloss": "mouth",
+      "on": [
+        "コウ"
+      ],
+      "kun": [
+        "ぐち",
+        "くち"
+      ],
+      "examples": [
+        {
+          "word": "東口",
+          "reading": "ひがしぐち",
+          "gloss": "east exit"
+        },
+        {
+          "word": "西口",
+          "reading": "にしぐち",
+          "gloss": "west exit"
+        },
+        {
+          "word": "南口",
+          "reading": "みなみぐち",
+          "gloss": "south exit"
+        },
+        {
+          "word": "北口",
+          "reading": "きたぐち",
+          "gloss": "north exit"
+        }
+      ]
+    },
+    {
+      "kanji": "出",
+      "gloss": "to exit",
+      "on": [
+        "シュッ",
+        "シュツ"
+      ],
+      "kun": [
+        "で",
+        "だ"
+      ],
+      "examples": [
+        {
+          "word": "出る",
+          "reading": "でる",
+          "gloss": "to exit"
+        },
+        {
+          "word": "出口",
+          "reading": "でぐち",
+          "gloss": "exit"
+        },
+        {
+          "word": "出す",
+          "reading": "だす",
+          "gloss": "to take something out"
+        },
+        {
+          "word": "出席",
+          "reading": "しゅっせき",
+          "gloss": "attendance"
+        }
+      ]
+    },
+    {
+      "kanji": "右",
+      "gloss": "right",
+      "on": [
+        "ウ",
+        "ユウ"
+      ],
+      "kun": [
+        "みぎ"
+      ],
+      "examples": [
+        {
+          "word": "右",
+          "reading": "みぎ",
+          "gloss": "right"
+        },
+        {
+          "word": "右折",
+          "reading": "うせつ",
+          "gloss": "right turn"
+        },
+        {
+          "word": "左右",
+          "reading": "さゆう",
+          "gloss": "right and left"
+        }
+      ]
+    },
+    {
+      "kanji": "左",
+      "gloss": "left",
+      "on": [
+        "サ"
+      ],
+      "kun": [
+        "ひだり"
+      ],
+      "examples": [
+        {
+          "word": "左右",
+          "reading": "さゆう",
+          "gloss": "right and left"
+        },
+        {
+          "word": "左",
+          "reading": "ひだり",
+          "gloss": "left"
+        },
+        {
+          "word": "左折",
+          "reading": "させつ",
+          "gloss": "left turn"
+        },
+        {
+          "word": "左利き",
+          "reading": "ひだりきき",
+          "gloss": "left-handed"
+        }
+      ]
+    },
+    {
+      "kanji": "分",
+      "gloss": "minute; to divide",
+      "on": [
+        "フン",
+        "プン",
+        "ブン"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "一分",
+          "reading": "いっぷん",
+          "gloss": "one minute"
+        },
+        {
+          "word": "六分",
+          "reading": "ろっぷん",
+          "gloss": "six minutes"
+        },
+        {
+          "word": "半分",
+          "reading": "はんぶん",
+          "gloss": "half"
+        },
+        {
+          "word": "五分",
+          "reading": "ごふん",
+          "gloss": "five minutes"
+        }
+      ]
+    },
+    {
+      "kanji": "先",
+      "gloss": "previous; ahead",
+      "on": [
+        "セン"
+      ],
+      "kun": [
+        "さき"
+      ],
+      "examples": [
+        {
+          "word": "先生",
+          "reading": "せんせい",
+          "gloss": "teacher"
+        },
+        {
+          "word": "先週",
+          "reading": "せんしゅう",
+          "gloss": "last week"
+        },
+        {
+          "word": "先に",
+          "reading": "さきに",
+          "gloss": "ahead"
+        },
+        {
+          "word": "先週",
+          "reading": "せんしゅう",
+          "gloss": "last week"
+        }
+      ]
+    },
+    {
+      "kanji": "生",
+      "gloss": "birth",
+      "on": [
+        "セイ",
+        "ショウ"
+      ],
+      "kun": [
+        "う"
+      ],
+      "examples": [
+        {
+          "word": "一年生",
+          "reading": "いちねんせい",
+          "gloss": "first-year student"
+        },
+        {
+          "word": "二年生",
+          "reading": "にねんせい",
+          "gloss": "second-year student"
+        },
+        {
+          "word": "三年生",
+          "reading": "さんねんせい",
+          "gloss": "third-year student"
+        },
+        {
+          "word": "先生",
+          "reading": "せんせい",
+          "gloss": "teacher"
+        }
+      ]
+    },
+    {
+      "kanji": "大",
+      "gloss": "big",
+      "on": [
+        "ダイ",
+        "タイ"
+      ],
+      "kun": [
+        "おお"
+      ],
+      "examples": [
+        {
+          "word": "私立大学",
+          "reading": "しりつだいがく",
+          "gloss": "private university"
+        },
+        {
+          "word": "大学生",
+          "reading": "だいがくせい",
+          "gloss": "college student"
+        },
+        {
+          "word": "大きい",
+          "reading": "おおきい",
+          "gloss": "big"
+        },
+        {
+          "word": "大変な",
+          "reading": "たいへんな",
+          "gloss": "tough"
+        }
+      ]
+    },
+    {
+      "kanji": "学",
+      "gloss": "learning",
+      "on": [
+        "ガク",
+        "ガッ"
+      ],
+      "kun": [
+        "まな"
+      ],
+      "examples": [
+        {
+          "word": "中学",
+          "reading": "ちゅうがく",
+          "gloss": "junior high school"
+        },
+        {
+          "word": "私立大学",
+          "reading": "しりつだいがく",
+          "gloss": "private university"
+        },
+        {
+          "word": "心理学",
+          "reading": "しんりがく",
+          "gloss": "psychology"
+        },
+        {
+          "word": "学生",
+          "reading": "がくせい",
+          "gloss": "student"
+        }
+      ]
+    },
+    {
+      "kanji": "外",
+      "gloss": "outside",
+      "on": [
+        "ガイ"
+      ],
+      "kun": [
+        "そと"
+      ],
+      "examples": [
+        {
+          "word": "外国",
+          "reading": "がいこく",
+          "gloss": "foreign country"
+        },
+        {
+          "word": "外国人",
+          "reading": "がいこくじん",
+          "gloss": "foreigner"
+        },
+        {
+          "word": "外",
+          "reading": "そと",
+          "gloss": "outside"
+        },
+        {
+          "word": "海外",
+          "reading": "かいがい",
+          "gloss": "overseas"
+        }
+      ]
+    },
+    {
+      "kanji": "国",
+      "gloss": "country",
+      "on": [
+        "コク",
+        "ゴク"
+      ],
+      "kun": [
+        "くに"
+      ],
+      "examples": [
+        {
+          "word": "中国",
+          "reading": "ちゅうごく",
+          "gloss": "China"
+        },
+        {
+          "word": "天国",
+          "reading": "てんごく",
+          "gloss": "heaven"
+        },
+        {
+          "word": "外国",
+          "reading": "がいこく",
+          "gloss": "foreign country"
+        },
+        {
+          "word": "外国人",
+          "reading": "がいこくじん",
+          "gloss": "foreigner"
+        }
+      ]
+    }
+  ],
+  "7": [
+    {
+      "kanji": "京",
+      "gloss": "capital",
+      "on": [
+        "キョウ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "東京",
+          "reading": "とうきょう",
+          "gloss": "Tokyo"
+        },
+        {
+          "word": "京子",
+          "reading": "きょうこ",
+          "gloss": "Kyoko"
+        },
+        {
+          "word": "京都",
+          "reading": "きょうと",
+          "gloss": "Kyoto"
+        },
+        {
+          "word": "東京駅",
+          "reading": "とうきょうえき",
+          "gloss": "Tokyo Station"
+        }
+      ]
+    },
+    {
+      "kanji": "子",
+      "gloss": "child",
+      "on": [
+        "シ"
+      ],
+      "kun": [
+        "こ"
+      ],
+      "examples": [
+        {
+          "word": "子供の時",
+          "reading": "こどものとき",
+          "gloss": "in one's childhood"
+        },
+        {
+          "word": "京子",
+          "reading": "きょうこ",
+          "gloss": "Kyoko"
+        },
+        {
+          "word": "子供",
+          "reading": "こども",
+          "gloss": "child"
+        },
+        {
+          "word": "女の子",
+          "reading": "おんなのこ",
+          "gloss": "girl"
+        }
+      ]
+    },
+    {
+      "kanji": "小",
+      "gloss": "small",
+      "on": [
+        "ショウ"
+      ],
+      "kun": [
+        "ちい"
+      ],
+      "examples": [
+        {
+          "word": "小川さん",
+          "reading": "おがわさん",
+          "gloss": "Mr./Ms. Ogawa"
+        },
+        {
+          "word": "小さい",
+          "reading": "ちいさい",
+          "gloss": "small"
+        },
+        {
+          "word": "小学校",
+          "reading": "しょうがっこう",
+          "gloss": "elementary school"
+        },
+        {
+          "word": "小学生",
+          "reading": "しょうがくせい",
+          "gloss": "elementary school student"
+        }
+      ]
+    },
+    {
+      "kanji": "会",
+      "gloss": "to meet",
+      "on": [
+        "カイ"
+      ],
+      "kun": [
+        "あ"
+      ],
+      "examples": [
+        {
+          "word": "会う",
+          "reading": "あう",
+          "gloss": "to meet"
+        },
+        {
+          "word": "会社",
+          "reading": "かいしゃ",
+          "gloss": "company"
+        },
+        {
+          "word": "会社員",
+          "reading": "かいしゃいん",
+          "gloss": "office worker"
+        },
+        {
+          "word": "会話",
+          "reading": "かいわ",
+          "gloss": "conversation"
+        }
+      ]
+    },
+    {
+      "kanji": "社",
+      "gloss": "company",
+      "on": [
+        "シャ",
+        "ジャ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "会社",
+          "reading": "かいしゃ",
+          "gloss": "company"
+        },
+        {
+          "word": "会社員",
+          "reading": "かいしゃいん",
+          "gloss": "office worker"
+        },
+        {
+          "word": "神社",
+          "reading": "じんじゃ",
+          "gloss": "shrine"
+        },
+        {
+          "word": "社会",
+          "reading": "しゃかい",
+          "gloss": "society"
+        }
+      ]
+    },
+    {
+      "kanji": "父",
+      "gloss": "father",
+      "on": [
+        "フ"
+      ],
+      "kun": [
+        "ちち",
+        "とう"
+      ],
+      "examples": [
+        {
+          "word": "父",
+          "reading": "ちち",
+          "gloss": "father"
+        },
+        {
+          "word": "お父さん",
+          "reading": "おとうさん",
+          "gloss": "father"
+        },
+        {
+          "word": "父母",
+          "reading": "ふぼ",
+          "gloss": "father and mother"
+        },
+        {
+          "word": "父親",
+          "reading": "ちちおや",
+          "gloss": "father"
+        }
+      ]
+    },
+    {
+      "kanji": "母",
+      "gloss": "mother",
+      "on": [
+        "ボ"
+      ],
+      "kun": [
+        "はは",
+        "かあ"
+      ],
+      "examples": [
+        {
+          "word": "母の日",
+          "reading": "ははのひ",
+          "gloss": "Mother's Day"
+        },
+        {
+          "word": "父母",
+          "reading": "ふぼ",
+          "gloss": "father and mother"
+        },
+        {
+          "word": "母",
+          "reading": "はは",
+          "gloss": "mother"
+        },
+        {
+          "word": "お母さん",
+          "reading": "おかあさん",
+          "gloss": "mother"
+        }
+      ]
+    },
+    {
+      "kanji": "高",
+      "gloss": "high",
+      "on": [
+        "コウ"
+      ],
+      "kun": [
+        "たか"
+      ],
+      "examples": [
+        {
+          "word": "高い",
+          "reading": "たかい",
+          "gloss": "expensive; high"
+        },
+        {
+          "word": "高校",
+          "reading": "こうこう",
+          "gloss": "high school"
+        },
+        {
+          "word": "高校生",
+          "reading": "こうこうせい",
+          "gloss": "high school student"
+        },
+        {
+          "word": "私立高校",
+          "reading": "しりつこうこう",
+          "gloss": "private high school"
+        }
+      ]
+    },
+    {
+      "kanji": "校",
+      "gloss": "school",
+      "on": [
+        "コウ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "学校",
+          "reading": "がっこう",
+          "gloss": "school"
+        },
+        {
+          "word": "小学校",
+          "reading": "しょうがっこう",
+          "gloss": "elementary school"
+        },
+        {
+          "word": "高校",
+          "reading": "こうこう",
+          "gloss": "high school"
+        },
+        {
+          "word": "高校生",
+          "reading": "こうこうせい",
+          "gloss": "high school student"
+        }
+      ]
+    },
+    {
+      "kanji": "毎",
+      "gloss": "every",
+      "on": [
+        "マイ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "毎日",
+          "reading": "まいにち",
+          "gloss": "every day"
+        },
+        {
+          "word": "毎週",
+          "reading": "まいしゅう",
+          "gloss": "every week"
+        },
+        {
+          "word": "毎晩",
+          "reading": "まいばん",
+          "gloss": "every night"
+        },
+        {
+          "word": "毎週",
+          "reading": "まいしゅう",
+          "gloss": "every week"
+        }
+      ]
+    },
+    {
+      "kanji": "語",
+      "gloss": "word",
+      "on": [
+        "ゴ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "日本語",
+          "reading": "にほんご",
+          "gloss": "Japanese language"
+        },
+        {
+          "word": "母語",
+          "reading": "ぼご",
+          "gloss": "mother tongue"
+        },
+        {
+          "word": "言語学",
+          "reading": "げんごがく",
+          "gloss": "linguistics"
+        },
+        {
+          "word": "英語",
+          "reading": "えいご",
+          "gloss": "English language"
+        }
+      ]
+    },
+    {
+      "kanji": "文",
+      "gloss": "sentence",
+      "on": [
+        "ブン"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "文学",
+          "reading": "ぶんがく",
+          "gloss": "literature"
+        },
+        {
+          "word": "作文",
+          "reading": "さくぶん",
+          "gloss": "composition"
+        },
+        {
+          "word": "文字",
+          "reading": "もじ",
+          "gloss": "letter; character"
+        },
+        {
+          "word": "文字",
+          "reading": "もじ",
+          "gloss": "character"
+        }
+      ]
+    },
+    {
+      "kanji": "帰",
+      "gloss": "to return",
+      "on": [
+        "キ"
+      ],
+      "kun": [
+        "かえ"
+      ],
+      "examples": [
+        {
+          "word": "帰る",
+          "reading": "かえる",
+          "gloss": "to return"
+        },
+        {
+          "word": "帰国",
+          "reading": "きこく",
+          "gloss": "going home"
+        },
+        {
+          "word": "連れて帰る",
+          "reading": "つれてかえる",
+          "gloss": "to take home"
+        },
+        {
+          "word": "帰宅する",
+          "reading": "きたくする",
+          "gloss": "to go home"
+        }
+      ]
+    },
+    {
+      "kanji": "入",
+      "gloss": "to enter",
+      "on": [
+        "ニュウ"
+      ],
+      "kun": [
+        "はい",
+        "いり",
+        "い"
+      ],
+      "examples": [
+        {
+          "word": "入る",
+          "reading": "はいる",
+          "gloss": "to enter"
+        },
+        {
+          "word": "入口",
+          "reading": "いりぐち",
+          "gloss": "entrance"
+        },
+        {
+          "word": "入れる",
+          "reading": "いれる",
+          "gloss": "to put something in"
+        },
+        {
+          "word": "輸入",
+          "reading": "ゆにゅう",
+          "gloss": "import"
+        }
+      ]
+    }
+  ],
+  "8": [
+    {
+      "kanji": "員",
+      "gloss": "member",
+      "on": [
+        "イン"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "会社員",
+          "reading": "かいしゃいん",
+          "gloss": "office worker"
+        },
+        {
+          "word": "店員",
+          "reading": "てんいん",
+          "gloss": "store attendant"
+        },
+        {
+          "word": "駅員",
+          "reading": "えきいん",
+          "gloss": "station attendant"
+        },
+        {
+          "word": "全員",
+          "reading": "ぜんいん",
+          "gloss": "all members"
+        }
+      ]
+    },
+    {
+      "kanji": "新",
+      "gloss": "new",
+      "on": [
+        "シン"
+      ],
+      "kun": [
+        "あたら"
+      ],
+      "examples": [
+        {
+          "word": "新しい",
+          "reading": "あたらしい",
+          "gloss": "new"
+        },
+        {
+          "word": "新幹線",
+          "reading": "しんかんせん",
+          "gloss": "Bullet Train"
+        },
+        {
+          "word": "新聞",
+          "reading": "しんぶん",
+          "gloss": "newspaper"
+        },
+        {
+          "word": "新雪",
+          "reading": "しんせつ",
+          "gloss": "new snow"
+        }
+      ]
+    },
+    {
+      "kanji": "聞",
+      "gloss": "to listen",
+      "on": [
+        "ブン"
+      ],
+      "kun": [
+        "き"
+      ],
+      "examples": [
+        {
+          "word": "新聞",
+          "reading": "しんぶん",
+          "gloss": "newspaper"
+        },
+        {
+          "word": "聞く",
+          "reading": "きく",
+          "gloss": "to listen"
+        }
+      ]
+    },
+    {
+      "kanji": "作",
+      "gloss": "to make",
+      "on": [
+        "サク"
+      ],
+      "kun": [
+        "つく"
+      ],
+      "examples": [
+        {
+          "word": "作文",
+          "reading": "さくぶん",
+          "gloss": "composition"
+        },
+        {
+          "word": "作る",
+          "reading": "つくる",
+          "gloss": "to make"
+        },
+        {
+          "word": "作品",
+          "reading": "さくひん",
+          "gloss": "artistic piece"
+        },
+        {
+          "word": "作品",
+          "reading": "さくひん",
+          "gloss": "piece of work"
+        }
+      ]
+    },
+    {
+      "kanji": "仕",
+      "gloss": "to serve",
+      "on": [
+        "シ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "仕事",
+          "reading": "しごと",
+          "gloss": "job"
+        },
+        {
+          "word": "力仕事",
+          "reading": "ちからしごと",
+          "gloss": "physical labor such as construction"
+        },
+        {
+          "word": "仕える",
+          "reading": "つかえる",
+          "gloss": "to serve"
+        },
+        {
+          "word": "仕方",
+          "reading": "しかた",
+          "gloss": "how to; a method"
+        }
+      ]
+    },
+    {
+      "kanji": "事",
+      "gloss": "thing",
+      "on": [
+        "ジ"
+      ],
+      "kun": [
+        "ごと",
+        "こと"
+      ],
+      "examples": [
+        {
+          "word": "仕事",
+          "reading": "しごと",
+          "gloss": "job"
+        },
+        {
+          "word": "事",
+          "reading": "こと",
+          "gloss": "thing"
+        },
+        {
+          "word": "食事",
+          "reading": "しょくじ",
+          "gloss": "meal"
+        },
+        {
+          "word": "火事",
+          "reading": "かじ",
+          "gloss": "fire"
+        }
+      ]
+    },
+    {
+      "kanji": "電",
+      "gloss": "electricity",
+      "on": [
+        "デン"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "電気",
+          "reading": "でんき",
+          "gloss": "electricity"
+        },
+        {
+          "word": "電子メール",
+          "reading": "でんしメール",
+          "gloss": "e-mail"
+        },
+        {
+          "word": "電車",
+          "reading": "でんしゃ",
+          "gloss": "train"
+        },
+        {
+          "word": "電話",
+          "reading": "でんわ",
+          "gloss": "telephone"
+        }
+      ]
+    },
+    {
+      "kanji": "車",
+      "gloss": "car",
+      "on": [
+        "シャ"
+      ],
+      "kun": [
+        "くるま"
+      ],
+      "examples": [
+        {
+          "word": "電車",
+          "reading": "でんしゃ",
+          "gloss": "train"
+        },
+        {
+          "word": "車",
+          "reading": "くるま",
+          "gloss": "car"
+        },
+        {
+          "word": "自転車",
+          "reading": "じてんしゃ",
+          "gloss": "bicycle"
+        },
+        {
+          "word": "自動車",
+          "reading": "じどうしゃ",
+          "gloss": "automobile"
+        }
+      ]
+    },
+    {
+      "kanji": "休",
+      "gloss": "to rest",
+      "on": [
+        "キュウ"
+      ],
+      "kun": [
+        "やす"
+      ],
+      "examples": [
+        {
+          "word": "休む",
+          "reading": "やすむ",
+          "gloss": "to be absent; to rest"
+        },
+        {
+          "word": "休み",
+          "reading": "やすみ",
+          "gloss": "holiday; absence"
+        },
+        {
+          "word": "休日",
+          "reading": "きゅうじつ",
+          "gloss": "holiday"
+        },
+        {
+          "word": "連休",
+          "reading": "れんきゅう",
+          "gloss": "consecutive holidays"
+        }
+      ]
+    },
+    {
+      "kanji": "言",
+      "gloss": "to say",
+      "on": [
+        "ゲン"
+      ],
+      "kun": [
+        "い"
+      ],
+      "examples": [
+        {
+          "word": "言う",
+          "reading": "いう",
+          "gloss": "to say"
+        },
+        {
+          "word": "言語学",
+          "reading": "げんごがく",
+          "gloss": "linguistics"
+        }
+      ]
+    },
+    {
+      "kanji": "読",
+      "gloss": "to read",
+      "on": [
+        "ドク"
+      ],
+      "kun": [
+        "よ"
+      ],
+      "examples": [
+        {
+          "word": "読む",
+          "reading": "よむ",
+          "gloss": "to read"
+        },
+        {
+          "word": "読書",
+          "reading": "どくしょ",
+          "gloss": "reading books"
+        },
+        {
+          "word": "通読",
+          "reading": "つうどく",
+          "gloss": "reading through; reading over"
+        },
+        {
+          "word": "音読",
+          "reading": "おんよみ",
+          "gloss": "'ON' reading"
+        }
+      ]
+    },
+    {
+      "kanji": "思",
+      "gloss": "to think",
+      "on": [
+        "シ"
+      ],
+      "kun": [
+        "おも"
+      ],
+      "examples": [
+        {
+          "word": "思う",
+          "reading": "おもう",
+          "gloss": "to think"
+        },
+        {
+          "word": "不思議な",
+          "reading": "ふしぎな",
+          "gloss": "mysterious"
+        },
+        {
+          "word": "思い出す",
+          "reading": "おもいだす",
+          "gloss": "to recall"
+        },
+        {
+          "word": "思い出",
+          "reading": "おもいで",
+          "gloss": "a memory"
+        }
+      ]
+    },
+    {
+      "kanji": "次",
+      "gloss": "next",
+      "on": [
+        "ジ"
+      ],
+      "kun": [
+        "つぎ"
+      ],
+      "examples": [
+        {
+          "word": "次",
+          "reading": "つぎ",
+          "gloss": "next"
+        },
+        {
+          "word": "次女",
+          "reading": "じじょ",
+          "gloss": "one's second daughter"
+        },
+        {
+          "word": "目次",
+          "reading": "もくじ",
+          "gloss": "table of contents"
+        },
+        {
+          "word": "次ぐ",
+          "reading": "つぐ",
+          "gloss": "to be next"
+        }
+      ]
+    },
+    {
+      "kanji": "何",
+      "gloss": "what",
+      "on": [],
+      "kun": [
+        "なに",
+        "なん"
+      ],
+      "examples": [
+        {
+          "word": "何",
+          "reading": "なに",
+          "gloss": "what"
+        },
+        {
+          "word": "何時",
+          "reading": "なんじ",
+          "gloss": "what time"
+        },
+        {
+          "word": "何人",
+          "reading": "なんにん",
+          "gloss": "how many people"
+        }
+      ]
+    }
+  ],
+  "9": [
+    {
+      "kanji": "午",
+      "gloss": "noon",
+      "on": [
+        "ゴ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "午前",
+          "reading": "ごぜん",
+          "gloss": "A.M."
+        },
+        {
+          "word": "午後",
+          "reading": "ごご",
+          "gloss": "P.M.;  in the afternoon"
+        },
+        {
+          "word": "午前中",
+          "reading": "ごぜんちゅう",
+          "gloss": "in the morning"
+        }
+      ]
+    },
+    {
+      "kanji": "後",
+      "gloss": "after",
+      "on": [
+        "ゴ"
+      ],
+      "kun": [
+        "あと",
+        "うし"
+      ],
+      "examples": [
+        {
+          "word": "午後",
+          "reading": "ごご",
+          "gloss": "P.M.;  in the afternoon"
+        },
+        {
+          "word": "後で",
+          "reading": "あとで",
+          "gloss": "later"
+        },
+        {
+          "word": "後ろ",
+          "reading": "うしろ",
+          "gloss": "back; behind"
+        },
+        {
+          "word": "最後に",
+          "reading": "さいごに",
+          "gloss": "lastly"
+        }
+      ]
+    },
+    {
+      "kanji": "前",
+      "gloss": "before",
+      "on": [
+        "ゼン"
+      ],
+      "kun": [
+        "まえ"
+      ],
+      "examples": [
+        {
+          "word": "午前",
+          "reading": "ごぜん",
+          "gloss": "A.M."
+        },
+        {
+          "word": "午前中",
+          "reading": "ごぜんちゅう",
+          "gloss": "in the morning"
+        },
+        {
+          "word": "前",
+          "reading": "まえ",
+          "gloss": "before; front"
+        },
+        {
+          "word": "名前",
+          "reading": "なまえ",
+          "gloss": "name"
+        }
+      ]
+    },
+    {
+      "kanji": "名",
+      "gloss": "name",
+      "on": [
+        "メイ"
+      ],
+      "kun": [
+        "な"
+      ],
+      "examples": [
+        {
+          "word": "名前",
+          "reading": "なまえ",
+          "gloss": "name"
+        },
+        {
+          "word": "有名な",
+          "reading": "ゆうめいな",
+          "gloss": "famous"
+        },
+        {
+          "word": "名刺",
+          "reading": "めいし",
+          "gloss": "name card"
+        },
+        {
+          "word": "有名な",
+          "reading": "ゆうめいな",
+          "gloss": "famous"
+        }
+      ]
+    },
+    {
+      "kanji": "白",
+      "gloss": "white",
+      "on": [
+        "ハク"
+      ],
+      "kun": [
+        "しろ"
+      ],
+      "examples": [
+        {
+          "word": "白鳥",
+          "reading": "はくちょう",
+          "gloss": "swan"
+        },
+        {
+          "word": "真白",
+          "reading": "まっしろ",
+          "gloss": "real white"
+        },
+        {
+          "word": "白",
+          "reading": "しろ",
+          "gloss": "white color"
+        },
+        {
+          "word": "白い",
+          "reading": "しろい",
+          "gloss": "white"
+        }
+      ]
+    },
+    {
+      "kanji": "雨",
+      "gloss": "rain",
+      "on": [
+        "ウ"
+      ],
+      "kun": [
+        "あめ"
+      ],
+      "examples": [
+        {
+          "word": "雨",
+          "reading": "あめ",
+          "gloss": "rain"
+        },
+        {
+          "word": "雨期",
+          "reading": "うき",
+          "gloss": "rainy season"
+        },
+        {
+          "word": "大雨",
+          "reading": "おおあめ",
+          "gloss": "heavy rain"
+        },
+        {
+          "word": "小雨",
+          "reading": "こさめ",
+          "gloss": "light rain; drizzle"
+        }
+      ]
+    },
+    {
+      "kanji": "書",
+      "gloss": "to write",
+      "on": [
+        "ショ"
+      ],
+      "kun": [
+        "か"
+      ],
+      "examples": [
+        {
+          "word": "書く",
+          "reading": "かく",
+          "gloss": "to write"
+        },
+        {
+          "word": "辞書",
+          "reading": "じしょ",
+          "gloss": "dictionary"
+        },
+        {
+          "word": "書道",
+          "reading": "しょどう",
+          "gloss": "calligraphy"
+        },
+        {
+          "word": "図書館",
+          "reading": "としょかん",
+          "gloss": "library"
+        }
+      ]
+    },
+    {
+      "kanji": "友",
+      "gloss": "friend",
+      "on": [
+        "ユウ"
+      ],
+      "kun": [
+        "とも"
+      ],
+      "examples": [
+        {
+          "word": "友達",
+          "reading": "ともだち",
+          "gloss": "friend"
+        },
+        {
+          "word": "親友",
+          "reading": "しんゆう",
+          "gloss": "best friend"
+        },
+        {
+          "word": "友人",
+          "reading": "ゆうじん",
+          "gloss": "friend"
+        },
+        {
+          "word": "親友",
+          "reading": "しんゆう",
+          "gloss": "best friend"
+        }
+      ]
+    },
+    {
+      "kanji": "間",
+      "gloss": "between",
+      "on": [
+        "カン"
+      ],
+      "kun": [
+        "あいだ"
+      ],
+      "examples": [
+        {
+          "word": "二日間",
+          "reading": "ふつかかん",
+          "gloss": "two days"
+        },
+        {
+          "word": "時間",
+          "reading": "じかん",
+          "gloss": "time"
+        },
+        {
+          "word": "二時間",
+          "reading": "にじかん",
+          "gloss": "two hours"
+        },
+        {
+          "word": "間",
+          "reading": "あいだ",
+          "gloss": "between"
+        }
+      ]
+    },
+    {
+      "kanji": "家",
+      "gloss": "house",
+      "on": [
+        "カ"
+      ],
+      "kun": [
+        "いえ"
+      ],
+      "examples": [
+        {
+          "word": "家",
+          "reading": "いえ",
+          "gloss": "house"
+        },
+        {
+          "word": "家",
+          "reading": "うち",
+          "gloss": "house; home"
+        },
+        {
+          "word": "画家",
+          "reading": "がか",
+          "gloss": "painter"
+        },
+        {
+          "word": "家族",
+          "reading": "かぞく",
+          "gloss": "family"
+        }
+      ]
+    },
+    {
+      "kanji": "話",
+      "gloss": "to speak",
+      "on": [
+        "ワ"
+      ],
+      "kun": [
+        "はな",
+        "はなし"
+      ],
+      "examples": [
+        {
+          "word": "電話",
+          "reading": "でんわ",
+          "gloss": "telephone"
+        },
+        {
+          "word": "話す",
+          "reading": "はなす",
+          "gloss": "to speak"
+        },
+        {
+          "word": "話",
+          "reading": "はなし",
+          "gloss": "talk; story"
+        },
+        {
+          "word": "会話",
+          "reading": "かいわ",
+          "gloss": "conversation"
+        }
+      ]
+    },
+    {
+      "kanji": "少",
+      "gloss": "little",
+      "on": [
+        "ショウ"
+      ],
+      "kun": [
+        "すこ",
+        "すく"
+      ],
+      "examples": [
+        {
+          "word": "少し",
+          "reading": "すこし",
+          "gloss": "little"
+        },
+        {
+          "word": "少ない",
+          "reading": "すくない",
+          "gloss": "few"
+        },
+        {
+          "word": "少々",
+          "reading": "しょうしょう",
+          "gloss": "a little"
+        },
+        {
+          "word": "減少",
+          "reading": "げんしょう",
+          "gloss": "to decrease; to reduce"
+        }
+      ]
+    },
+    {
+      "kanji": "古",
+      "gloss": "old",
+      "on": [
+        "コ"
+      ],
+      "kun": [
+        "ふる"
+      ],
+      "examples": [
+        {
+          "word": "古い",
+          "reading": "ふるい",
+          "gloss": "old (for things)"
+        },
+        {
+          "word": "中古",
+          "reading": "ちゅうこ",
+          "gloss": "secondhand"
+        },
+        {
+          "word": "考古学",
+          "reading": "こうこがく",
+          "gloss": "archaeology"
+        }
+      ]
+    },
+    {
+      "kanji": "知",
+      "gloss": "to know",
+      "on": [
+        "チ"
+      ],
+      "kun": [
+        "し"
+      ],
+      "examples": [
+        {
+          "word": "知る",
+          "reading": "しる",
+          "gloss": "to know"
+        },
+        {
+          "word": "知人",
+          "reading": "ちじん",
+          "gloss": "acquaintance"
+        },
+        {
+          "word": "知らせる",
+          "reading": "しらせる",
+          "gloss": "to let know; to inform"
+        },
+        {
+          "word": "知識",
+          "reading": "ちしき",
+          "gloss": "knowledge"
+        }
+      ]
+    },
+    {
+      "kanji": "来",
+      "gloss": "to come",
+      "on": [
+        "ライ"
+      ],
+      "kun": [
+        "く",
+        "き",
+        "こ"
+      ],
+      "examples": [
+        {
+          "word": "来る",
+          "reading": "くる",
+          "gloss": "to come"
+        },
+        {
+          "word": "来ない",
+          "reading": "こない",
+          "gloss": "not to come"
+        },
+        {
+          "word": "来週",
+          "reading": "らいしゅう",
+          "gloss": "next week"
+        },
+        {
+          "word": "来ます",
+          "reading": "きます",
+          "gloss": "to come"
+        }
+      ]
+    }
+  ],
+  "10": [
+    {
+      "kanji": "住",
+      "gloss": "to live",
+      "on": [
+        "ジュウ"
+      ],
+      "kun": [
+        "す"
+      ],
+      "examples": [
+        {
+          "word": "住む",
+          "reading": "すむ",
+          "gloss": "to live"
+        },
+        {
+          "word": "住所",
+          "reading": "じゅうしょ",
+          "gloss": "address"
+        },
+        {
+          "word": "住宅",
+          "reading": "じゅうたく",
+          "gloss": "housing"
+        },
+        {
+          "word": "住宅難",
+          "reading": "じゅうたくなん",
+          "gloss": "housing shortage"
+        }
+      ]
+    },
+    {
+      "kanji": "正",
+      "gloss": "right",
+      "on": [
+        "ショウ"
+      ],
+      "kun": [
+        "ただ"
+      ],
+      "examples": [
+        {
+          "word": "お正月",
+          "reading": "おしょうがつ",
+          "gloss": "New Year"
+        },
+        {
+          "word": "正しい",
+          "reading": "ただしい",
+          "gloss": "right"
+        },
+        {
+          "word": "正座する",
+          "reading": "せいざする",
+          "gloss": "to sit up straight; to sit in the formal Japanese style"
+        },
+        {
+          "word": "正式",
+          "reading": "せいしき",
+          "gloss": "formal; official"
+        }
+      ]
+    },
+    {
+      "kanji": "年",
+      "gloss": "year",
+      "on": [
+        "ネン"
+      ],
+      "kun": [
+        "とし"
+      ],
+      "examples": [
+        {
+          "word": "一年生",
+          "reading": "いちねんせい",
+          "gloss": "first-year student"
+        },
+        {
+          "word": "二年生",
+          "reading": "にねんせい",
+          "gloss": "second-year student"
+        },
+        {
+          "word": "三年生",
+          "reading": "さんねんせい",
+          "gloss": "third-year student"
+        },
+        {
+          "word": "一年中",
+          "reading": "いちねんじゅう",
+          "gloss": "all year round"
+        }
+      ]
+    },
+    {
+      "kanji": "売",
+      "gloss": "to sell",
+      "on": [
+        "バイ"
+      ],
+      "kun": [
+        "う"
+      ],
+      "examples": [
+        {
+          "word": "売る",
+          "reading": "うる",
+          "gloss": "to sell"
+        },
+        {
+          "word": "売店",
+          "reading": "ばいてん",
+          "gloss": "stand; stall"
+        },
+        {
+          "word": "売り場",
+          "reading": "うりば",
+          "gloss": "sales counter"
+        },
+        {
+          "word": "商売",
+          "reading": "しょうばい",
+          "gloss": "trade"
+        }
+      ]
+    },
+    {
+      "kanji": "買",
+      "gloss": "to buy",
+      "on": [],
+      "kun": [
+        "か"
+      ],
+      "examples": [
+        {
+          "word": "買う",
+          "reading": "かう",
+          "gloss": "to buy"
+        },
+        {
+          "word": "買い物",
+          "reading": "かいもの",
+          "gloss": "shopping"
+        }
+      ]
+    },
+    {
+      "kanji": "町",
+      "gloss": "town",
+      "on": [
+        "チョウ"
+      ],
+      "kun": [
+        "まち"
+      ],
+      "examples": [
+        {
+          "word": "町",
+          "reading": "まち",
+          "gloss": "town"
+        },
+        {
+          "word": "北山町",
+          "reading": "きたやままち",
+          "gloss": "Kitayama town"
+        },
+        {
+          "word": "町長",
+          "reading": "ちょうちょう",
+          "gloss": "mayor of a town"
+        }
+      ]
+    },
+    {
+      "kanji": "長",
+      "gloss": "long",
+      "on": [
+        "チョウ"
+      ],
+      "kun": [
+        "なが"
+      ],
+      "examples": [
+        {
+          "word": "町長",
+          "reading": "ちょうちょう",
+          "gloss": "mayor of a town"
+        },
+        {
+          "word": "長い",
+          "reading": "ながい",
+          "gloss": "long"
+        },
+        {
+          "word": "長男",
+          "reading": "ちょうなん",
+          "gloss": "one's first son"
+        },
+        {
+          "word": "市長",
+          "reading": "しちょう",
+          "gloss": "mayor"
+        }
+      ]
+    },
+    {
+      "kanji": "道",
+      "gloss": "way",
+      "on": [
+        "ドウ"
+      ],
+      "kun": [
+        "みち"
+      ],
+      "examples": [
+        {
+          "word": "道",
+          "reading": "みち",
+          "gloss": "way; road"
+        },
+        {
+          "word": "書道",
+          "reading": "しょどう",
+          "gloss": "calligraphy"
+        },
+        {
+          "word": "北海道",
+          "reading": "ほっかいどう",
+          "gloss": "Hokkaido"
+        },
+        {
+          "word": "柔道",
+          "reading": "じゅうどう",
+          "gloss": "judo"
+        }
+      ]
+    },
+    {
+      "kanji": "雪",
+      "gloss": "snow",
+      "on": [
+        "セツ"
+      ],
+      "kun": [
+        "ゆき"
+      ],
+      "examples": [
+        {
+          "word": "雪",
+          "reading": "ゆき",
+          "gloss": "snow"
+        },
+        {
+          "word": "新雪",
+          "reading": "しんせつ",
+          "gloss": "new snow"
+        }
+      ]
+    },
+    {
+      "kanji": "立",
+      "gloss": "to stand",
+      "on": [
+        "リツ"
+      ],
+      "kun": [
+        "た"
+      ],
+      "examples": [
+        {
+          "word": "私立大学",
+          "reading": "しりつだいがく",
+          "gloss": "private university"
+        },
+        {
+          "word": "立つ",
+          "reading": "たつ",
+          "gloss": "to stand"
+        },
+        {
+          "word": "国立大学",
+          "reading": "こくりつだいがく",
+          "gloss": "national university"
+        },
+        {
+          "word": "私立高校",
+          "reading": "しりつこうこう",
+          "gloss": "private high school"
+        }
+      ]
+    },
+    {
+      "kanji": "自",
+      "gloss": "self",
+      "on": [
+        "ジ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "自分",
+          "reading": "じぶん",
+          "gloss": "oneself"
+        },
+        {
+          "word": "自転車",
+          "reading": "じてんしゃ",
+          "gloss": "bicycle"
+        },
+        {
+          "word": "自動車",
+          "reading": "じどうしゃ",
+          "gloss": "automobile"
+        },
+        {
+          "word": "自宅",
+          "reading": "じたく",
+          "gloss": "my house"
+        }
+      ]
+    },
+    {
+      "kanji": "夜",
+      "gloss": "night",
+      "on": [
+        "ヤ"
+      ],
+      "kun": [
+        "よる",
+        "よ"
+      ],
+      "examples": [
+        {
+          "word": "夜",
+          "reading": "よる",
+          "gloss": "night"
+        },
+        {
+          "word": "夜中",
+          "reading": "よなか",
+          "gloss": "midnight"
+        },
+        {
+          "word": "今夜",
+          "reading": "こんや",
+          "gloss": "tonight"
+        },
+        {
+          "word": "真夜中",
+          "reading": "まよなか",
+          "gloss": "midnight"
+        }
+      ]
+    },
+    {
+      "kanji": "朝",
+      "gloss": "morning",
+      "on": [
+        "チョウ"
+      ],
+      "kun": [
+        "あさ"
+      ],
+      "examples": [
+        {
+          "word": "朝",
+          "reading": "あさ",
+          "gloss": "morning"
+        },
+        {
+          "word": "今朝",
+          "reading": "けさ",
+          "gloss": "this morning"
+        },
+        {
+          "word": "朝食",
+          "reading": "ちょうしょく",
+          "gloss": "breakfast"
+        },
+        {
+          "word": "早朝",
+          "reading": "そうちょう",
+          "gloss": "early morning"
+        }
+      ]
+    },
+    {
+      "kanji": "持",
+      "gloss": "to hold",
+      "on": [
+        "ジ"
+      ],
+      "kun": [
+        "も"
+      ],
+      "examples": [
+        {
+          "word": "持つ",
+          "reading": "もつ",
+          "gloss": "to hold"
+        },
+        {
+          "word": "持ってくる",
+          "reading": "もってくる",
+          "gloss": "to bring"
+        },
+        {
+          "word": "所持品",
+          "reading": "しょじひん",
+          "gloss": "belongings"
+        }
+      ]
+    }
+  ],
+  "11": [
+    {
+      "kanji": "手",
+      "gloss": "hand",
+      "on": [
+        "シュ"
+      ],
+      "kun": [
+        "て"
+      ],
+      "examples": [
+        {
+          "word": "上手な",
+          "reading": "じょうずな",
+          "gloss": "good at"
+        },
+        {
+          "word": "下手な",
+          "reading": "へたな",
+          "gloss": "poor at"
+        },
+        {
+          "word": "手",
+          "reading": "て",
+          "gloss": "hand"
+        },
+        {
+          "word": "手紙",
+          "reading": "てがみ",
+          "gloss": "letter"
+        }
+      ]
+    },
+    {
+      "kanji": "紙",
+      "gloss": "paper",
+      "on": [
+        "シ"
+      ],
+      "kun": [
+        "がみ",
+        "かみ"
+      ],
+      "examples": [
+        {
+          "word": "手紙",
+          "reading": "てがみ",
+          "gloss": "letter"
+        },
+        {
+          "word": "紙",
+          "reading": "かみ",
+          "gloss": "paper"
+        },
+        {
+          "word": "和紙",
+          "reading": "わし",
+          "gloss": "Japanese paper"
+        },
+        {
+          "word": "用紙",
+          "reading": "ようし",
+          "gloss": "blank form"
+        }
+      ]
+    },
+    {
+      "kanji": "好",
+      "gloss": "favorite; to like",
+      "on": [
+        "コウ"
+      ],
+      "kun": [
+        "す",
+        "この"
+      ],
+      "examples": [
+        {
+          "word": "好きな",
+          "reading": "すきな",
+          "gloss": "to like"
+        },
+        {
+          "word": "好意",
+          "reading": "こうい",
+          "gloss": "good will"
+        },
+        {
+          "word": "好み",
+          "reading": "このみ",
+          "gloss": "liking; taste"
+        }
+      ]
+    },
+    {
+      "kanji": "近",
+      "gloss": "near",
+      "on": [
+        "キン"
+      ],
+      "kun": [
+        "ちか"
+      ],
+      "examples": [
+        {
+          "word": "近く",
+          "reading": "ちかく",
+          "gloss": "nearby"
+        },
+        {
+          "word": "最近",
+          "reading": "さいきん",
+          "gloss": "recently"
+        },
+        {
+          "word": "中近東",
+          "reading": "ちゅうきんとう",
+          "gloss": "the Middle and Near East"
+        },
+        {
+          "word": "近所",
+          "reading": "きんじょ",
+          "gloss": "neighborhood"
+        }
+      ]
+    },
+    {
+      "kanji": "明",
+      "gloss": "bright",
+      "on": [
+        "メイ"
+      ],
+      "kun": [
+        "あか"
+      ],
+      "examples": [
+        {
+          "word": "明るい",
+          "reading": "あかるい",
+          "gloss": "cheerful; bright"
+        },
+        {
+          "word": "明日",
+          "reading": "あした",
+          "gloss": "tomorrow"
+        },
+        {
+          "word": "説明",
+          "reading": "せつめい",
+          "gloss": "explanation"
+        },
+        {
+          "word": "説明する",
+          "reading": "せつめいする",
+          "gloss": "to explain"
+        }
+      ]
+    },
+    {
+      "kanji": "病",
+      "gloss": "ill; sick",
+      "on": [
+        "ビョウ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "病院",
+          "reading": "びょういん",
+          "gloss": "hospital"
+        },
+        {
+          "word": "重病",
+          "reading": "じゅうびょう",
+          "gloss": "serious illness"
+        },
+        {
+          "word": "急病",
+          "reading": "きゅうびょう",
+          "gloss": "sudden illness"
+        },
+        {
+          "word": "病気が悪くなった",
+          "reading": "びょうきがわるくなった",
+          "gloss": "condition (illness) became worse"
+        }
+      ]
+    },
+    {
+      "kanji": "院",
+      "gloss": "institution",
+      "on": [
+        "イン"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "病院",
+          "reading": "びょういん",
+          "gloss": "hospital"
+        },
+        {
+          "word": "大学院",
+          "reading": "だいがくいん",
+          "gloss": "graduate school"
+        },
+        {
+          "word": "美容院",
+          "reading": "びよういん",
+          "gloss": "beauty parlor"
+        },
+        {
+          "word": "退院する",
+          "reading": "たいいんする",
+          "gloss": "to leave hospital"
+        }
+      ]
+    },
+    {
+      "kanji": "映",
+      "gloss": "to reflect",
+      "on": [
+        "エイ"
+      ],
+      "kun": [
+        "うつ"
+      ],
+      "examples": [
+        {
+          "word": "映画",
+          "reading": "えいが",
+          "gloss": "movie"
+        },
+        {
+          "word": "映画館",
+          "reading": "えいがかん",
+          "gloss": "movie theater"
+        },
+        {
+          "word": "映る",
+          "reading": "うつる",
+          "gloss": "to be reflected"
+        },
+        {
+          "word": "上映する",
+          "reading": "じょうえいする",
+          "gloss": "to show (a movie)"
+        }
+      ]
+    },
+    {
+      "kanji": "画",
+      "gloss": "picture",
+      "on": [
+        "ガ",
+        "カク"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "映画",
+          "reading": "えいが",
+          "gloss": "movie"
+        },
+        {
+          "word": "映画館",
+          "reading": "えいがかん",
+          "gloss": "movie theater"
+        },
+        {
+          "word": "画家",
+          "reading": "がか",
+          "gloss": "painter"
+        },
+        {
+          "word": "計画",
+          "reading": "けいかく",
+          "gloss": "plan"
+        }
+      ]
+    },
+    {
+      "kanji": "歌",
+      "gloss": "to sing",
+      "on": [
+        "カ"
+      ],
+      "kun": [
+        "うた"
+      ],
+      "examples": [
+        {
+          "word": "歌手",
+          "reading": "かしゅ",
+          "gloss": "singer"
+        },
+        {
+          "word": "歌う",
+          "reading": "うたう",
+          "gloss": "to sing"
+        },
+        {
+          "word": "国歌",
+          "reading": "こっか",
+          "gloss": "national anthem"
+        },
+        {
+          "word": "歌",
+          "reading": "うた",
+          "gloss": "song"
+        }
+      ]
+    },
+    {
+      "kanji": "市",
+      "gloss": "city",
+      "on": [
+        "シ"
+      ],
+      "kun": [
+        "いち"
+      ],
+      "examples": [
+        {
+          "word": "川口市",
+          "reading": "かわぐちし",
+          "gloss": "Kawaguchi city"
+        },
+        {
+          "word": "市役所",
+          "reading": "しやくしょ",
+          "gloss": "city hall"
+        },
+        {
+          "word": "市場",
+          "reading": "いちば",
+          "gloss": "market"
+        },
+        {
+          "word": "市長",
+          "reading": "しちょう",
+          "gloss": "mayor"
+        }
+      ]
+    },
+    {
+      "kanji": "所",
+      "gloss": "place",
+      "on": [
+        "ジョ",
+        "ショ"
+      ],
+      "kun": [
+        "ところ",
+        "どころ"
+      ],
+      "examples": [
+        {
+          "word": "住所",
+          "reading": "じゅうしょ",
+          "gloss": "address"
+        },
+        {
+          "word": "所持品",
+          "reading": "しょじひん",
+          "gloss": "belongings"
+        },
+        {
+          "word": "近所",
+          "reading": "きんじょ",
+          "gloss": "neighborhood"
+        },
+        {
+          "word": "市役所",
+          "reading": "しやくしょ",
+          "gloss": "city hall"
+        }
+      ]
+    },
+    {
+      "kanji": "勉",
+      "gloss": "to make efforts",
+      "on": [
+        "ベン"
+      ],
+      "kun": [
+        "つと"
+      ],
+      "examples": [
+        {
+          "word": "勉強する",
+          "reading": "べんきょうする",
+          "gloss": "to study"
+        },
+        {
+          "word": "勉める",
+          "reading": "つとめる",
+          "gloss": "to try hard"
+        },
+        {
+          "word": "勤勉な",
+          "reading": "きんべんな",
+          "gloss": "diligent"
+        }
+      ]
+    },
+    {
+      "kanji": "強",
+      "gloss": "strong",
+      "on": [
+        "キョウ",
+        "ゴウ"
+      ],
+      "kun": [
+        "つよ"
+      ],
+      "examples": [
+        {
+          "word": "勉強する",
+          "reading": "べんきょうする",
+          "gloss": "to study"
+        },
+        {
+          "word": "強い",
+          "reading": "つよい",
+          "gloss": "strong"
+        },
+        {
+          "word": "強情な",
+          "reading": "ごうじょうな",
+          "gloss": "obstinate"
+        }
+      ]
+    },
+    {
+      "kanji": "有",
+      "gloss": "to exist",
+      "on": [
+        "ユウ"
+      ],
+      "kun": [
+        "あ"
+      ],
+      "examples": [
+        {
+          "word": "有名な",
+          "reading": "ゆうめいな",
+          "gloss": "famous"
+        },
+        {
+          "word": "有料",
+          "reading": "ゆうりょう",
+          "gloss": "toll; fee"
+        },
+        {
+          "word": "有る",
+          "reading": "ある",
+          "gloss": "to exist"
+        },
+        {
+          "word": "有利",
+          "reading": "ゆうり",
+          "gloss": "advantageous"
+        }
+      ]
+    },
+    {
+      "kanji": "旅",
+      "gloss": "travel",
+      "on": [
+        "リョ"
+      ],
+      "kun": [
+        "たび"
+      ],
+      "examples": [
+        {
+          "word": "旅行",
+          "reading": "りょこう",
+          "gloss": "travel"
+        },
+        {
+          "word": "旅館",
+          "reading": "りょかん",
+          "gloss": "inn"
+        },
+        {
+          "word": "一人旅",
+          "reading": "ひとりたび",
+          "gloss": "traveling alone"
+        },
+        {
+          "word": "旅行社",
+          "reading": "りょこうしゃ",
+          "gloss": "travel agency"
+        }
+      ]
+    }
+  ],
+  "12": [
+    {
+      "kanji": "昔",
+      "gloss": "ancient times",
+      "on": [],
+      "kun": [
+        "むかし"
+      ],
+      "examples": [
+        {
+          "word": "昔",
+          "reading": "むかし",
+          "gloss": "old times"
+        },
+        {
+          "word": "昔話",
+          "reading": "むかしばなし",
+          "gloss": "old tale"
+        },
+        {
+          "word": "昔々",
+          "reading": "むかしむかし",
+          "gloss": "once upon a time"
+        }
+      ]
+    },
+    {
+      "kanji": "々",
+      "gloss": "symbol of repetition of a kanji",
+      "on": [],
+      "kun": [],
+      "examples": [
+        {
+          "word": "時々",
+          "reading": "ときどき",
+          "gloss": "sometimes"
+        },
+        {
+          "word": "昔々",
+          "reading": "むかしむかし",
+          "gloss": "once upon a time"
+        },
+        {
+          "word": "人々",
+          "reading": "ひとびと",
+          "gloss": "people"
+        },
+        {
+          "word": "色々な",
+          "reading": "いろいろな",
+          "gloss": "various"
+        }
+      ]
+    },
+    {
+      "kanji": "神",
+      "gloss": "God",
+      "on": [
+        "ジン",
+        "シン"
+      ],
+      "kun": [
+        "かみ"
+      ],
+      "examples": [
+        {
+          "word": "神さま",
+          "reading": "かみさま",
+          "gloss": "God"
+        },
+        {
+          "word": "神道",
+          "reading": "しんとう",
+          "gloss": "Shinto religion"
+        },
+        {
+          "word": "神社",
+          "reading": "じんじゃ",
+          "gloss": "shrine"
+        }
+      ]
+    },
+    {
+      "kanji": "早",
+      "gloss": "early",
+      "on": [
+        "ツウ"
+      ],
+      "kun": [
+        "はや"
+      ],
+      "examples": [
+        {
+          "word": "早い",
+          "reading": "はやい",
+          "gloss": "early"
+        },
+        {
+          "word": "早起きする",
+          "reading": "はやおきする",
+          "gloss": "to get up early"
+        },
+        {
+          "word": "早朝",
+          "reading": "そうちょう",
+          "gloss": "early morning"
+        },
+        {
+          "word": "早春",
+          "reading": "そうしゅん",
+          "gloss": "early spring"
+        }
+      ]
+    },
+    {
+      "kanji": "起",
+      "gloss": "to get up",
+      "on": [
+        "キ"
+      ],
+      "kun": [
+        "お"
+      ],
+      "examples": [
+        {
+          "word": "早起きする",
+          "reading": "はやおきする",
+          "gloss": "to get up early"
+        },
+        {
+          "word": "起きる",
+          "reading": "おきる",
+          "gloss": "to get up"
+        },
+        {
+          "word": "起こす",
+          "reading": "おこす",
+          "gloss": "to wake someone up"
+        },
+        {
+          "word": "起立する",
+          "reading": "きりつする",
+          "gloss": "to stand up"
+        }
+      ]
+    },
+    {
+      "kanji": "牛",
+      "gloss": "cow",
+      "on": [
+        "ギュウ"
+      ],
+      "kun": [
+        "うし"
+      ],
+      "examples": [
+        {
+          "word": "牛",
+          "reading": "うし",
+          "gloss": "cow"
+        },
+        {
+          "word": "牛乳",
+          "reading": "ぎゅうにゅう",
+          "gloss": "milk"
+        },
+        {
+          "word": "牛肉",
+          "reading": "ぎゅうにく",
+          "gloss": "beef"
+        },
+        {
+          "word": "牛肉",
+          "reading": "ぎゅうにく",
+          "gloss": "beef"
+        }
+      ]
+    },
+    {
+      "kanji": "使",
+      "gloss": "to use",
+      "on": [
+        "シ"
+      ],
+      "kun": [
+        "つか"
+      ],
+      "examples": [
+        {
+          "word": "使う",
+          "reading": "つかう",
+          "gloss": "to use"
+        },
+        {
+          "word": "大使",
+          "reading": "たいし",
+          "gloss": "ambassador"
+        },
+        {
+          "word": "使用中",
+          "reading": "しようちゅう",
+          "gloss": "\"Occupied\""
+        },
+        {
+          "word": "大使館",
+          "reading": "たいしかん",
+          "gloss": "embassy"
+        }
+      ]
+    },
+    {
+      "kanji": "働",
+      "gloss": "to work",
+      "on": [
+        "ドウ"
+      ],
+      "kun": [
+        "はたら",
+        "ばたら"
+      ],
+      "examples": [
+        {
+          "word": "働く",
+          "reading": "はたらく",
+          "gloss": "to work"
+        },
+        {
+          "word": "共働き",
+          "reading": "ともばたらき",
+          "gloss": "both husband and wife working for a living"
+        },
+        {
+          "word": "労働",
+          "reading": "るうどう",
+          "gloss": "labor"
+        }
+      ]
+    },
+    {
+      "kanji": "連",
+      "gloss": "to link",
+      "on": [
+        "レン"
+      ],
+      "kun": [
+        "つ"
+      ],
+      "examples": [
+        {
+          "word": "連れて帰る",
+          "reading": "つれてかえる",
+          "gloss": "to take home"
+        },
+        {
+          "word": "国連",
+          "reading": "こくれん",
+          "gloss": "United Nations"
+        },
+        {
+          "word": "連休",
+          "reading": "れんきゅう",
+          "gloss": "consecutive holidays"
+        },
+        {
+          "word": "連続する",
+          "reading": "れんぞくする",
+          "gloss": "to continue"
+        }
+      ]
+    },
+    {
+      "kanji": "別",
+      "gloss": "to separate",
+      "on": [
+        "ベツ"
+      ],
+      "kun": [
+        "わか"
+      ],
+      "examples": [
+        {
+          "word": "別れる",
+          "reading": "わかれる",
+          "gloss": "to separate"
+        },
+        {
+          "word": "別に",
+          "reading": "べつに",
+          "gloss": "not in particular"
+        },
+        {
+          "word": "差別",
+          "reading": "さべつ",
+          "gloss": "discrimination"
+        },
+        {
+          "word": "別々に",
+          "reading": "べつべつに",
+          "gloss": "separately"
+        }
+      ]
+    },
+    {
+      "kanji": "度",
+      "gloss": "time; degrees",
+      "on": [
+        "ド"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "一生に一度",
+          "reading": "いっしょうにいちど",
+          "gloss": "once in a life time"
+        },
+        {
+          "word": "一度",
+          "reading": "いちど",
+          "gloss": "once"
+        },
+        {
+          "word": "今度",
+          "reading": "こんど",
+          "gloss": "near future"
+        },
+        {
+          "word": "温度",
+          "reading": "おんど",
+          "gloss": "temperature"
+        }
+      ]
+    },
+    {
+      "kanji": "赤",
+      "gloss": "red",
+      "on": [
+        "セキ"
+      ],
+      "kun": [
+        "あか"
+      ],
+      "examples": [
+        {
+          "word": "赤",
+          "reading": "あか",
+          "gloss": "red color"
+        },
+        {
+          "word": "赤い",
+          "reading": "あかい",
+          "gloss": "red"
+        },
+        {
+          "word": "赤ちゃん",
+          "reading": "あかちゃん",
+          "gloss": "baby"
+        },
+        {
+          "word": "赤道",
+          "reading": "せきどう",
+          "gloss": "the equator"
+        }
+      ]
+    },
+    {
+      "kanji": "青",
+      "gloss": "blue",
+      "on": [
+        "セイ"
+      ],
+      "kun": [
+        "あお"
+      ],
+      "examples": [
+        {
+          "word": "青",
+          "reading": "あお",
+          "gloss": "blue color"
+        },
+        {
+          "word": "青い",
+          "reading": "あおい",
+          "gloss": "blue"
+        },
+        {
+          "word": "青年",
+          "reading": "せいねん",
+          "gloss": "youth"
+        },
+        {
+          "word": "青春",
+          "reading": "せいしゅん",
+          "gloss": "youth"
+        }
+      ]
+    },
+    {
+      "kanji": "色",
+      "gloss": "color",
+      "on": [
+        "シキ",
+        "ショク"
+      ],
+      "kun": [
+        "いろ"
+      ],
+      "examples": [
+        {
+          "word": "色々な",
+          "reading": "いろいろな",
+          "gloss": "various"
+        },
+        {
+          "word": "色",
+          "reading": "いろ",
+          "gloss": "color"
+        },
+        {
+          "word": "景色",
+          "reading": "けしき",
+          "gloss": "scenery"
+        },
+        {
+          "word": "特色",
+          "reading": "とくしょく",
+          "gloss": "characteristic"
+        }
+      ]
+    }
+  ],
+  "13": [
+    {
+      "kanji": "物",
+      "gloss": "thing",
+      "on": [
+        "ブシ"
+      ],
+      "kun": [
+        "もの"
+      ],
+      "examples": [
+        {
+          "word": "見物",
+          "reading": "けんぶつ",
+          "gloss": "sightseeing"
+        },
+        {
+          "word": "食べ物",
+          "reading": "たべもの",
+          "gloss": "food"
+        },
+        {
+          "word": "飲み物",
+          "reading": "のみもの",
+          "gloss": "drink"
+        },
+        {
+          "word": "買い物",
+          "reading": "かいもの",
+          "gloss": "shopping"
+        }
+      ]
+    },
+    {
+      "kanji": "鳥",
+      "gloss": "bird",
+      "on": [
+        "チョウ"
+      ],
+      "kun": [
+        "とり"
+      ],
+      "examples": [
+        {
+          "word": "鳥",
+          "reading": "とり",
+          "gloss": "bird"
+        },
+        {
+          "word": "焼き鳥",
+          "reading": "やきとり",
+          "gloss": "grilled chicken"
+        },
+        {
+          "word": "白鳥",
+          "reading": "はくちょう",
+          "gloss": "swan"
+        }
+      ]
+    },
+    {
+      "kanji": "料",
+      "gloss": "ingredients; fare",
+      "on": [
+        "リョウ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "料理",
+          "reading": "りょうり",
+          "gloss": "cooking"
+        },
+        {
+          "word": "料金",
+          "reading": "りょうきん",
+          "gloss": "charge"
+        },
+        {
+          "word": "給料",
+          "reading": "きゅうりょう",
+          "gloss": "salary"
+        },
+        {
+          "word": "授業料",
+          "reading": "じゅぎょうりょう",
+          "gloss": "tuition; school fees"
+        }
+      ]
+    },
+    {
+      "kanji": "理",
+      "gloss": "reason",
+      "on": [
+        "リ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "料理",
+          "reading": "りょうり",
+          "gloss": "cooking"
+        },
+        {
+          "word": "理由",
+          "reading": "りゆう",
+          "gloss": "reason"
+        },
+        {
+          "word": "無理",
+          "reading": "むり",
+          "gloss": "impossible"
+        },
+        {
+          "word": "心理学",
+          "reading": "しんりがく",
+          "gloss": "psychology"
+        }
+      ]
+    },
+    {
+      "kanji": "特",
+      "gloss": "special",
+      "on": [
+        "トク",
+        "トッ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "特に",
+          "reading": "とくに",
+          "gloss": "especially"
+        },
+        {
+          "word": "特別な",
+          "reading": "とくべつな",
+          "gloss": "special"
+        },
+        {
+          "word": "特急電車",
+          "reading": "とっきゅうでんしゃ",
+          "gloss": "super express train"
+        },
+        {
+          "word": "特急",
+          "reading": "ときゅう",
+          "gloss": "a special express"
+        }
+      ]
+    },
+    {
+      "kanji": "安",
+      "gloss": "cheap; ease",
+      "on": [
+        "アン"
+      ],
+      "kun": [
+        "やす"
+      ],
+      "examples": [
+        {
+          "word": "安い",
+          "reading": "やすい",
+          "gloss": "cheap"
+        },
+        {
+          "word": "安心",
+          "reading": "あんしん",
+          "gloss": "relief"
+        },
+        {
+          "word": "不安な",
+          "reading": "ふあんな",
+          "gloss": "uneasy"
+        },
+        {
+          "word": "安いツアー",
+          "reading": "やすいツアー",
+          "gloss": "cheap tour"
+        }
+      ]
+    },
+    {
+      "kanji": "飯",
+      "gloss": "food; cooked rice",
+      "on": [
+        "ハン"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "ご飯",
+          "reading": "ごはん",
+          "gloss": "rice; meal"
+        },
+        {
+          "word": "朝ご飯",
+          "reading": "あさごはん",
+          "gloss": "breakfast"
+        },
+        {
+          "word": "昼ご飯",
+          "reading": "ひるごはん",
+          "gloss": "lunch"
+        },
+        {
+          "word": "晩ご飯",
+          "reading": "ばんごはん",
+          "gloss": "supper; dinner"
+        }
+      ]
+    },
+    {
+      "kanji": "肉",
+      "gloss": "meat",
+      "on": [
+        "ニク"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "牛肉",
+          "reading": "ぎゅうにく",
+          "gloss": "beef"
+        },
+        {
+          "word": "肉",
+          "reading": "にく",
+          "gloss": "meat"
+        },
+        {
+          "word": "牛肉",
+          "reading": "ぎゅうにく",
+          "gloss": "beef"
+        },
+        {
+          "word": "肉屋",
+          "reading": "にくや",
+          "gloss": "meat shop"
+        }
+      ]
+    },
+    {
+      "kanji": "悪",
+      "gloss": "bad; wrong",
+      "on": [
+        "アク"
+      ],
+      "kun": [
+        "わる"
+      ],
+      "examples": [
+        {
+          "word": "悪い",
+          "reading": "わるい",
+          "gloss": "bad"
+        },
+        {
+          "word": "気分が悪い",
+          "reading": "きぶんがわるい",
+          "gloss": "to feel sick"
+        },
+        {
+          "word": "最悪",
+          "reading": "さいあく",
+          "gloss": "the worst"
+        },
+        {
+          "word": "悪魔",
+          "reading": "あくま",
+          "gloss": "devil"
+        }
+      ]
+    },
+    {
+      "kanji": "体",
+      "gloss": "body",
+      "on": [
+        "タイ"
+      ],
+      "kun": [
+        "からだ"
+      ],
+      "examples": [
+        {
+          "word": "体",
+          "reading": "からだ",
+          "gloss": "body"
+        },
+        {
+          "word": "体重",
+          "reading": "たいしゅう",
+          "gloss": "body weight"
+        },
+        {
+          "word": "体操",
+          "reading": "たいそう",
+          "gloss": "gymnastics; physical exercises"
+        },
+        {
+          "word": "体育",
+          "reading": "たいいく",
+          "gloss": "physical education"
+        }
+      ]
+    },
+    {
+      "kanji": "空",
+      "gloss": "sky; empty",
+      "on": [
+        "クウ"
+      ],
+      "kun": [
+        "そら",
+        "あ",
+        "から"
+      ],
+      "examples": [
+        {
+          "word": "空港",
+          "reading": "くうこう",
+          "gloss": "airport"
+        },
+        {
+          "word": "空気",
+          "reading": "くうき",
+          "gloss": "air"
+        },
+        {
+          "word": "空",
+          "reading": "そら",
+          "gloss": "sky"
+        },
+        {
+          "word": "空く",
+          "reading": "あく",
+          "gloss": "to be vacant"
+        }
+      ]
+    },
+    {
+      "kanji": "港",
+      "gloss": "port; harbor",
+      "on": [
+        "コウ"
+      ],
+      "kun": [
+        "みなと"
+      ],
+      "examples": [
+        {
+          "word": "空港",
+          "reading": "くうこう",
+          "gloss": "airport"
+        },
+        {
+          "word": "神戸港",
+          "reading": "こうべこう",
+          "gloss": "Kobe Port"
+        },
+        {
+          "word": "港",
+          "reading": "みなと",
+          "gloss": "port"
+        }
+      ]
+    },
+    {
+      "kanji": "着",
+      "gloss": "to reach; to wear",
+      "on": [
+        "チャク"
+      ],
+      "kun": [
+        "つき"
+      ],
+      "examples": [
+        {
+          "word": "着く",
+          "reading": "つく",
+          "gloss": "to arrive"
+        },
+        {
+          "word": "着る",
+          "reading": "きる",
+          "gloss": "to wear"
+        },
+        {
+          "word": "着物",
+          "reading": "きもの",
+          "gloss": "kimono"
+        },
+        {
+          "word": "大阪着",
+          "reading": "おおさかちゃく",
+          "gloss": "arriving at Osaka"
+        }
+      ]
+    },
+    {
+      "kanji": "同",
+      "gloss": "same",
+      "on": [
+        "ドウ"
+      ],
+      "kun": [
+        "おな"
+      ],
+      "examples": [
+        {
+          "word": "同じ",
+          "reading": "おなじ",
+          "gloss": "same"
+        },
+        {
+          "word": "同時",
+          "reading": "どうじ",
+          "gloss": "same time; simultaneous"
+        },
+        {
+          "word": "同情する",
+          "reading": "どうじょうする",
+          "gloss": "to sympathize"
+        },
+        {
+          "word": "同意する",
+          "reading": "どういする",
+          "gloss": "to agree"
+        }
+      ]
+    },
+    {
+      "kanji": "海",
+      "gloss": "sea",
+      "on": [
+        "カイ"
+      ],
+      "kun": [
+        "うみ"
+      ],
+      "examples": [
+        {
+          "word": "北海道",
+          "reading": "ほっかいどう",
+          "gloss": "Hokkaido"
+        },
+        {
+          "word": "海",
+          "reading": "うみ",
+          "gloss": "sea"
+        },
+        {
+          "word": "日本海",
+          "reading": "にほんかい",
+          "gloss": "the Japan Sea"
+        },
+        {
+          "word": "海外",
+          "reading": "かいがい",
+          "gloss": "overseas"
+        }
+      ]
+    },
+    {
+      "kanji": "昼",
+      "gloss": "noon; daytime",
+      "on": [
+        "チュウ"
+      ],
+      "kun": [
+        "ひる"
+      ],
+      "examples": [
+        {
+          "word": "昼",
+          "reading": "ひる",
+          "gloss": "noon; daytime"
+        },
+        {
+          "word": "昼ご飯",
+          "reading": "ひるごはん",
+          "gloss": "lunch"
+        },
+        {
+          "word": "昼食",
+          "reading": "ちゅうしょく",
+          "gloss": "lunch"
+        },
+        {
+          "word": "昼寝する",
+          "reading": "ひるねする",
+          "gloss": "to take a nap"
+        }
+      ]
+    }
+  ],
+  "14": [
+    {
+      "kanji": "彼",
+      "gloss": "he",
+      "on": [],
+      "kun": [
+        "かれ",
+        "かの"
+      ],
+      "examples": [
+        {
+          "word": "彼",
+          "reading": "かれ",
+          "gloss": "he; boyfriend"
+        },
+        {
+          "word": "彼女",
+          "reading": "かのじょ",
+          "gloss": "she; girlfriend"
+        }
+      ]
+    },
+    {
+      "kanji": "代",
+      "gloss": "age; replace",
+      "on": [
+        "ダイ"
+      ],
+      "kun": [
+        "か"
+      ],
+      "examples": [
+        {
+          "word": "世代",
+          "reading": "せだい",
+          "gloss": "generation"
+        },
+        {
+          "word": "現代的",
+          "reading": "げんだいてき",
+          "gloss": "modern"
+        },
+        {
+          "word": "時代",
+          "reading": "じだい",
+          "gloss": "age; era"
+        },
+        {
+          "word": "代わりに",
+          "reading": "かわりに",
+          "gloss": "instead"
+        }
+      ]
+    },
+    {
+      "kanji": "留",
+      "gloss": "to stay; to keep",
+      "on": [
+        "リュウ",
+        "ル"
+      ],
+      "kun": [
+        "と"
+      ],
+      "examples": [
+        {
+          "word": "留学生",
+          "reading": "りゅうがくせい",
+          "gloss": "foreign students"
+        },
+        {
+          "word": "留守",
+          "reading": "るす",
+          "gloss": "absence from home"
+        },
+        {
+          "word": "留守番電話",
+          "reading": "るすばんでんわ",
+          "gloss": "answering machine"
+        }
+      ]
+    },
+    {
+      "kanji": "族",
+      "gloss": "family; tribe",
+      "on": [
+        "ゾク"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "家族",
+          "reading": "かぞく",
+          "gloss": "family"
+        },
+        {
+          "word": "民族",
+          "reading": "みんぞく",
+          "gloss": "a race; a people"
+        },
+        {
+          "word": "民族学",
+          "reading": "みんぞくがく",
+          "gloss": "ethnology"
+        },
+        {
+          "word": "水族館",
+          "reading": "すいぞくかん",
+          "gloss": "an aquarium"
+        }
+      ]
+    },
+    {
+      "kanji": "親",
+      "gloss": "parent; intimacy",
+      "on": [
+        "シン"
+      ],
+      "kun": [
+        "おや",
+        "した"
+      ],
+      "examples": [
+        {
+          "word": "父親",
+          "reading": "ちちおや",
+          "gloss": "father"
+        },
+        {
+          "word": "親切",
+          "reading": "しんせつ",
+          "gloss": "kind"
+        },
+        {
+          "word": "親友",
+          "reading": "しんゆう",
+          "gloss": "best friend"
+        },
+        {
+          "word": "両親",
+          "reading": "りょうしん",
+          "gloss": "parents"
+        }
+      ]
+    },
+    {
+      "kanji": "切",
+      "gloss": "to cut",
+      "on": [
+        "セツ"
+      ],
+      "kun": [
+        "き",
+        "きっ"
+      ],
+      "examples": [
+        {
+          "word": "親切",
+          "reading": "しんせつ",
+          "gloss": "kind"
+        },
+        {
+          "word": "切る",
+          "reading": "きる",
+          "gloss": "to cut"
+        },
+        {
+          "word": "大切",
+          "reading": "たいせつ",
+          "gloss": "precious; important"
+        },
+        {
+          "word": "切手",
+          "reading": "きって",
+          "gloss": "postage stamp"
+        }
+      ]
+    },
+    {
+      "kanji": "英",
+      "gloss": "English; excellent",
+      "on": [
+        "エイ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "英語",
+          "reading": "えいご",
+          "gloss": "English language"
+        },
+        {
+          "word": "英国",
+          "reading": "えいこく",
+          "gloss": "England"
+        },
+        {
+          "word": "英会話",
+          "reading": "えいかいわ",
+          "gloss": "English conversation"
+        },
+        {
+          "word": "英和辞典",
+          "reading": "えいわじてん",
+          "gloss": "an English-Japanese dictionary"
+        }
+      ]
+    },
+    {
+      "kanji": "店",
+      "gloss": "shop",
+      "on": [
+        "テン"
+      ],
+      "kun": [
+        "みせ"
+      ],
+      "examples": [
+        {
+          "word": "売店",
+          "reading": "ばいてん",
+          "gloss": "stand; stall"
+        },
+        {
+          "word": "店",
+          "reading": "みせ",
+          "gloss": "shop"
+        },
+        {
+          "word": "店員",
+          "reading": "てんいん",
+          "gloss": "store attendant"
+        },
+        {
+          "word": "茶店",
+          "reading": "ちゃみせ",
+          "gloss": "teahouse"
+        }
+      ]
+    },
+    {
+      "kanji": "去",
+      "gloss": "past; to leave",
+      "on": [
+        "キョ",
+        "コ"
+      ],
+      "kun": [
+        "さ"
+      ],
+      "examples": [
+        {
+          "word": "去年",
+          "reading": "きょねん",
+          "gloss": "last year"
+        },
+        {
+          "word": "過去",
+          "reading": "かこ",
+          "gloss": "the past"
+        }
+      ]
+    },
+    {
+      "kanji": "急",
+      "gloss": "to hurry; emergency",
+      "on": [
+        "キュウ"
+      ],
+      "kun": [
+        "いそ"
+      ],
+      "examples": [
+        {
+          "word": "急病",
+          "reading": "きゅうびょう",
+          "gloss": "sudden illness"
+        },
+        {
+          "word": "急に",
+          "reading": "きゅうに",
+          "gloss": "suddenly"
+        },
+        {
+          "word": "急ぐ",
+          "reading": "いそぐ",
+          "gloss": "to hurry"
+        },
+        {
+          "word": "急行",
+          "reading": "きゅうこう",
+          "gloss": "express train"
+        }
+      ]
+    },
+    {
+      "kanji": "乗",
+      "gloss": "to ride",
+      "on": [
+        "ジョウ"
+      ],
+      "kun": [
+        "の"
+      ],
+      "examples": [
+        {
+          "word": "乗る",
+          "reading": "のる",
+          "gloss": "to ride"
+        },
+        {
+          "word": "乗り物",
+          "reading": "のりもの",
+          "gloss": "vechicle"
+        },
+        {
+          "word": "乗客",
+          "reading": "じょうきゃく",
+          "gloss": "a passenger"
+        }
+      ]
+    },
+    {
+      "kanji": "当",
+      "gloss": "to hit",
+      "on": [
+        "トウ"
+      ],
+      "kun": [
+        "あ"
+      ],
+      "examples": [
+        {
+          "word": "本当",
+          "reading": "ほんとう",
+          "gloss": "really"
+        },
+        {
+          "word": "当たる",
+          "reading": "あたる",
+          "gloss": "to hit"
+        },
+        {
+          "word": "適当な",
+          "reading": "てきとうな",
+          "gloss": "proper"
+        },
+        {
+          "word": "手当",
+          "reading": "てあて",
+          "gloss": "medical treatment"
+        }
+      ]
+    },
+    {
+      "kanji": "音",
+      "gloss": "sound",
+      "on": [
+        "オン"
+      ],
+      "kun": [
+        "おと",
+        "ね"
+      ],
+      "examples": [
+        {
+          "word": "音楽",
+          "reading": "おんがく",
+          "gloss": "music"
+        },
+        {
+          "word": "発音",
+          "reading": "はつおん",
+          "gloss": "pronunciation"
+        },
+        {
+          "word": "音",
+          "reading": "おと",
+          "gloss": "sound"
+        },
+        {
+          "word": "足音",
+          "reading": "あしおと",
+          "gloss": "footsteps"
+        }
+      ]
+    },
+    {
+      "kanji": "楽",
+      "gloss": "pleasure",
+      "on": [
+        "ガク",
+        "ガッ",
+        "ラク"
+      ],
+      "kun": [
+        "たの"
+      ],
+      "examples": [
+        {
+          "word": "音楽",
+          "reading": "おんがく",
+          "gloss": "music"
+        },
+        {
+          "word": "楽しい",
+          "reading": "たのしい",
+          "gloss": "fun"
+        },
+        {
+          "word": "楽しむ",
+          "reading": "たのしむ",
+          "gloss": "to enjoy"
+        },
+        {
+          "word": "楽な",
+          "reading": "楽な",
+          "gloss": "easy; comfortable"
+        }
+      ]
+    },
+    {
+      "kanji": "医",
+      "gloss": "doctor; medicine",
+      "on": [
+        "イ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "医者",
+          "reading": "いしゃ",
+          "gloss": "doctor"
+        },
+        {
+          "word": "歯科医",
+          "reading": "しかい",
+          "gloss": "a dentist"
+        },
+        {
+          "word": "医院",
+          "reading": "いいん",
+          "gloss": "doctor's office"
+        }
+      ]
+    },
+    {
+      "kanji": "者",
+      "gloss": "person",
+      "on": [
+        "シャ"
+      ],
+      "kun": [
+        "もの"
+      ],
+      "examples": [
+        {
+          "word": "医者",
+          "reading": "いしゃ",
+          "gloss": "doctor"
+        },
+        {
+          "word": "者",
+          "reading": "しゃ",
+          "gloss": "a person"
+        },
+        {
+          "word": "科学者",
+          "reading": "かがくしゃ",
+          "gloss": "a scientist"
+        },
+        {
+          "word": "学者",
+          "reading": "がくしゃ",
+          "gloss": "a scholar"
+        }
+      ]
+    }
+  ],
+  "15": [
+    {
+      "kanji": "死",
+      "gloss": "death; to die",
+      "on": [
+        "シ"
+      ],
+      "kun": [
+        "し"
+      ],
+      "examples": [
+        {
+          "word": "死ぬ",
+          "reading": "しぬ",
+          "gloss": "to die"
+        }
+      ]
+    },
+    {
+      "kanji": "意",
+      "gloss": "mind; meaning",
+      "on": [
+        "イ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "意味",
+          "reading": "いみ",
+          "gloss": "meaning"
+        },
+        {
+          "word": "注意する",
+          "reading": "ちゅういする",
+          "gloss": "to watch out"
+        },
+        {
+          "word": "同意する",
+          "reading": "どういする",
+          "gloss": "to agree"
+        },
+        {
+          "word": "意見",
+          "reading": "いけん",
+          "gloss": "an opinion"
+        }
+      ]
+    },
+    {
+      "kanji": "味",
+      "gloss": "flavor; taste",
+      "on": [
+        "ミ"
+      ],
+      "kun": [
+        "あじ"
+      ],
+      "examples": [
+        {
+          "word": "意味",
+          "reading": "いみ",
+          "gloss": "meaning"
+        },
+        {
+          "word": "趣味",
+          "reading": "しゅみ",
+          "gloss": "hobby"
+        },
+        {
+          "word": "興味",
+          "reading": "きょうみ",
+          "gloss": "interest"
+        },
+        {
+          "word": "味噌",
+          "reading": "みそ",
+          "gloss": "soybean paste"
+        }
+      ]
+    },
+    {
+      "kanji": "注",
+      "gloss": "to pour; to shed",
+      "on": [
+        "チュウ"
+      ],
+      "kun": [
+        "そそ"
+      ],
+      "examples": [
+        {
+          "word": "注意する",
+          "reading": "ちゅういする",
+          "gloss": "to watch out"
+        },
+        {
+          "word": "注ぐ",
+          "reading": "そそぐ",
+          "gloss": "to pour"
+        },
+        {
+          "word": "注文する",
+          "reading": "ちゅうもんする",
+          "gloss": "to order"
+        },
+        {
+          "word": "注",
+          "reading": "ちゅう",
+          "gloss": "explanatory notes"
+        }
+      ]
+    },
+    {
+      "kanji": "夏",
+      "gloss": "summer",
+      "on": [
+        "カ"
+      ],
+      "kun": [
+        "なつ"
+      ],
+      "examples": [
+        {
+          "word": "夏",
+          "reading": "なつ",
+          "gloss": "summer"
+        },
+        {
+          "word": "夏休み",
+          "reading": "なつやすみ",
+          "gloss": "summer vacation"
+        },
+        {
+          "word": "冷夏",
+          "reading": "れいか",
+          "gloss": "a cool summer"
+        },
+        {
+          "word": "初夏",
+          "reading": "しょか",
+          "gloss": "early summer"
+        }
+      ]
+    },
+    {
+      "kanji": "魚",
+      "gloss": "fish",
+      "on": [
+        "ギョ"
+      ],
+      "kun": [
+        "さかな",
+        "うお"
+      ],
+      "examples": [
+        {
+          "word": "魚",
+          "reading": "さかな",
+          "gloss": "fish"
+        },
+        {
+          "word": "金魚",
+          "reading": "きんぎょ",
+          "gloss": "goldfish"
+        }
+      ]
+    },
+    {
+      "kanji": "寺",
+      "gloss": "temple",
+      "on": [
+        "ジ"
+      ],
+      "kun": [
+        "てら"
+      ],
+      "examples": [
+        {
+          "word": "お寺",
+          "reading": "おてら",
+          "gloss": "temple"
+        },
+        {
+          "word": "東大寺",
+          "reading": "とうだいじ",
+          "gloss": "Todaiji Temple"
+        }
+      ]
+    },
+    {
+      "kanji": "広",
+      "gloss": "spacious; wide",
+      "on": [
+        "コウ"
+      ],
+      "kun": [
+        "ひろ"
+      ],
+      "examples": [
+        {
+          "word": "広い",
+          "reading": "ひろい",
+          "gloss": "wide; spacious"
+        },
+        {
+          "word": "広場",
+          "reading": "ひろば",
+          "gloss": "square; open space; plaza"
+        },
+        {
+          "word": "広島",
+          "reading": "ひろしま",
+          "gloss": "Hiroshima"
+        },
+        {
+          "word": "広告",
+          "reading": "こうこく",
+          "gloss": "advertisement"
+        }
+      ]
+    },
+    {
+      "kanji": "転",
+      "gloss": "to roll over",
+      "on": [
+        "テン"
+      ],
+      "kun": [
+        "ころ"
+      ],
+      "examples": [
+        {
+          "word": "運転",
+          "reading": "うんてん",
+          "gloss": "driving"
+        },
+        {
+          "word": "自転車",
+          "reading": "じてんしゃ",
+          "gloss": "bicycle"
+        },
+        {
+          "word": "回転寿し",
+          "reading": "かいてんずし",
+          "gloss": "rotating sushi"
+        },
+        {
+          "word": "転ぶ",
+          "reading": "ころぶ",
+          "gloss": "to tumble; to fall down"
+        }
+      ]
+    },
+    {
+      "kanji": "借",
+      "gloss": "to borrow",
+      "on": [
+        "シャク",
+        "シャツ"
+      ],
+      "kun": [
+        "か"
+      ],
+      "examples": [
+        {
+          "word": "借りる",
+          "reading": "かりる",
+          "gloss": "to borrow"
+        },
+        {
+          "word": "借金",
+          "reading": "しゃっきん",
+          "gloss": "a debt"
+        },
+        {
+          "word": "借用書",
+          "reading": "しゃくようしょ",
+          "gloss": "an IOU"
+        }
+      ]
+    },
+    {
+      "kanji": "走",
+      "gloss": "to run",
+      "on": [
+        "ソウ"
+      ],
+      "kun": [
+        "はし"
+      ],
+      "examples": [
+        {
+          "word": "走る",
+          "reading": "はしる",
+          "gloss": "to run"
+        }
+      ]
+    },
+    {
+      "kanji": "建",
+      "gloss": "to build",
+      "on": [
+        "ケン"
+      ],
+      "kun": [
+        "たて",
+        "た"
+      ],
+      "examples": [
+        {
+          "word": "建物",
+          "reading": "たてもの",
+          "gloss": "building"
+        }
+      ]
+    },
+    {
+      "kanji": "地",
+      "gloss": "ground",
+      "on": [
+        "チ",
+        "ジ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "地下鉄",
+          "reading": "ちかてつ",
+          "gloss": "subway"
+        },
+        {
+          "word": "地図",
+          "reading": "ちず",
+          "gloss": "map"
+        },
+        {
+          "word": "地下",
+          "reading": "ちか",
+          "gloss": "underground"
+        },
+        {
+          "word": "地震",
+          "reading": "じしん",
+          "gloss": "earthquake"
+        }
+      ]
+    },
+    {
+      "kanji": "場",
+      "gloss": "place",
+      "on": [
+        "ジョウ"
+      ],
+      "kun": [
+        "ば"
+      ],
+      "examples": [
+        {
+          "word": "広場",
+          "reading": "ひろば",
+          "gloss": "square; open space; plaza"
+        },
+        {
+          "word": "場所",
+          "reading": "ばしょ",
+          "gloss": "place"
+        },
+        {
+          "word": "村役場",
+          "reading": "むらやくば",
+          "gloss": "a village office"
+        },
+        {
+          "word": "工場",
+          "reading": "こうじょう",
+          "gloss": "factory"
+        }
+      ]
+    },
+    {
+      "kanji": "足",
+      "gloss": "foot; leg",
+      "on": [
+        "ソク"
+      ],
+      "kun": [
+        "あし",
+        "た"
+      ],
+      "examples": [
+        {
+          "word": "足",
+          "reading": "あし",
+          "gloss": "foot; leg"
+        },
+        {
+          "word": "足りる",
+          "reading": "たりる",
+          "gloss": "to be sufficient"
+        },
+        {
+          "word": "不足",
+          "reading": "ふそく",
+          "gloss": "insufficiency; shortage; deficiency; lack"
+        },
+        {
+          "word": "遠足",
+          "reading": "えんそく",
+          "gloss": "a picnic"
+        }
+      ]
+    },
+    {
+      "kanji": "通",
+      "gloss": "to pass; to commute",
+      "on": [
+        "ツウ"
+      ],
+      "kun": [
+        "とお",
+        "かよ"
+      ],
+      "examples": [
+        {
+          "word": "通る",
+          "reading": "とおる",
+          "gloss": "to go through; to pass"
+        },
+        {
+          "word": "通う",
+          "reading": "かよう",
+          "gloss": "to commute"
+        },
+        {
+          "word": "通読",
+          "reading": "つうどく",
+          "gloss": "reading through; reading over"
+        },
+        {
+          "word": "流通する",
+          "reading": "りゅうつうる",
+          "gloss": "to circulate"
+        }
+      ]
+    }
+  ],
+  "16": [
+    {
+      "kanji": "供",
+      "gloss": "companion; offer",
+      "on": [
+        "キョウ"
+      ],
+      "kun": [
+        "ども",
+        "とも",
+        "そな"
+      ],
+      "examples": [
+        {
+          "word": "子供の時",
+          "reading": "こどものとき",
+          "gloss": "in one's childhood"
+        },
+        {
+          "word": "子供",
+          "reading": "こども",
+          "gloss": "child"
+        },
+        {
+          "word": "共に",
+          "reading": "ともに",
+          "gloss": "together"
+        },
+        {
+          "word": "供える",
+          "reading": "そなえる",
+          "gloss": "to offer something to the spirit"
+        }
+      ]
+    },
+    {
+      "kanji": "世",
+      "gloss": "world; generation",
+      "on": [
+        "セ",
+        "セイ"
+      ],
+      "kun": [
+        "よ"
+      ],
+      "examples": [
+        {
+          "word": "世界",
+          "reading": "せかい",
+          "gloss": "the world"
+        },
+        {
+          "word": "世話",
+          "reading": "せわ",
+          "gloss": "care"
+        },
+        {
+          "word": "世代",
+          "reading": "せだい",
+          "gloss": "generation"
+        },
+        {
+          "word": "三世",
+          "reading": "さんせい",
+          "gloss": "third generation"
+        }
+      ]
+    },
+    {
+      "kanji": "界",
+      "gloss": "world",
+      "on": [
+        "カイ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "世界",
+          "reading": "せかい",
+          "gloss": "the world"
+        }
+      ]
+    },
+    {
+      "kanji": "全",
+      "gloss": "all",
+      "on": [
+        "ゼン"
+      ],
+      "kun": [
+        "まった"
+      ],
+      "examples": [
+        {
+          "word": "全部",
+          "reading": "ぜんぶ",
+          "gloss": "all"
+        },
+        {
+          "word": "全然",
+          "reading": "ぜんぜん",
+          "gloss": "not at all"
+        },
+        {
+          "word": "全員",
+          "reading": "ぜんいん",
+          "gloss": "all members"
+        }
+      ]
+    },
+    {
+      "kanji": "部",
+      "gloss": "part; section",
+      "on": [
+        "ブ"
+      ],
+      "kun": [
+        "へ"
+      ],
+      "examples": [
+        {
+          "word": "全部",
+          "reading": "ぜんぶ",
+          "gloss": "all"
+        },
+        {
+          "word": "部屋",
+          "reading": "へや",
+          "gloss": "room"
+        },
+        {
+          "word": "文部省",
+          "reading": "もんぶしょう",
+          "gloss": "the Ministry of Education"
+        },
+        {
+          "word": "頭部",
+          "reading": "とうぶ",
+          "gloss": "the head"
+        }
+      ]
+    },
+    {
+      "kanji": "始",
+      "gloss": "to begin",
+      "on": [
+        "シ"
+      ],
+      "kun": [
+        "はじ"
+      ],
+      "examples": [
+        {
+          "word": "始まる",
+          "reading": "はじまる",
+          "gloss": "(something) begins"
+        },
+        {
+          "word": "始める",
+          "reading": "はじめる",
+          "gloss": "to begin (something)"
+        },
+        {
+          "word": "開始する",
+          "reading": "かいしする",
+          "gloss": "to begin"
+        },
+        {
+          "word": "始発",
+          "reading": "しはつ",
+          "gloss": "the first train"
+        }
+      ]
+    },
+    {
+      "kanji": "週",
+      "gloss": "week",
+      "on": [
+        "シュウ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "先週",
+          "reading": "せんしゅう",
+          "gloss": "last week"
+        },
+        {
+          "word": "毎週",
+          "reading": "まいしゅう",
+          "gloss": "every week"
+        },
+        {
+          "word": "一週間",
+          "reading": "いっしゅうかん",
+          "gloss": "one week"
+        },
+        {
+          "word": "来週",
+          "reading": "らいしゅう",
+          "gloss": "next week"
+        }
+      ]
+    },
+    {
+      "kanji": "以",
+      "gloss": "by means of; compared with",
+      "on": [
+        "イ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "〜以上",
+          "reading": "〜いじょう",
+          "gloss": "... or more"
+        },
+        {
+          "word": "以上",
+          "reading": "いじょう",
+          "gloss": "more than"
+        },
+        {
+          "word": "以下",
+          "reading": "いか",
+          "gloss": "less than"
+        },
+        {
+          "word": "以前",
+          "reading": "いぜん",
+          "gloss": "previously"
+        }
+      ]
+    },
+    {
+      "kanji": "考",
+      "gloss": "to think; idea",
+      "on": [
+        "コウ"
+      ],
+      "kun": [
+        "かんが"
+      ],
+      "examples": [
+        {
+          "word": "考える",
+          "reading": "かんがえる",
+          "gloss": "to think"
+        },
+        {
+          "word": "思考力",
+          "reading": "しこうりょく",
+          "gloss": "thinking power; ability to think"
+        },
+        {
+          "word": "考古学",
+          "reading": "こうこがく",
+          "gloss": "archaeology"
+        },
+        {
+          "word": "考え",
+          "reading": "かんがえ",
+          "gloss": "a thought; an idea"
+        }
+      ]
+    },
+    {
+      "kanji": "開",
+      "gloss": "to open",
+      "on": [
+        "カイ"
+      ],
+      "kun": [
+        "あ",
+        "ひら"
+      ],
+      "examples": [
+        {
+          "word": "開ける",
+          "reading": "あける",
+          "gloss": "to open (something)"
+        },
+        {
+          "word": "公開する",
+          "reading": "こうかいする",
+          "gloss": "to open to the public"
+        },
+        {
+          "word": "開始する",
+          "reading": "かいしする",
+          "gloss": "to begin"
+        }
+      ]
+    },
+    {
+      "kanji": "屋",
+      "gloss": "shop; house",
+      "on": [
+        "オク"
+      ],
+      "kun": [
+        "や"
+      ],
+      "examples": [
+        {
+          "word": "屋上",
+          "reading": "おくじょう",
+          "gloss": "rooftop"
+        },
+        {
+          "word": "肉屋",
+          "reading": "にくや",
+          "gloss": "meat shop"
+        },
+        {
+          "word": "部屋",
+          "reading": "へや",
+          "gloss": "room"
+        },
+        {
+          "word": "本屋",
+          "reading": "ほんや",
+          "gloss": "bookstore"
+        }
+      ]
+    },
+    {
+      "kanji": "方",
+      "gloss": "direction; person",
+      "on": [
+        "ホウ"
+      ],
+      "kun": [
+        "かた",
+        "がた"
+      ],
+      "examples": [
+        {
+          "word": "味方",
+          "reading": "みかた",
+          "gloss": "person on one's side"
+        },
+        {
+          "word": "地方",
+          "reading": "ちほう",
+          "gloss": "locality; district"
+        },
+        {
+          "word": "使い方",
+          "reading": "つかいかた",
+          "gloss": "way of using; directions for use"
+        },
+        {
+          "word": "仕方",
+          "reading": "しかた",
+          "gloss": "how to; a method"
+        }
+      ]
+    },
+    {
+      "kanji": "運",
+      "gloss": "transport; luck",
+      "on": [
+        "ウン"
+      ],
+      "kun": [
+        "はこ"
+      ],
+      "examples": [
+        {
+          "word": "運動",
+          "reading": "うんどう",
+          "gloss": "exercise"
+        },
+        {
+          "word": "運転",
+          "reading": "うんてん",
+          "gloss": "driving"
+        },
+        {
+          "word": "運ぶ",
+          "reading": "はこぶ",
+          "gloss": "to carry from one place to another; transport"
+        },
+        {
+          "word": "運",
+          "reading": "うん",
+          "gloss": "luck; fortune"
+        }
+      ]
+    },
+    {
+      "kanji": "動",
+      "gloss": "to move",
+      "on": [
+        "ドウ"
+      ],
+      "kun": [
+        "うご"
+      ],
+      "examples": [
+        {
+          "word": "動物",
+          "reading": "どうぶつ",
+          "gloss": "animal"
+        },
+        {
+          "word": "活動",
+          "reading": "かつどう",
+          "gloss": "activity"
+        },
+        {
+          "word": "感動する",
+          "reading": "かんどうする",
+          "gloss": "to be moved"
+        },
+        {
+          "word": "動物園",
+          "reading": "どうぶつえん",
+          "gloss": "a zoo"
+        }
+      ]
+    },
+    {
+      "kanji": "教",
+      "gloss": "to teach",
+      "on": [
+        "キョウ"
+      ],
+      "kun": [
+        "おし"
+      ],
+      "examples": [
+        {
+          "word": "教える",
+          "reading": "おしえる",
+          "gloss": "to teach"
+        },
+        {
+          "word": "教室",
+          "reading": "きょうしつ",
+          "gloss": "classroom"
+        },
+        {
+          "word": "教会",
+          "reading": "きょうかい",
+          "gloss": "church"
+        },
+        {
+          "word": "教科書",
+          "reading": "きょうかしょ",
+          "gloss": "textbook"
+        }
+      ]
+    },
+    {
+      "kanji": "室",
+      "gloss": "room",
+      "on": [
+        "シツ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "教室",
+          "reading": "きょうしつ",
+          "gloss": "classroom"
+        },
+        {
+          "word": "暗室",
+          "reading": "あんしつ",
+          "gloss": "a dark room"
+        },
+        {
+          "word": "〜号室",
+          "reading": "〜ごうしつ",
+          "gloss": "Room ~"
+        },
+        {
+          "word": "寝室",
+          "reading": "しんしつ",
+          "gloss": "bedroom"
+        }
+      ]
+    }
+  ],
+  "17": [
+    {
+      "kanji": "歳",
+      "gloss": "year; age",
+      "on": [
+        "サイ",
+        "セイ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "二十歳",
+          "reading": "にじゅうさい",
+          "gloss": "twenty-five years old"
+        },
+        {
+          "word": "二十歳",
+          "reading": "はたち",
+          "gloss": "twenty years old"
+        }
+      ]
+    },
+    {
+      "kanji": "習",
+      "gloss": "to learn",
+      "on": [
+        "シュウ"
+      ],
+      "kun": [
+        "なら"
+      ],
+      "examples": [
+        {
+          "word": "習う",
+          "reading": "ならう",
+          "gloss": "to learn"
+        },
+        {
+          "word": "練習",
+          "reading": "れんしゅう",
+          "gloss": "practice"
+        }
+      ]
+    },
+    {
+      "kanji": "主",
+      "gloss": "main; lord",
+      "on": [
+        "シュ"
+      ],
+      "kun": [
+        "おも",
+        "ぬし"
+      ],
+      "examples": [
+        {
+          "word": "主に",
+          "reading": "おもに",
+          "gloss": "mainly"
+        },
+        {
+          "word": "ご主人",
+          "reading": "ごしゅじん",
+          "gloss": "husband"
+        },
+        {
+          "word": "主婦",
+          "reading": "しゅふ",
+          "gloss": "housewife"
+        },
+        {
+          "word": "資本主義",
+          "reading": "しほんしゅぎ",
+          "gloss": "capitalism"
+        }
+      ]
+    },
+    {
+      "kanji": "結",
+      "gloss": "to tie; to join",
+      "on": [
+        "ケッ",
+        "ケツ"
+      ],
+      "kun": [
+        "むす"
+      ],
+      "examples": [
+        {
+          "word": "結婚する",
+          "reading": "けっこんする",
+          "gloss": "to marry"
+        },
+        {
+          "word": "結果",
+          "reading": "けっか",
+          "gloss": "result"
+        },
+        {
+          "word": "結ぶ",
+          "reading": "むすぶ",
+          "gloss": "to bind; to connect"
+        },
+        {
+          "word": "結論",
+          "reading": "けつろん",
+          "gloss": "a conclusion"
+        }
+      ]
+    },
+    {
+      "kanji": "婚",
+      "gloss": "marriage",
+      "on": [
+        "コン"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "結婚する",
+          "reading": "けっこんする",
+          "gloss": "to marry"
+        },
+        {
+          "word": "離婚",
+          "reading": "りこん",
+          "gloss": "divorce"
+        },
+        {
+          "word": "婚約する",
+          "reading": "こんやくする",
+          "gloss": "to get engaged"
+        },
+        {
+          "word": "新婚旅行",
+          "reading": "しんこんりょこう",
+          "gloss": "a honeymoon"
+        }
+      ]
+    },
+    {
+      "kanji": "集",
+      "gloss": "to gather",
+      "on": [
+        "シュウ"
+      ],
+      "kun": [
+        "あつ"
+      ],
+      "examples": [
+        {
+          "word": "集める",
+          "reading": "あつめる",
+          "gloss": "to collect"
+        }
+      ]
+    },
+    {
+      "kanji": "発",
+      "gloss": "to start; to reveal",
+      "on": [
+        "ハッ",
+        "ハツ",
+        "パツ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "発音",
+          "reading": "はつおん",
+          "gloss": "pronunciation"
+        },
+        {
+          "word": "始発",
+          "reading": "しはつ",
+          "gloss": "the first train"
+        },
+        {
+          "word": "活発な",
+          "reading": "かっぱつな",
+          "gloss": "active"
+        },
+        {
+          "word": "出発する",
+          "reading": "しゅっぱつする",
+          "gloss": "to depart"
+        }
+      ]
+    },
+    {
+      "kanji": "表",
+      "gloss": "to express; surface",
+      "on": [
+        "ピョウ",
+        "ヒョウ"
+      ],
+      "kun": [
+        "あらわ"
+      ],
+      "examples": [
+        {
+          "word": "表面",
+          "reading": "ひょうめん",
+          "gloss": "a surface"
+        },
+        {
+          "word": "表情",
+          "reading": "ひょうじょう",
+          "gloss": "facial expression"
+        },
+        {
+          "word": "表す",
+          "reading": "あらわす",
+          "gloss": "to express; to show"
+        },
+        {
+          "word": "表現",
+          "reading": "ひょうげん",
+          "gloss": "an expression"
+        }
+      ]
+    },
+    {
+      "kanji": "品",
+      "gloss": "goods; refinement",
+      "on": [
+        "ヒン"
+      ],
+      "kun": [
+        "しな"
+      ],
+      "examples": [
+        {
+          "word": "作品",
+          "reading": "さくひん",
+          "gloss": "artistic piece"
+        },
+        {
+          "word": "所持品",
+          "reading": "しょじひん",
+          "gloss": "belongings"
+        },
+        {
+          "word": "作品",
+          "reading": "さくひん",
+          "gloss": "piece of work"
+        },
+        {
+          "word": "商品",
+          "reading": "しょうひん",
+          "gloss": "goods"
+        }
+      ]
+    },
+    {
+      "kanji": "字",
+      "gloss": "character; letter",
+      "on": [
+        "ジ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "文字",
+          "reading": "もじ",
+          "gloss": "letter; character"
+        },
+        {
+          "word": "赤十字",
+          "reading": "せきじゅうじ",
+          "gloss": "the Red Cross"
+        },
+        {
+          "word": "文字",
+          "reading": "もじ",
+          "gloss": "character"
+        },
+        {
+          "word": "漢字",
+          "reading": "かんじ",
+          "gloss": "Chinese character"
+        }
+      ]
+    },
+    {
+      "kanji": "活",
+      "gloss": "lively",
+      "on": [
+        "カツ",
+        "カッ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "活動",
+          "reading": "かつどう",
+          "gloss": "activity"
+        },
+        {
+          "word": "生活",
+          "reading": "せいかつ",
+          "gloss": "(daily) life"
+        },
+        {
+          "word": "活字",
+          "reading": "かつじ",
+          "gloss": "printed type"
+        },
+        {
+          "word": "活発な",
+          "reading": "かっぱつな",
+          "gloss": "active"
+        }
+      ]
+    },
+    {
+      "kanji": "写",
+      "gloss": "to copy",
+      "on": [
+        "シャ"
+      ],
+      "kun": [
+        "うつ"
+      ],
+      "examples": [
+        {
+          "word": "写真",
+          "reading": "しゃしん",
+          "gloss": "photograph"
+        },
+        {
+          "word": "写す",
+          "reading": "うつす",
+          "gloss": "to copy"
+        },
+        {
+          "word": "写る",
+          "reading": "うつる",
+          "gloss": "to be photographed"
+        }
+      ]
+    },
+    {
+      "kanji": "真",
+      "gloss": "true; reality",
+      "on": [
+        "シン"
+      ],
+      "kun": [
+        "ま"
+      ],
+      "examples": [
+        {
+          "word": "写真",
+          "reading": "しゃしん",
+          "gloss": "photograph"
+        },
+        {
+          "word": "真ん中",
+          "reading": "まんなか",
+          "gloss": "center"
+        },
+        {
+          "word": "真夜中",
+          "reading": "まよなか",
+          "gloss": "midnight"
+        },
+        {
+          "word": "真理",
+          "reading": "しんり",
+          "gloss": "truth"
+        }
+      ]
+    },
+    {
+      "kanji": "歩",
+      "gloss": "to walk",
+      "on": [
+        "ホ",
+        "ポ"
+      ],
+      "kun": [
+        "ある"
+      ],
+      "examples": [
+        {
+          "word": "歩く",
+          "reading": "あるく",
+          "gloss": "to walk"
+        },
+        {
+          "word": "歩道橋",
+          "reading": "ほどうきょう",
+          "gloss": "a pedestrian bridge"
+        },
+        {
+          "word": "進歩する",
+          "reading": "しんぽする",
+          "gloss": "to progress"
+        },
+        {
+          "word": "初歩",
+          "reading": "しょほ",
+          "gloss": "the first steps"
+        }
+      ]
+    },
+    {
+      "kanji": "野",
+      "gloss": "field",
+      "on": [
+        "ヤ"
+      ],
+      "kun": [
+        "の"
+      ],
+      "examples": [
+        {
+          "word": "分野",
+          "reading": "ぶんや",
+          "gloss": "realm; field"
+        },
+        {
+          "word": "小野さん",
+          "reading": "おのさん",
+          "gloss": "Mr. / Mrs. Ono"
+        },
+        {
+          "word": "長野",
+          "reading": "ながの",
+          "gloss": "Nagano"
+        },
+        {
+          "word": "野球",
+          "reading": "やきゅう",
+          "gloss": "baseball"
+        }
+      ]
+    }
+  ],
+  "18": [
+    {
+      "kanji": "目",
+      "gloss": "eye",
+      "on": [
+        "モク"
+      ],
+      "kun": [
+        "め"
+      ],
+      "examples": [
+        {
+          "word": "一行目",
+          "reading": "いちぎょうめ",
+          "gloss": "first line"
+        },
+        {
+          "word": "目的",
+          "reading": "もくてき",
+          "gloss": "purpose"
+        },
+        {
+          "word": "目",
+          "reading": "め",
+          "gloss": "eyes"
+        },
+        {
+          "word": "目上の人",
+          "reading": "めうえのひと",
+          "gloss": "one\\'s superiors"
+        }
+      ]
+    },
+    {
+      "kanji": "的",
+      "gloss": "target; -ish",
+      "on": [
+        "テキ"
+      ],
+      "kun": [
+        "まと"
+      ],
+      "examples": [
+        {
+          "word": "目的",
+          "reading": "もくてき",
+          "gloss": "purpose"
+        },
+        {
+          "word": "現代的",
+          "reading": "げんだいてき",
+          "gloss": "modern"
+        },
+        {
+          "word": "的",
+          "reading": "まと",
+          "gloss": "target"
+        },
+        {
+          "word": "実用的な",
+          "reading": "じつようてきな",
+          "gloss": "practical"
+        }
+      ]
+    },
+    {
+      "kanji": "力",
+      "gloss": "power",
+      "on": [
+        "リョク",
+        "リキ"
+      ],
+      "kun": [
+        "ちから"
+      ],
+      "examples": [
+        {
+          "word": "力仕事",
+          "reading": "ちからしごと",
+          "gloss": "physical labor such as construction"
+        },
+        {
+          "word": "力士",
+          "reading": "りきし",
+          "gloss": "sumo wrestler"
+        },
+        {
+          "word": "馬力",
+          "reading": "ばりき",
+          "gloss": "horsepower (h.p.)"
+        },
+        {
+          "word": "思考力",
+          "reading": "しこうりょく",
+          "gloss": "thinking power; ability to think"
+        }
+      ]
+    },
+    {
+      "kanji": "洋",
+      "gloss": "ocean; overseas",
+      "on": [
+        "ヨウ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "洋服",
+          "reading": "ようふく",
+          "gloss": "Western clothes"
+        },
+        {
+          "word": "大西洋",
+          "reading": "たいせいよう",
+          "gloss": "the Atlantic"
+        },
+        {
+          "word": "洋酒",
+          "reading": "ようしゅ",
+          "gloss": "foreign liquors"
+        },
+        {
+          "word": "西洋",
+          "reading": "せいよう",
+          "gloss": "the West"
+        }
+      ]
+    },
+    {
+      "kanji": "服",
+      "gloss": "clothes",
+      "on": [
+        "フク"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "洋服",
+          "reading": "ようふく",
+          "gloss": "Western clothes"
+        },
+        {
+          "word": "服",
+          "reading": "ふく",
+          "gloss": "clothes"
+        },
+        {
+          "word": "和服",
+          "reading": "わふく",
+          "gloss": "Japanese kimono"
+        },
+        {
+          "word": "服用する",
+          "reading": "ふくようする",
+          "gloss": "to take (medicine)"
+        }
+      ]
+    },
+    {
+      "kanji": "堂",
+      "gloss": "hall",
+      "on": [
+        "ドウ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "食堂",
+          "reading": "しょくどう",
+          "gloss": "dining room"
+        }
+      ]
+    },
+    {
+      "kanji": "授",
+      "gloss": "to instruct",
+      "on": [
+        "ジュ"
+      ],
+      "kun": [
+        "さずか"
+      ],
+      "examples": [
+        {
+          "word": "授業",
+          "reading": "じゅぎょう",
+          "gloss": "class"
+        },
+        {
+          "word": "教授",
+          "reading": "きょうじゅ",
+          "gloss": "professor; teaching; instruction"
+        },
+        {
+          "word": "授業中",
+          "reading": "じゅぎょうちゅう",
+          "gloss": "during class"
+        },
+        {
+          "word": "授業料",
+          "reading": "じゅぎょうりょう",
+          "gloss": "tuition; school fees"
+        }
+      ]
+    },
+    {
+      "kanji": "業",
+      "gloss": "business; vocation",
+      "on": [
+        "ギョウ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "授業",
+          "reading": "じゅぎょう",
+          "gloss": "class"
+        },
+        {
+          "word": "卒業",
+          "reading": "そつぎょう",
+          "gloss": "graduation"
+        },
+        {
+          "word": "授業中",
+          "reading": "じゅぎょうちゅう",
+          "gloss": "during class"
+        },
+        {
+          "word": "授業料",
+          "reading": "じゅぎょうりょう",
+          "gloss": "tuition; school fees"
+        }
+      ]
+    },
+    {
+      "kanji": "試",
+      "gloss": "test; to try",
+      "on": [
+        "シ"
+      ],
+      "kun": [
+        "こころ"
+      ],
+      "examples": [
+        {
+          "word": "試験",
+          "reading": "しけん",
+          "gloss": "exam"
+        },
+        {
+          "word": "試みる",
+          "reading": "こころみる",
+          "gloss": "to try"
+        },
+        {
+          "word": "試す",
+          "reading": "ためす",
+          "gloss": "to test"
+        },
+        {
+          "word": "試合",
+          "reading": "しあい",
+          "gloss": "a game"
+        }
+      ]
+    },
+    {
+      "kanji": "験",
+      "gloss": "to examine",
+      "on": [
+        "ケン"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "試験",
+          "reading": "しけん",
+          "gloss": "exam"
+        },
+        {
+          "word": "経験",
+          "reading": "けいけん",
+          "gloss": "experience"
+        },
+        {
+          "word": "実験",
+          "reading": "じっけん",
+          "gloss": "experiment"
+        },
+        {
+          "word": "受験する",
+          "reading": "じゅけんする",
+          "gloss": "to take the exam"
+        }
+      ]
+    },
+    {
+      "kanji": "貸",
+      "gloss": "to lend; load",
+      "on": [
+        "タイ"
+      ],
+      "kun": [
+        "か"
+      ],
+      "examples": [
+        {
+          "word": "貸す",
+          "reading": "かす",
+          "gloss": "to lend"
+        },
+        {
+          "word": "貸し出し",
+          "reading": "かしだし",
+          "gloss": "loaning out"
+        },
+        {
+          "word": "賃貸",
+          "reading": "ちんたい",
+          "gloss": "a rental condominium"
+        }
+      ]
+    },
+    {
+      "kanji": "図",
+      "gloss": "drawing; to devise",
+      "on": [
+        "ト",
+        "ズ"
+      ],
+      "kun": [
+        "はか"
+      ],
+      "examples": [
+        {
+          "word": "図書館",
+          "reading": "としょかん",
+          "gloss": "library"
+        },
+        {
+          "word": "地図",
+          "reading": "ちず",
+          "gloss": "map"
+        },
+        {
+          "word": "天気図",
+          "reading": "てんきず",
+          "gloss": "weather map"
+        }
+      ]
+    },
+    {
+      "kanji": "館",
+      "gloss": "building; hall",
+      "on": [
+        "カン"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "映画館",
+          "reading": "えいがかん",
+          "gloss": "movie theater"
+        },
+        {
+          "word": "旅館",
+          "reading": "りょかん",
+          "gloss": "inn"
+        },
+        {
+          "word": "図書館",
+          "reading": "としょかん",
+          "gloss": "library"
+        },
+        {
+          "word": "体育館",
+          "reading": "たいいくかん",
+          "gloss": "gymnasium"
+        }
+      ]
+    },
+    {
+      "kanji": "終",
+      "gloss": "end",
+      "on": [
+        "シュウ"
+      ],
+      "kun": [
+        "お"
+      ],
+      "examples": [
+        {
+          "word": "終わる",
+          "reading": "おわる",
+          "gloss": "to come to an end"
+        },
+        {
+          "word": "終わり",
+          "reading": "おわり",
+          "gloss": "end"
+        },
+        {
+          "word": "終える",
+          "reading": "おえる",
+          "gloss": "to finish something"
+        },
+        {
+          "word": "終電",
+          "reading": "しゅうでん",
+          "gloss": "the last train"
+        }
+      ]
+    },
+    {
+      "kanji": "宿",
+      "gloss": "inn; to lodge in",
+      "on": [
+        "シュク"
+      ],
+      "kun": [
+        "やど"
+      ],
+      "examples": [
+        {
+          "word": "宿題",
+          "reading": "しゅくだい",
+          "gloss": "homework"
+        },
+        {
+          "word": "合宿",
+          "reading": "がっしゅく",
+          "gloss": "a training campu"
+        },
+        {
+          "word": "宿泊する",
+          "reading": "しゅくはくする",
+          "gloss": "to stay the night"
+        }
+      ]
+    },
+    {
+      "kanji": "題",
+      "gloss": "title; topic",
+      "on": [
+        "ダイ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "宿題",
+          "reading": "しゅくだい",
+          "gloss": "homework"
+        },
+        {
+          "word": "問題",
+          "reading": "もんだい",
+          "gloss": "problem; issue"
+        }
+      ]
+    }
+  ],
+  "19": [
+    {
+      "kanji": "春",
+      "gloss": "spring",
+      "on": [
+        "シュン"
+      ],
+      "kun": [
+        "はる"
+      ],
+      "examples": [
+        {
+          "word": "春",
+          "reading": "はる",
+          "gloss": "spring"
+        },
+        {
+          "word": "青春",
+          "reading": "せいしゅん",
+          "gloss": "youth"
+        },
+        {
+          "word": "春分の日",
+          "reading": "しゅんぶんのひ",
+          "gloss": "the vernal equinox day"
+        },
+        {
+          "word": "早春",
+          "reading": "そうしゅん",
+          "gloss": "early spring"
+        }
+      ]
+    },
+    {
+      "kanji": "秋",
+      "gloss": "autumn",
+      "on": [
+        "シュウ"
+      ],
+      "kun": [
+        "あき"
+      ],
+      "examples": [
+        {
+          "word": "秋",
+          "reading": "あき",
+          "gloss": "autumn"
+        },
+        {
+          "word": "秋学期",
+          "reading": "あきがっき",
+          "gloss": "fall semester"
+        },
+        {
+          "word": "秋分の日",
+          "reading": "しゅうぶんのひ",
+          "gloss": "the autumnal equinox day"
+        },
+        {
+          "word": "晩秋",
+          "reading": "ばんしゅう",
+          "gloss": "late autumn"
+        }
+      ]
+    },
+    {
+      "kanji": "冬",
+      "gloss": "winter",
+      "on": [
+        "トウ"
+      ],
+      "kun": [
+        "ふゆ"
+      ],
+      "examples": [
+        {
+          "word": "冬",
+          "reading": "ふゆ",
+          "gloss": "winter"
+        },
+        {
+          "word": "冬休み",
+          "reading": "ふゆやすみ",
+          "gloss": "winter vacation"
+        },
+        {
+          "word": "暖冬",
+          "reading": "だんとう",
+          "gloss": "a mild winter"
+        }
+      ]
+    },
+    {
+      "kanji": "花",
+      "gloss": "flower",
+      "on": [
+        "カ"
+      ],
+      "kun": [
+        "はな"
+      ],
+      "examples": [
+        {
+          "word": "花",
+          "reading": "はな",
+          "gloss": "flower"
+        },
+        {
+          "word": "花見",
+          "reading": "はなみ",
+          "gloss": "flower viewing"
+        },
+        {
+          "word": "花火",
+          "reading": "はなび",
+          "gloss": "fireworks"
+        }
+      ]
+    },
+    {
+      "kanji": "様",
+      "gloss": "Mr.; Ms.; condition",
+      "on": [
+        "ヨウ"
+      ],
+      "kun": [
+        "さま"
+      ],
+      "examples": [
+        {
+          "word": "様",
+          "reading": "さま",
+          "gloss": "Mr./Ms."
+        },
+        {
+          "word": "お客様",
+          "reading": "おきゃくさま",
+          "gloss": "dear customer"
+        }
+      ]
+    },
+    {
+      "kanji": "不",
+      "gloss": "negative; non-",
+      "on": [
+        "フ",
+        "ブ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "不安な",
+          "reading": "ふあんな",
+          "gloss": "uneasy"
+        },
+        {
+          "word": "不足",
+          "reading": "ふそく",
+          "gloss": "insufficiency; shortage; deficiency; lack"
+        }
+      ]
+    },
+    {
+      "kanji": "姉",
+      "gloss": "older sister",
+      "on": [
+        "シ"
+      ],
+      "kun": [
+        "あね",
+        "ねえ"
+      ],
+      "examples": [
+        {
+          "word": "姉",
+          "reading": "あね",
+          "gloss": "older sister"
+        },
+        {
+          "word": "お姉さん",
+          "reading": "おねえさん",
+          "gloss": "older sister"
+        }
+      ]
+    },
+    {
+      "kanji": "兄",
+      "gloss": "older brother",
+      "on": [
+        "キョウ",
+        "ケイ"
+      ],
+      "kun": [
+        "あに",
+        "にい"
+      ],
+      "examples": [
+        {
+          "word": "兄",
+          "reading": "あに",
+          "gloss": "older brother"
+        },
+        {
+          "word": "お兄さん",
+          "reading": "おにいさん",
+          "gloss": "older brother"
+        },
+        {
+          "word": "兄弟",
+          "reading": "きょうだい",
+          "gloss": "brothers; siblings"
+        }
+      ]
+    },
+    {
+      "kanji": "漢",
+      "gloss": "China",
+      "on": [
+        "カン"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "漢字",
+          "reading": "かんじ",
+          "gloss": "Chinese character"
+        },
+        {
+          "word": "漢字の意味",
+          "reading": "かんじのいみ",
+          "gloss": "kanji's meaning"
+        }
+      ]
+    },
+    {
+      "kanji": "卒",
+      "gloss": "to graduate",
+      "on": [
+        "ソツ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "卒業する",
+          "reading": "そつぎょうする",
+          "gloss": "to graduate"
+        },
+        {
+          "word": "卒業",
+          "reading": "そつぎょう",
+          "gloss": "graduation"
+        },
+        {
+          "word": "卒業式",
+          "reading": "そつぎょうしき",
+          "gloss": "graduation ceremony"
+        },
+        {
+          "word": "卒業生",
+          "reading": "そつぎょうせい",
+          "gloss": "a graduate"
+        }
+      ]
+    },
+    {
+      "kanji": "工",
+      "gloss": "craft; construction",
+      "on": [
+        "コウ",
+        "ク"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "工学",
+          "reading": "こうがく",
+          "gloss": "engineering"
+        },
+        {
+          "word": "工事",
+          "reading": "こうじ",
+          "gloss": "construction"
+        },
+        {
+          "word": "工場",
+          "reading": "こうじょう",
+          "gloss": "factory"
+        },
+        {
+          "word": "工業",
+          "reading": "こうぎょう",
+          "gloss": "industry; manufacturing"
+        }
+      ]
+    },
+    {
+      "kanji": "研",
+      "gloss": "to polish; study",
+      "on": [
+        "ケン"
+      ],
+      "kun": [
+        "と"
+      ],
+      "examples": [
+        {
+          "word": "研究",
+          "reading": "けんきゅう",
+          "gloss": "research"
+        },
+        {
+          "word": "研究室",
+          "reading": "けんきゅうしつ",
+          "gloss": "professor's office"
+        },
+        {
+          "word": "研究所",
+          "reading": "けんきゅうじょ",
+          "gloss": "research institute"
+        },
+        {
+          "word": "研究機関",
+          "reading": "けんきゅうきかん",
+          "gloss": "research organization"
+        }
+      ]
+    },
+    {
+      "kanji": "究",
+      "gloss": "research",
+      "on": [
+        "キュウ"
+      ],
+      "kun": [
+        "きわ"
+      ],
+      "examples": [
+        {
+          "word": "研究",
+          "reading": "けんきゅう",
+          "gloss": "research"
+        },
+        {
+          "word": "研究室",
+          "reading": "けんきゅうしつ",
+          "gloss": "professor's office"
+        },
+        {
+          "word": "研究所",
+          "reading": "けんきゅうじょ",
+          "gloss": "research institute"
+        },
+        {
+          "word": "研究機関",
+          "reading": "けんきゅうきかん",
+          "gloss": "research organization"
+        }
+      ]
+    },
+    {
+      "kanji": "質",
+      "gloss": "quality; matter",
+      "on": [
+        "シツ",
+        "シチ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "質問",
+          "reading": "しつもん",
+          "gloss": "question"
+        },
+        {
+          "word": "品質",
+          "reading": "ひんしつ",
+          "gloss": "quality"
+        }
+      ]
+    },
+    {
+      "kanji": "問",
+      "gloss": "question",
+      "on": [
+        "モン"
+      ],
+      "kun": [
+        "と"
+      ],
+      "examples": [
+        {
+          "word": "問題",
+          "reading": "もんだい",
+          "gloss": "problem; issue"
+        },
+        {
+          "word": "質問",
+          "reading": "しつもん",
+          "gloss": "question"
+        },
+        {
+          "word": "問題",
+          "reading": "もんだい",
+          "gloss": "problem"
+        },
+        {
+          "word": "訪問する",
+          "reading": "ほうもんする",
+          "gloss": "to pay a visit"
+        }
+      ]
+    },
+    {
+      "kanji": "多",
+      "gloss": "many; much",
+      "on": [
+        "タ"
+      ],
+      "kun": [
+        "おお"
+      ],
+      "examples": [
+        {
+          "word": "多い",
+          "reading": "おおい",
+          "gloss": "many"
+        },
+        {
+          "word": "多忙な",
+          "reading": "たぼうな",
+          "gloss": "very busy"
+        }
+      ]
+    }
+  ],
+  "20": [
+    {
+      "kanji": "皿",
+      "gloss": "plate",
+      "on": [],
+      "kun": [
+        "さら",
+        "ざら"
+      ],
+      "examples": [
+        {
+          "word": "皿",
+          "reading": "さら",
+          "gloss": "plate; dish"
+        }
+      ]
+    },
+    {
+      "kanji": "声",
+      "gloss": "voice",
+      "on": [
+        "セイ"
+      ],
+      "kun": [
+        "こえ"
+      ],
+      "examples": [
+        {
+          "word": "声",
+          "reading": "こえ",
+          "gloss": "voice"
+        }
+      ]
+    },
+    {
+      "kanji": "茶",
+      "gloss": "tea",
+      "on": [
+        "チャ",
+        "サ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "お茶",
+          "reading": "おちゃ",
+          "gloss": "Japanese tea"
+        },
+        {
+          "word": "茶店",
+          "reading": "ちゃみせ",
+          "gloss": "teahouse"
+        },
+        {
+          "word": "茶色",
+          "reading": "ちゃいろ",
+          "gloss": "brown"
+        },
+        {
+          "word": "喫茶店",
+          "reading": "きっさてん",
+          "gloss": "cafe; coffeehouse"
+        }
+      ]
+    },
+    {
+      "kanji": "止",
+      "gloss": "to stop",
+      "on": [
+        "シ"
+      ],
+      "kun": [
+        "と"
+      ],
+      "examples": [
+        {
+          "word": "止まる",
+          "reading": "とまる",
+          "gloss": "(something) stops"
+        },
+        {
+          "word": "静止",
+          "reading": "せいし",
+          "gloss": "to stand still"
+        }
+      ]
+    },
+    {
+      "kanji": "枚",
+      "gloss": "sheet of ...",
+      "on": [
+        "マイ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "一枚",
+          "reading": "いちまい",
+          "gloss": "one sheet"
+        }
+      ]
+    },
+    {
+      "kanji": "両",
+      "gloss": "both",
+      "on": [
+        "リョウ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "両親",
+          "reading": "りょうしん",
+          "gloss": "parents"
+        },
+        {
+          "word": "両替",
+          "reading": "りょうがえ",
+          "gloss": "exchange of money"
+        },
+        {
+          "word": "車両",
+          "reading": "しゃりょう",
+          "gloss": "vehicles; cars"
+        },
+        {
+          "word": "両方",
+          "reading": "りょうほう",
+          "gloss": "both"
+        }
+      ]
+    },
+    {
+      "kanji": "無",
+      "gloss": "none",
+      "on": [
+        "ム",
+        "ブ"
+      ],
+      "kun": [
+        "な"
+      ],
+      "examples": [
+        {
+          "word": "無理",
+          "reading": "むり",
+          "gloss": "impossible"
+        },
+        {
+          "word": "無効",
+          "reading": "むこう",
+          "gloss": "invalidity"
+        },
+        {
+          "word": "無礼な",
+          "reading": "ぶれいな",
+          "gloss": "rude"
+        }
+      ]
+    },
+    {
+      "kanji": "払",
+      "gloss": "to pay",
+      "on": [],
+      "kun": [
+        "はら",
+        "ばら"
+      ],
+      "examples": [
+        {
+          "word": "払う",
+          "reading": "はらう",
+          "gloss": "to pay"
+        },
+        {
+          "word": "支払い",
+          "reading": "しはらい",
+          "gloss": "payment"
+        },
+        {
+          "word": "前払い",
+          "reading": "まえばらい",
+          "gloss": "payment in advance"
+        }
+      ]
+    },
+    {
+      "kanji": "心",
+      "gloss": "heart; mind",
+      "on": [
+        "シン"
+      ],
+      "kun": [
+        "こころ"
+      ],
+      "examples": [
+        {
+          "word": "安心",
+          "reading": "あんしん",
+          "gloss": "relief"
+        },
+        {
+          "word": "心",
+          "reading": "こころ",
+          "gloss": "heart"
+        },
+        {
+          "word": "心配する",
+          "reading": "しんぱいする",
+          "gloss": "to worry"
+        },
+        {
+          "word": "心配な",
+          "reading": "しんぱいな",
+          "gloss": "worried about"
+        }
+      ]
+    },
+    {
+      "kanji": "笑",
+      "gloss": "to laugh",
+      "on": [
+        "ショウ"
+      ],
+      "kun": [
+        "わら",
+        "え"
+      ],
+      "examples": [
+        {
+          "word": "笑う",
+          "reading": "わらう",
+          "gloss": "to laugh"
+        },
+        {
+          "word": "微笑む",
+          "reading": "ほほえむ",
+          "gloss": "to smile"
+        },
+        {
+          "word": "笑顔",
+          "reading": "えがお",
+          "gloss": "a smiling face"
+        }
+      ]
+    },
+    {
+      "kanji": "絶",
+      "gloss": "to discontinue",
+      "on": [
+        "ゼッ",
+        "ゼツ"
+      ],
+      "kun": [
+        "た"
+      ],
+      "examples": [
+        {
+          "word": "絶対に",
+          "reading": "ぜったいに",
+          "gloss": "definitely"
+        },
+        {
+          "word": "絶えず",
+          "reading": "たえず",
+          "gloss": "constantly"
+        }
+      ]
+    },
+    {
+      "kanji": "対",
+      "gloss": "opposite",
+      "on": [
+        "タイ",
+        "ツイ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "絶対に",
+          "reading": "ぜったいに",
+          "gloss": "definitely"
+        },
+        {
+          "word": "対談",
+          "reading": "たいだん",
+          "gloss": "a face-to-face talk"
+        },
+        {
+          "word": "対比する",
+          "reading": "たいひする",
+          "gloss": "to contrast"
+        },
+        {
+          "word": "〜に対して",
+          "reading": "〜にたいして",
+          "gloss": "against ~"
+        }
+      ]
+    },
+    {
+      "kanji": "痛",
+      "gloss": "pain",
+      "on": [
+        "ツウ"
+      ],
+      "kun": [
+        "いた"
+      ],
+      "examples": [
+        {
+          "word": "痛い",
+          "reading": "いたい",
+          "gloss": "painful"
+        },
+        {
+          "word": "頭痛",
+          "reading": "ずつう",
+          "gloss": "headache"
+        }
+      ]
+    },
+    {
+      "kanji": "最",
+      "gloss": "utmost",
+      "on": [
+        "サイ"
+      ],
+      "kun": [
+        "もっと"
+      ],
+      "examples": [
+        {
+          "word": "最悪",
+          "reading": "さいあく",
+          "gloss": "the worst"
+        },
+        {
+          "word": "最高",
+          "reading": "さいこう",
+          "gloss": "the best"
+        },
+        {
+          "word": "最後に",
+          "reading": "さいごに",
+          "gloss": "lastly"
+        },
+        {
+          "word": "最初",
+          "reading": "さいしょ",
+          "gloss": "first"
+        }
+      ]
+    },
+    {
+      "kanji": "続",
+      "gloss": "to continue",
+      "on": [
+        "ゾク"
+      ],
+      "kun": [
+        "つづ"
+      ],
+      "examples": [
+        {
+          "word": "続く",
+          "reading": "つづく",
+          "gloss": "to continue"
+        },
+        {
+          "word": "続ける",
+          "reading": "つづける",
+          "gloss": "to continue (something)"
+        },
+        {
+          "word": "連続する",
+          "reading": "れんぞくする",
+          "gloss": "to continue"
+        },
+        {
+          "word": "相続する",
+          "reading": "そうぞくする",
+          "gloss": "to inherit"
+        }
+      ]
+    }
+  ],
+  "21": [
+    {
+      "kanji": "信",
+      "gloss": "to trust; to believe in",
+      "on": [
+        "シン"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "信じる",
+          "reading": "しんじる",
+          "gloss": "to believe"
+        },
+        {
+          "word": "信号",
+          "reading": "しんごう",
+          "gloss": "a traffic light"
+        },
+        {
+          "word": "返信する",
+          "reading": "へんしんする",
+          "gloss": "to reply (by letter)"
+        },
+        {
+          "word": "信用する",
+          "reading": "しんようする",
+          "gloss": "to trust"
+        }
+      ]
+    },
+    {
+      "kanji": "経",
+      "gloss": "to pass through",
+      "on": [
+        "ケイ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "経験",
+          "reading": "けいけん",
+          "gloss": "experience"
+        },
+        {
+          "word": "経済学",
+          "reading": "けいざいがく",
+          "gloss": "economics"
+        },
+        {
+          "word": "経営する",
+          "reading": "けいえいする",
+          "gloss": "to run an enterprise"
+        },
+        {
+          "word": "経由",
+          "reading": "けいゆ",
+          "gloss": "via; by way of"
+        }
+      ]
+    },
+    {
+      "kanji": "台",
+      "gloss": "stand",
+      "on": [
+        "タイ",
+        "ダイ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "台所",
+          "reading": "だいどころ",
+          "gloss": "kitchen"
+        },
+        {
+          "word": "台風",
+          "reading": "たいふう",
+          "gloss": "typoon"
+        },
+        {
+          "word": "二台",
+          "reading": "にだい",
+          "gloss": "two vechicles/machines/etc."
+        },
+        {
+          "word": "寝台車",
+          "reading": "しんだいしゃ",
+          "gloss": "sleeping car"
+        }
+      ]
+    },
+    {
+      "kanji": "風",
+      "gloss": "wind",
+      "on": [
+        "フウ"
+      ],
+      "kun": [
+        "かぜ"
+      ],
+      "examples": [
+        {
+          "word": "台風",
+          "reading": "たいふう",
+          "gloss": "typoon"
+        },
+        {
+          "word": "風",
+          "reading": "かぜ",
+          "gloss": "wind"
+        },
+        {
+          "word": "涼風",
+          "reading": "りょうふう",
+          "gloss": "a cool breeze"
+        },
+        {
+          "word": "北風",
+          "reading": "きたかぜ",
+          "gloss": "a north wind"
+        }
+      ]
+    },
+    {
+      "kanji": "犬",
+      "gloss": "dog",
+      "on": [
+        "ケン"
+      ],
+      "kun": [
+        "いぬ"
+      ],
+      "examples": [
+        {
+          "word": "犬",
+          "reading": "いぬ",
+          "gloss": "dog"
+        }
+      ]
+    },
+    {
+      "kanji": "初",
+      "gloss": "first",
+      "on": [
+        "ショ"
+      ],
+      "kun": [
+        "はじ",
+        "はつ"
+      ],
+      "examples": [
+        {
+          "word": "初めは",
+          "reading": "はじめは",
+          "gloss": "at first"
+        },
+        {
+          "word": "初めて",
+          "reading": "はじめて",
+          "gloss": "first time"
+        },
+        {
+          "word": "最初",
+          "reading": "さいしょ",
+          "gloss": "first"
+        },
+        {
+          "word": "初夏",
+          "reading": "しょか",
+          "gloss": "early summer"
+        }
+      ]
+    },
+    {
+      "kanji": "若",
+      "gloss": "young",
+      "on": [],
+      "kun": [
+        "わか"
+      ],
+      "examples": [
+        {
+          "word": "若い",
+          "reading": "わかい",
+          "gloss": "young"
+        }
+      ]
+    },
+    {
+      "kanji": "送",
+      "gloss": "to send",
+      "on": [
+        "ソウ"
+      ],
+      "kun": [
+        "おく"
+      ],
+      "examples": [
+        {
+          "word": "送る",
+          "reading": "おくる",
+          "gloss": "to send; to drop someone off"
+        },
+        {
+          "word": "見送る",
+          "reading": "みおくる",
+          "gloss": "to see someone off"
+        },
+        {
+          "word": "送別会",
+          "reading": "そうべつかい",
+          "gloss": "a farewell party"
+        },
+        {
+          "word": "送料",
+          "reading": "そうりょう",
+          "gloss": "postage"
+        }
+      ]
+    },
+    {
+      "kanji": "幸",
+      "gloss": "happiness",
+      "on": [
+        "コウ"
+      ],
+      "kun": [
+        "しあわ",
+        "さいわ"
+      ],
+      "examples": [
+        {
+          "word": "幸せ",
+          "reading": "しあわせ",
+          "gloss": "happy"
+        },
+        {
+          "word": "幸い",
+          "reading": "さいわい",
+          "gloss": "fortunately"
+        }
+      ]
+    },
+    {
+      "kanji": "計",
+      "gloss": "to measure",
+      "on": [
+        "ケイ"
+      ],
+      "kun": [
+        "はか"
+      ],
+      "examples": [
+        {
+          "word": "時計",
+          "reading": "とけい",
+          "gloss": "watch"
+        },
+        {
+          "word": "計画",
+          "reading": "けいかく",
+          "gloss": "plan"
+        },
+        {
+          "word": "体温計",
+          "reading": "たいおんけい",
+          "gloss": "medical thermometer"
+        },
+        {
+          "word": "合計",
+          "reading": "ごうけい",
+          "gloss": "a total"
+        }
+      ]
+    },
+    {
+      "kanji": "遅",
+      "gloss": "late",
+      "on": [
+        "チ"
+      ],
+      "kun": [
+        "おく",
+        "おそ"
+      ],
+      "examples": [
+        {
+          "word": "遅れる",
+          "reading": "おくれる",
+          "gloss": "to be late"
+        },
+        {
+          "word": "遅い",
+          "reading": "おそい",
+          "gloss": "late"
+        }
+      ]
+    },
+    {
+      "kanji": "配",
+      "gloss": "to deliver",
+      "on": [
+        "パイ",
+        "ハイ"
+      ],
+      "kun": [
+        "くば"
+      ],
+      "examples": [
+        {
+          "word": "心配する",
+          "reading": "しんぱいする",
+          "gloss": "to worry"
+        },
+        {
+          "word": "心配な",
+          "reading": "しんぱいな",
+          "gloss": "worried about"
+        },
+        {
+          "word": "配る",
+          "reading": "くばる",
+          "gloss": "to deliver"
+        },
+        {
+          "word": "配達する",
+          "reading": "はいたつする",
+          "gloss": "to deliver"
+        }
+      ]
+    },
+    {
+      "kanji": "弟",
+      "gloss": "young brother",
+      "on": [
+        "ダイ",
+        "デ"
+      ],
+      "kun": [
+        "おとうと"
+      ],
+      "examples": [
+        {
+          "word": "弟",
+          "reading": "おとうと",
+          "gloss": "younger brother"
+        },
+        {
+          "word": "兄弟",
+          "reading": "きょうだい",
+          "gloss": "brothers; siblings"
+        }
+      ]
+    },
+    {
+      "kanji": "妹",
+      "gloss": "young sister",
+      "on": [
+        "マイ"
+      ],
+      "kun": [
+        "いもうと"
+      ],
+      "examples": [
+        {
+          "word": "妹",
+          "reading": "いもうと",
+          "gloss": "younger sister"
+        }
+      ]
+    },
+    {
+      "kanji": "重",
+      "gloss": "heavy; to pile up",
+      "on": [
+        "シュウ",
+        "チョウ"
+      ],
+      "kun": [
+        "かさ"
+      ],
+      "examples": []
+    }
+  ],
+  "22": [
+    {
+      "kanji": "記",
+      "gloss": "to write down",
+      "on": [
+        "キ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "日記",
+          "reading": "にっき",
+          "gloss": "diary"
+        },
+        {
+          "word": "記号",
+          "reading": "きごう",
+          "gloss": "a sign; a symbol"
+        },
+        {
+          "word": "記事",
+          "reading": "きじ",
+          "gloss": "an article"
+        },
+        {
+          "word": "記入する",
+          "reading": "きにゅうする",
+          "gloss": "to fill in"
+        }
+      ]
+    },
+    {
+      "kanji": "銀",
+      "gloss": "silver",
+      "on": [
+        "ギン"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "銀",
+          "reading": "ぎん",
+          "gloss": "silver"
+        },
+        {
+          "word": "銀座",
+          "reading": "ぎんざ",
+          "gloss": "Ginza"
+        },
+        {
+          "word": "銀行",
+          "reading": "ぎんこう",
+          "gloss": "bank"
+        }
+      ]
+    },
+    {
+      "kanji": "回",
+      "gloss": "...times; to turn",
+      "on": [
+        "カイ"
+      ],
+      "kun": [
+        "まわ"
+      ],
+      "examples": [
+        {
+          "word": "回転寿し",
+          "reading": "かいてんずし",
+          "gloss": "rotating sushi"
+        },
+        {
+          "word": "一回",
+          "reading": "いっかい",
+          "gloss": "one time"
+        },
+        {
+          "word": "回転する",
+          "reading": "かいてんする",
+          "gloss": "to rotate"
+        },
+        {
+          "word": "次回",
+          "reading": "じかい",
+          "gloss": "next time"
+        }
+      ]
+    },
+    {
+      "kanji": "夕",
+      "gloss": "evening",
+      "on": [],
+      "kun": [
+        "ゆう"
+      ],
+      "examples": [
+        {
+          "word": "夕方",
+          "reading": "ゆうがた",
+          "gloss": "evening"
+        },
+        {
+          "word": "夕食",
+          "reading": "ゆうしょく",
+          "gloss": "dinner"
+        }
+      ]
+    },
+    {
+      "kanji": "黒",
+      "gloss": "black",
+      "on": [
+        "コク"
+      ],
+      "kun": [
+        "くろ"
+      ],
+      "examples": [
+        {
+          "word": "黒木さん",
+          "reading": "くろきさん",
+          "gloss": "Mr./Ms. Kuroki"
+        },
+        {
+          "word": "黒い",
+          "reading": "くろい",
+          "gloss": "black"
+        },
+        {
+          "word": "黒",
+          "reading": "くろ",
+          "gloss": "black color"
+        },
+        {
+          "word": "黒板",
+          "reading": "こくばん",
+          "gloss": "blackboard"
+        }
+      ]
+    },
+    {
+      "kanji": "用",
+      "gloss": "task; to use",
+      "on": [
+        "ヨウ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "使用中",
+          "reading": "しようちゅう",
+          "gloss": "\"Occupied\""
+        },
+        {
+          "word": "用事",
+          "reading": "ようじ",
+          "gloss": "business; an engagement; a thing to take care of"
+        },
+        {
+          "word": "用紙",
+          "reading": "ようし",
+          "gloss": "blank form"
+        },
+        {
+          "word": "利用する",
+          "reading": "りようする",
+          "gloss": "to use"
+        }
+      ]
+    },
+    {
+      "kanji": "守",
+      "gloss": "to keep; to protect",
+      "on": [
+        "ス",
+        "シュ"
+      ],
+      "kun": [
+        "まも"
+      ],
+      "examples": [
+        {
+          "word": "留守",
+          "reading": "るす",
+          "gloss": "absence from home"
+        },
+        {
+          "word": "留守番電話",
+          "reading": "るすばんでんわ",
+          "gloss": "answering machine"
+        },
+        {
+          "word": "お守り",
+          "reading": "おまもり",
+          "gloss": "charm"
+        }
+      ]
+    },
+    {
+      "kanji": "末",
+      "gloss": "the end of",
+      "on": [
+        "マツ"
+      ],
+      "kun": [
+        "まえ"
+      ],
+      "examples": [
+        {
+          "word": "週末",
+          "reading": "しゅうまつ",
+          "gloss": "weekend"
+        }
+      ]
+    },
+    {
+      "kanji": "待",
+      "gloss": "to wait",
+      "on": [
+        "タイ"
+      ],
+      "kun": [
+        "ま",
+        "まち"
+      ],
+      "examples": [
+        {
+          "word": "待つ",
+          "reading": "まつ",
+          "gloss": "to wait"
+        },
+        {
+          "word": "招待",
+          "reading": "しょうたい",
+          "gloss": "invitation"
+        },
+        {
+          "word": "期待する",
+          "reading": "きたいする",
+          "gloss": "to expect"
+        }
+      ]
+    },
+    {
+      "kanji": "残",
+      "gloss": "to remain",
+      "on": [
+        "ザン"
+      ],
+      "kun": [
+        "この"
+      ],
+      "examples": [
+        {
+          "word": "残業",
+          "reading": "ざんぎょう",
+          "gloss": "over-time work"
+        },
+        {
+          "word": "残す",
+          "reading": "のこす",
+          "gloss": "to leave"
+        },
+        {
+          "word": "残念",
+          "reading": "ざんねん",
+          "gloss": "regrettable"
+        },
+        {
+          "word": "残る",
+          "reading": "のこる",
+          "gloss": "to remain"
+        }
+      ]
+    },
+    {
+      "kanji": "番",
+      "gloss": "order; number",
+      "on": [
+        "バン"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "留守番電話",
+          "reading": "るすばんでんわ",
+          "gloss": "answering machine"
+        },
+        {
+          "word": "一番",
+          "reading": "いちばん",
+          "gloss": "the first"
+        },
+        {
+          "word": "番号",
+          "reading": "ばんごう",
+          "gloss": "number"
+        },
+        {
+          "word": "電話番号",
+          "reading": "でんわばんごう",
+          "gloss": "a telephone number"
+        }
+      ]
+    },
+    {
+      "kanji": "駅",
+      "gloss": "station",
+      "on": [
+        "エキ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "駅",
+          "reading": "えき",
+          "gloss": "station"
+        },
+        {
+          "word": "東京駅",
+          "reading": "とうきょうえき",
+          "gloss": "Tokyo Station"
+        },
+        {
+          "word": "駅員",
+          "reading": "えきいん",
+          "gloss": "station attendant"
+        }
+      ]
+    },
+    {
+      "kanji": "説",
+      "gloss": "theory; to explain",
+      "on": [
+        "セツ",
+        "セッ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "説明",
+          "reading": "せつめい",
+          "gloss": "explanation"
+        },
+        {
+          "word": "説明する",
+          "reading": "せつめいする",
+          "gloss": "to explain"
+        },
+        {
+          "word": "小説",
+          "reading": "しょうせつ",
+          "gloss": "novel"
+        },
+        {
+          "word": "説教する",
+          "reading": "せっきょうする",
+          "gloss": "to preach"
+        }
+      ]
+    },
+    {
+      "kanji": "案",
+      "gloss": "idea; proposal",
+      "on": [
+        "アン"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "案内する",
+          "reading": "あんないする",
+          "gloss": "to guide"
+        },
+        {
+          "word": "案内所",
+          "reading": "あんないしょ",
+          "gloss": "information desk"
+        },
+        {
+          "word": "案",
+          "reading": "あん",
+          "gloss": "an idea; a proposal"
+        },
+        {
+          "word": "名案",
+          "reading": "めいあん",
+          "gloss": "a good idea"
+        }
+      ]
+    },
+    {
+      "kanji": "内",
+      "gloss": "inside; inner",
+      "on": [
+        "ナイ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "案内する",
+          "reading": "あんないする",
+          "gloss": "to guide"
+        },
+        {
+          "word": "案内所",
+          "reading": "あんないしょ",
+          "gloss": "information desk"
+        },
+        {
+          "word": "家内",
+          "reading": "かない",
+          "gloss": "my wife"
+        }
+      ]
+    },
+    {
+      "kanji": "忘",
+      "gloss": "to forget",
+      "on": [
+        "ボウ"
+      ],
+      "kun": [
+        "わす"
+      ],
+      "examples": [
+        {
+          "word": "忘れる",
+          "reading": "わすれる",
+          "gloss": "to forget"
+        },
+        {
+          "word": "忘年会",
+          "reading": "ぼうねんかい",
+          "gloss": "a year-end party"
+        },
+        {
+          "word": "忘れ物",
+          "reading": "わすれもの",
+          "gloss": "a thing left behind"
+        }
+      ]
+    }
+  ],
+  "23": [
+    {
+      "kanji": "顔",
+      "gloss": "face",
+      "on": [
+        "ガン"
+      ],
+      "kun": [
+        "かお",
+        "がお"
+      ],
+      "examples": [
+        {
+          "word": "顔",
+          "reading": "かお",
+          "gloss": "face"
+        },
+        {
+          "word": "笑顔",
+          "reading": "えがお",
+          "gloss": "a smiling face"
+        },
+        {
+          "word": "顔色",
+          "reading": "かおいろ",
+          "gloss": "complexion"
+        },
+        {
+          "word": "洗顔する",
+          "reading": "せんがんする",
+          "gloss": "to wash one's face"
+        }
+      ]
+    },
+    {
+      "kanji": "情",
+      "gloss": "emotion; condition",
+      "on": [
+        "ジョウ"
+      ],
+      "kun": [
+        "なさ"
+      ],
+      "examples": [
+        {
+          "word": "表情",
+          "reading": "ひょうじょう",
+          "gloss": "facial expression"
+        },
+        {
+          "word": "感情",
+          "reading": "かんじょう",
+          "gloss": "emotion"
+        },
+        {
+          "word": "同情する",
+          "reading": "どうじょうする",
+          "gloss": "to sympathize"
+        },
+        {
+          "word": "情報",
+          "reading": "じょうほう",
+          "gloss": "information"
+        }
+      ]
+    },
+    {
+      "kanji": "怒",
+      "gloss": "to get angry",
+      "on": [
+        "ド"
+      ],
+      "kun": [
+        "おこ",
+        "いか"
+      ],
+      "examples": [
+        {
+          "word": "怒る",
+          "reading": "おこる",
+          "gloss": "to get angry"
+        }
+      ]
+    },
+    {
+      "kanji": "変",
+      "gloss": "change; abnormal",
+      "on": [
+        "ヘン"
+      ],
+      "kun": [
+        "か"
+      ],
+      "examples": [
+        {
+          "word": "変な",
+          "reading": "へんな",
+          "gloss": "strange"
+        },
+        {
+          "word": "大変な",
+          "reading": "たいへんな",
+          "gloss": "tough"
+        },
+        {
+          "word": "変化",
+          "reading": "へんか",
+          "gloss": "change"
+        },
+        {
+          "word": "変わる",
+          "reading": "かわる",
+          "gloss": "to change"
+        }
+      ]
+    },
+    {
+      "kanji": "相",
+      "gloss": "mutual",
+      "on": [
+        "ショウ",
+        "ソウ"
+      ],
+      "kun": [
+        "あい"
+      ],
+      "examples": [
+        {
+          "word": "相手",
+          "reading": "あいて",
+          "gloss": "partner"
+        },
+        {
+          "word": "相談する",
+          "reading": "そうだんする",
+          "gloss": "to consult"
+        },
+        {
+          "word": "首相",
+          "reading": "しゅしょう",
+          "gloss": "a Prime Minister"
+        },
+        {
+          "word": "相続する",
+          "reading": "そうぞくする",
+          "gloss": "to inherit"
+        }
+      ]
+    },
+    {
+      "kanji": "横",
+      "gloss": "sideways",
+      "on": [
+        "オウ"
+      ],
+      "kun": [
+        "よこ"
+      ],
+      "examples": [
+        {
+          "word": "横",
+          "reading": "よこ",
+          "gloss": "side"
+        },
+        {
+          "word": "横浜",
+          "reading": "よこはま",
+          "gloss": "Yokohama"
+        },
+        {
+          "word": "横断",
+          "reading": "おうだん",
+          "gloss": "crossing"
+        },
+        {
+          "word": "横転する",
+          "reading": "おうてんする",
+          "gloss": "to turn over"
+        }
+      ]
+    },
+    {
+      "kanji": "比",
+      "gloss": "to compare",
+      "on": [
+        "ヒ"
+      ],
+      "kun": [
+        "くら"
+      ],
+      "examples": [
+        {
+          "word": "比べる",
+          "reading": "くらべる",
+          "gloss": "to compare"
+        },
+        {
+          "word": "対比する",
+          "reading": "たいひする",
+          "gloss": "to contrast"
+        },
+        {
+          "word": "比重",
+          "reading": "ひじゅう",
+          "gloss": "specific gravity"
+        },
+        {
+          "word": "比例する",
+          "reading": "ひれいする",
+          "gloss": "to be proportional"
+        }
+      ]
+    },
+    {
+      "kanji": "化",
+      "gloss": "to change into",
+      "on": [
+        "カ",
+        "ケ"
+      ],
+      "kun": [
+        "ば"
+      ],
+      "examples": [
+        {
+          "word": "変化",
+          "reading": "へんか",
+          "gloss": "change"
+        },
+        {
+          "word": "文化",
+          "reading": "ぶんか",
+          "gloss": "culture"
+        },
+        {
+          "word": "化石",
+          "reading": "かせき",
+          "gloss": "a fossil"
+        },
+        {
+          "word": "悪化する",
+          "reading": "あっかする",
+          "gloss": "to change for the worse"
+        }
+      ]
+    },
+    {
+      "kanji": "違",
+      "gloss": "to differ",
+      "on": [
+        "イ"
+      ],
+      "kun": [
+        "ちが"
+      ],
+      "examples": [
+        {
+          "word": "違う",
+          "reading": "ちがう",
+          "gloss": "different"
+        },
+        {
+          "word": "間違える",
+          "reading": "まちがえる",
+          "gloss": "to make a mistake"
+        },
+        {
+          "word": "間違い",
+          "reading": "まちがい",
+          "gloss": "a mistake"
+        },
+        {
+          "word": "違い",
+          "reading": "ちがい",
+          "gloss": "a difference"
+        }
+      ]
+    },
+    {
+      "kanji": "悲",
+      "gloss": "sad",
+      "on": [
+        "ヒ"
+      ],
+      "kun": [
+        "かな"
+      ],
+      "examples": [
+        {
+          "word": "悲しい",
+          "reading": "かなしい",
+          "gloss": "sad"
+        },
+        {
+          "word": "悲しむ",
+          "reading": "かなしむ",
+          "gloss": "to feel sad"
+        },
+        {
+          "word": "悲劇",
+          "reading": "ひげき",
+          "gloss": "a tragedy"
+        }
+      ]
+    },
+    {
+      "kanji": "調",
+      "gloss": "to investigate",
+      "on": [
+        "チョウ"
+      ],
+      "kun": [
+        "しら"
+      ],
+      "examples": [
+        {
+          "word": "調査",
+          "reading": "ちょうさ",
+          "gloss": "survey; research"
+        },
+        {
+          "word": "調べる",
+          "reading": "しらべる",
+          "gloss": "to look into"
+        },
+        {
+          "word": "調査する",
+          "reading": "ちょうさする",
+          "gloss": "to investigate"
+        },
+        {
+          "word": "調子",
+          "reading": "ちょうし",
+          "gloss": "condition; tone"
+        }
+      ]
+    },
+    {
+      "kanji": "査",
+      "gloss": "to inspect",
+      "on": [
+        "サ"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "調査",
+          "reading": "ちょうさ",
+          "gloss": "survey; research"
+        },
+        {
+          "word": "調査する",
+          "reading": "ちょうさする",
+          "gloss": "to investigate"
+        }
+      ]
+    },
+    {
+      "kanji": "果",
+      "gloss": "fruit; result",
+      "on": [
+        "カ"
+      ],
+      "kun": [
+        "は"
+      ],
+      "examples": [
+        {
+          "word": "結果",
+          "reading": "けっか",
+          "gloss": "result"
+        },
+        {
+          "word": "果物",
+          "reading": "くだもの",
+          "gloss": "fruit"
+        },
+        {
+          "word": "効果",
+          "reading": "こうか",
+          "gloss": "an effect"
+        },
+        {
+          "word": "成果",
+          "reading": "せいか",
+          "gloss": "an outcome"
+        }
+      ]
+    },
+    {
+      "kanji": "感",
+      "gloss": "to sense; to feel",
+      "on": [
+        "カン"
+      ],
+      "kun": [],
+      "examples": [
+        {
+          "word": "感情",
+          "reading": "かんじょう",
+          "gloss": "emotion"
+        },
+        {
+          "word": "感動する",
+          "reading": "かんどうする",
+          "gloss": "to be moved"
+        },
+        {
+          "word": "感覚",
+          "reading": "かんかく",
+          "gloss": "a sense"
+        },
+        {
+          "word": "感心する",
+          "reading": "かんしんする",
+          "gloss": "to be impressed"
+        }
+      ]
+    },
+    {
+      "kanji": "答",
+      "gloss": "answer",
+      "on": [
+        "トウ"
+      ],
+      "kun": [
+        "こた",
+        "こたえ"
+      ],
+      "examples": [
+        {
+          "word": "答える",
+          "reading": "こたえる",
+          "gloss": "to answer"
+        },
+        {
+          "word": "答え",
+          "reading": "こたえ",
+          "gloss": "answer"
+        },
+        {
+          "word": "正答",
+          "reading": "せいとう",
+          "gloss": "a correct answer"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2146 @@
+:root {
+  color-scheme: dark;
+  font-family: system-ui, sans-serif;
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: #0b0b0d;
+  color: #eee;
+}
+
+#app {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: "viewer";
+}
+
+#viewer-container {
+  grid-area: viewer;
+  position: relative;
+}
+
+#viewer-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  /* The softness half of the "lo-fi glow" look the 2D boxes use everywhere (--content-glow-blur is
+     0.25px) — the glow itself is a real Three.js bloom pass (see viewer/theme.js's BLOOM /
+     scene.js's composer), this is just the same gentle blur on top, applied to a <canvas> rather
+     than a form control so none of the filter/appearance compositing risk from the search box's
+     <input> applies here. Keep this in sync with theme.js's CANVAS_BLUR_PX if that's ever retuned —
+     it's a CSS value, not read from JS, since a WebGL canvas can't consume a JS constant directly. */
+  filter: blur(0.8px); /* keep in sync with theme.js's CANVAS_BLUR_PX — see its own comment for why */
+}
+
+#viewer-canvas:active {
+  cursor: grabbing;
+}
+
+/* The dictionary-mode character-load state (main.js's loadCharWithLoading) — shown for the swoop-in
+   animation's own real duration, not an artificial timer; see that function's own comment for the
+   full design (and why an earlier, related-kanji-click-only, artificially-floored version was
+   reworked into this one). Centered over the viewer, above the canvas (#viewer-container is the
+   positioned ancestor — see that rule above), pointer-events:none so it never blocks drag-to-rotate
+   on whatever's still visible underneath while a new character loads in. Same content-glow jade
+   recipe as .info-character/.info-subtitle (see :root) — reads as part of this app's own established
+   typography instead of a bolted-on status toast. Unrelated to `buildRelatedHtml`'s own "Loading
+   related kanji…" text (main.js) — that one is about the cross-reference INDEX itself not being
+   fetched yet, a separate, pre-existing thing this feature never touched. */
+#viewer-loading {
+  position: absolute;
+  inset: 0;
+  /* A real, confirmed bug without this: #viewer-canvas (Three.js's own renderer.domElement) gets
+     appended to #viewer-container AFTER this div, and with both left at the default z-index:auto,
+     later-in-DOM wins the same stacking context — the canvas was painting fully opaque over this
+     text, .is-visible was toggling correctly the entire time (confirmed directly via
+     getComputedStyle/classList), the text just had zero chance of ever being visible underneath it. */
+  z-index: 1;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  font: 22px/1 'Shippori Mincho', serif;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.8);
+  filter: blur(var(--content-glow-blur));
+  -webkit-text-stroke: var(--content-glow-stroke) currentColor;
+  text-shadow:
+    0 0 3px rgba(206, 255, 218, 0.7),
+    0 0 8px rgba(206, 255, 218, 0.5),
+    0 0 18px rgba(206, 255, 218, 0.3),
+    0 0 36px rgba(206, 255, 218, 0.16);
+}
+#viewer-loading.is-visible {
+  display: flex;
+  /* The same glow-up-glow-down beep every clickable tile's hover in this app uses (nora-kanji-pulse
+     — see its own @keyframes, and .related-kanji.is-pulsing's identical use) — here just always on
+     while visible instead of hover-gated, since there's no hover concept for a status message.
+     syncPulseDelay (main.js, where .is-visible gets added) phase-locks the animation-delay the same
+     way every other pulsing element in this app does, so it doesn't drift out of sync with whatever
+     else happens to be pulsing at the same moment. The trailing "..." is plain static text in the
+     element itself (main.js: "読み込み中...") — a first pass animated it cycling through 0-3 dots on
+     its own separate keyframe, corrected by explicit request back to static, just beeping along with
+     the rest of the text via this same animation rather than a second, independently-timed one. */
+  animation: nora-kanji-pulse 1.6s ease-in-out infinite;
+}
+/* ════════════════════════════════════════════════════════════════════════════════
+   NORA glass-box design system — ported 1:1 from moss x kanji FINAL's public/moss-final.css
+   ("Control Knobs" custom properties + the .nora-moss-box family of rules) and generalized into
+   a reusable component: every floating panel in this app (not just the related-kanji box below)
+   should be built with src/ui/mossBox.js's createMossBox(), which produces the exact DOM shape
+   these rules target. See that file's header comment for the full structure diagram and API.
+
+   Three-layer z-stack inside every box, matching moss exactly: 0 = .nora-moss-box::before (the
+   glass background tint + drop shadow, no blur), 1 = .nora-moss-content (real content, still crisp
+   — nothing in here blurs the TEXT itself, see .nora-moss-content's own comment below for the
+   EXPERIMENTAL backdrop-filter it now carries), and the topbar/bottombar strips (position:
+   absolute, own stacking context) which carry the same backdrop-filter blur at their own edges.
+   ════════════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --itab-blur: 0.5px;
+  --itab-brightness: 1.38;
+  --itab-saturate: 1.08;
+  --itab-bg: rgba(255, 255, 255, 0.03);
+  --itab-hover-blur: 0.5px;
+  --itab-hover-brightness: 1.55;
+  --itab-hover-saturate: 1.4;
+  --itab-hover-bg: rgba(255, 255, 255, 0.07);
+  --itab-title-size: 16px;
+  --itab-title-spacing: 0.14em;
+  --itab-title-opacity: 0.55;
+  --itab-title-blur: 0.4px;
+  --itab-title-stroke: 1.1px;
+  /* A dedicated (slightly lighter) lo-fi recipe shared ONLY by .info-character, .info-subtitle, and
+     .related-kanji — the trio meant to read as one matched material. Deliberately separate from
+     --itab-title-blur/-stroke above: those still drive .nora-moss-title (the topbar/bottombar text)
+     and .related-title, neither of which this tuning should touch. */
+  --content-glow-blur: 0.25px;
+  --content-glow-stroke: 0.8px;
+  /* EXPERIMENTAL — the 3D bleed-through effect's own dedicated recipe, separate from --itab-*
+     (bumping that shared tier directly would also affect the topbar/bottombar tabs and everything
+     else using it). History: started applied to the WHOLE .nora-moss-content container (bleed
+     across the entire box, empty space included) at these same numbers — "too much" — moved to
+     just the individual elements instead (.info-character, .info-subtitle/.related-title,
+     .related-kanji — each one's own comment), values dialed back a step at the same time since
+     concentrating the effect onto just the text/tile rects, not the whole box, already reads
+     stronger per element than spreading it across the box did. Saturate is still doing most of the
+     real "intensity" work (color, not just brightness); blur stays soft, unrelated to intensity. */
+  --content-bleed-blur: 0.5px;
+  --content-bleed-brightness: 1.5;
+  --content-bleed-saturate: 1.7;
+  /* #about-panel iframe's own blur ("Behind the glass" below has the full history) — a real amount of
+     back-and-forth landed here: per-element blur (images/canvas blurred, text left crisp) was tried
+     and explicitly reverted — "it's making it look worse because they don't look like they're all
+     from the same world." ONE shared blur across the whole ported page (text included) is the actual
+     design now, deliberately its own token rather than reusing --content-bleed-blur below.
+
+     Settled at 0.6px — NOT the earlier 2px, which genuinely was too strong, but for a real, specific
+     reason finally root-caused rather than guessed away: 2px/1.5px/1px were all judged "readable" by
+     eyeballing the big 35px title ("DUALITY TERRARIUM") and a downscaled screenshot, but the actual
+     BODY text on this ported page — `#terra-def p`, `.duality-subtitle` — computes to just 12px
+     (confirmed via getComputedStyle, not assumed). A 2px blur against 12px text is ~17% of the font
+     size — proportionally severe — versus ~6% against the 35px title, which is why the title kept
+     looking fine, screenshot after screenshot, while the actual reading content quietly stayed
+     unreadable the whole time. This was never a duplicate/doubled-up blur bug (checked: exactly one
+     `filter` rule matches `#about-panel iframe`, nothing else in this stylesheet touches it) — it was
+     genuinely one blur value, just disproportionate to this page's own (quite small) real font sizes.
+     0.6px against 12px text (~5%) reads about like 2px did against the 35px title — every line of
+     body text (confirmed at real content, not a screenshot) is legible again, imagery still visibly
+     soft/glowing. If this needs retuning again: check computed font-size on the SMALLEST real text on
+     the page first (not the title), live in-browser — that's the actual binding constraint, not a
+     round number to creep back up. --content-bleed-blur (0.5px, just below) is close to this by
+     coincidence, not because they're meant to be kept in sync — it's tuned for a different purpose
+     (small text GLYPHS elsewhere in this app), just landing near the same value for a related reason
+     (small text needs a small blur). */
+  --about-overlay-blur: 0.6px;
+  --marquee-size: 14px;
+  --marquee-opacity: 0.85;
+  --marquee-blur: 0.6px;
+  --marquee-stroke: 0px;
+}
+
+.nora-moss-box {
+  position: fixed;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 14px;
+  pointer-events: auto;
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.nora-moss-box.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+}
+
+.nora-moss-box::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.025);
+  box-shadow:
+    0 8px 40px rgba(0, 0, 0, 0.45),
+    0 2px 8px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+}
+
+/* Position modifiers — moss's own boxes only ever floated at a fixed right:40px; both are in real
+   use here now (#info-panel on the left, #search-panel on the right — see that box's own comment
+   for why it no longer needs to override this). */
+.nora-moss-box--float-left {
+  top: 80px;
+  left: 40px;
+}
+.nora-moss-box--float-right {
+  top: 80px;
+  right: 40px;
+}
+
+/* "About" — a near-fullscreen glass overlay (#about-panel, main.js), the SAME .nora-moss-box family
+   every other box uses, not a bespoke component — opts out of the float-left/float-right modifiers
+   above (createMossBox({ position: null, ... })) since it isn't a side panel. Sized in vw/vh, not
+   fixed px, per the grilled spec (apps/web/CLAUDE.md, "About overlay") — "reactive to screen size,"
+   exact numbers tunable later, real mobile support explicitly out of scope for now. `height` AND
+   `max-height` both set to the same value (not just `max-height` alone): this box's content is a
+   single <iframe>, not the typed text every other box's auto-height math is built around, so without
+   an explicit `height` the flex column would just collapse to its topbar's own 32px — there's nothing
+   else here forcing it open. Matching `max-height` is still needed too: spawnFrom/despawnTo (mossBox.js)
+   animate open/closed by tweening `max-height` specifically, reading its resting value via
+   getComputedStyle — a box with no real `max-height` (the `none` every other property here would leave
+   it at) can't bump-expand/collapse through that value at all. */
+.nora-moss-box--about-overlay {
+  top: 5vh;
+  left: 5vw;
+  right: 5vw;
+  height: 90vh;
+  max-height: 90vh;
+}
+/* "Behind the glass" — the whole ported page seen through the box's own glass instead of as a crisp,
+   plain window (explicit request, experimental: "like looking at this on an old iMac"). Genuine
+   back-and-forth landed here, worth knowing before retuning this again: blur applied to the whole
+   iframe (text included) at 3px/1.2px/0.8px each read as too strong to actually read; splitting it —
+   heavy blur on just the ported page's own images/canvas, zero blur on text — was tried next and
+   ALSO reverted, for a different reason: "it's making it look worse because they don't look like
+   they're all from the same world" (explicit request). The design that actually stuck is ONE shared
+   blur across the entire iframe, text included, `--about-overlay-blur` (:root, this file) — tuned as
+   high as it can go while staying legible, not guessed. Brightness/saturate reuse the SAME
+   --content-bleed-* tokens the rest of this app already uses for "glowing through glass" text
+   (.info-character etc., :root's own comment on those vars), for a consistent look. */
+#about-panel iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: none;
+  filter: blur(var(--about-overlay-blur)) brightness(var(--content-bleed-brightness)) saturate(var(--content-bleed-saturate));
+}
+/* The physical "pane of glass in front of the (already-blurred) screen" read — blur alone just looks
+   soft-focus, not like something's IN FRONT of it. Same translucent white-glass tint every
+   `.nora-moss-box::before` already washes every box with (rgba(255,255,255,0.025)) — that shared layer
+   sits BEHIND content for every box (this file's own "Three-layer z-stack" comment near
+   `.nora-moss-box`), so it can't do this job here; this is a second, box-specific layer IN FRONT of
+   the iframe instead, `pointer-events:none` so none of it ever blocks the iframe's own
+   scroll/interaction underneath it.
+
+   Scanlines used to be folded into this same layer — MOVED OUT as of this comment, into the ported
+   page's own CSS/JS instead (public/about-terrarium/style.css's #scanline-overlay,
+   public/about-terrarium/main.js). Real reason, not a style preference: the loading-blink choreography
+   (apps/web/CLAUDE.md, "About overlay") needs the scanlines to switch from a dark, text-obscuring mode
+   during the fake-load to the normal light mode at the EXACT instant the loading blink ends and the
+   typewriter starts — that's a real event the ABOUT PAGE's own script already knows about firsthand
+   (it's the same script driving both), whereas this parent-level layer would only ever be able to
+   guess that timing via an external setTimeout, fragile against the about page's own timing ever
+   changing. Full history of the scanline tuning itself (dark vs. light, opacity, pitch) now lives with
+   the code in its new home, not repeated here. */
+#about-panel .nora-moss-content {
+  position: relative;
+}
+#about-panel .nora-moss-content::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.04);
+  pointer-events: none;
+}
+
+/* TEMPORARY EXPERIMENT — the about overlay's own CRT scanline recipe (public/about-terrarium/
+   style.css's #scanline-overlay), reused over the ENTIRE 3D viewer now, per explicit request — a
+   material-shader version was tried in between (confirmed invisible in practice) and reverted; back
+   to this DOM version. Created inside viewer/scene.js's `mountScene()` itself, not per mount site —
+   dictionary AND flashcards both mount through that one shared function, so this covers both
+   automatically ("inherits to flashcards," per explicit request) with nothing to duplicate or keep
+   in sync; scene.js's own comment there has the full lifecycle story (no matching removal code
+   needed — it's torn down for free with the rest of #viewer-container's children on the next mount).
+   `rgba(255,255,255,0.015)` — its OWN tuned strength now, genuinely independent of the about
+   overlay's, not defined as a fraction of it any more. Used to be described as "half the about
+   overlay's own 0.03," which in practice wasn't really true: the about page's copy sits behind an
+   extra `filter: blur(var(--about-overlay-blur))` (applied to the whole iframe from `#about-panel
+   iframe`, further down this file) that softens its contrast, so at matching alpha values the about
+   page always read weaker than this one anyway — the "half strength" description was tracking the
+   raw CSS number, not what either actually looked like on screen. Corrected: the about page's own
+   recipe (public/about-terrarium/style.css's own comment on it) was bumped to a real full-strength
+   0.06 to read as clearly stronger despite that blur; this value is untouched at 0.015 and no longer
+   tied to it — retune each independently from here, by eye, not by keeping them proportional. */
+#viewer-scanline-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1000;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.015) 0px,
+    rgba(255, 255, 255, 0.015) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+}
+
+/* The click-to-pin spawn animation's flying shard (mossBox.js's spawnFrom/flyShard) — a lone
+   element, positioned/sized/animated entirely from JS via the Web Animations API, so this rule is
+   just its static look: a small glowing white chip mid-flight between the clicked 3D element and
+   the box it's about to become. */
+.moss-spawn-shard {
+  position: fixed;
+  z-index: 41; /* above every .nora-moss-box (z-index: 40) it flies over */
+  pointer-events: none;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow:
+    0 0 14px rgba(255, 255, 255, 0.9),
+    0 0 32px rgba(255, 255, 255, 0.5);
+  will-change: transform, opacity, filter;
+}
+
+/* regenerateBox's white "flash shield" (mossBox.js's flashIn/flashOut) — a plain overlay covering
+   whatever the box's current bounds are (small/closed at the moment this ever appears), opacity
+   driven entirely by WAAPI. .nora-moss-box's own border-radius + overflow:hidden already clips this
+   to the box's rounded shape, same as everything else inside it — no separate radius needed here. */
+.moss-regen-flash {
+  position: absolute;
+  inset: 0;
+  z-index: 5; /* above the topbar/bottombar (z-index: 1) and content (z-index: 1) it's covering */
+  background: #fff;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── Topbar ─────────────────────────────────────────────────────────────────── */
+
+.nora-moss-topbar-container {
+  position: relative;
+  flex-shrink: 0;
+  width: 100%;
+  height: 32px;
+}
+
+.nora-moss-topbar-label-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.nora-moss-title {
+  font-family: Arial, sans-serif;
+  font-size: var(--itab-title-size);
+  letter-spacing: var(--itab-title-spacing);
+  text-transform: lowercase;
+  color: #fff;
+  opacity: var(--itab-title-opacity);
+  filter: blur(var(--itab-title-blur));
+  -webkit-text-stroke: var(--itab-title-stroke) currentColor;
+  user-select: none;
+  white-space: nowrap;
+  /* same vertical squash as .nora-moss-marquee-text, so the top and bottom tab typography match */
+  transform: scaleY(0.58);
+  transform-origin: center;
+  text-shadow:
+    0 0 4px rgba(255, 255, 255, 0.8),
+    0 0 12px rgba(255, 255, 255, 0.6),
+    0 0 32px rgba(255, 255, 255, 0.4),
+    0 0 64px rgba(255, 255, 255, 0.2),
+    0 0 96px rgba(255, 255, 255, 0.1);
+}
+
+/* Mirrors .nora-moss-topbar-kanji's own corner placement (left:10px vs its right:10px), same layer
+   (z-index:0 — under .nora-moss-topbar's glass strip, which is pointer-events:none and so never
+   blocks the click regardless of stacking), same .nora-moss-title glow/blur/stroke recipe. Unlike
+   the kanji glyph, idle here is genuinely static — no animation — "clean" per request; only
+   showBack()/hideBack() (mossBox.js) ever reveal it, so every box that never opts in keeps it fully
+   hidden and inert. */
+.nora-moss-topbar-back {
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%) translateZ(0);
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1;
+  color: #fff;
+  opacity: var(--itab-title-opacity);
+  filter: blur(var(--itab-title-blur));
+  -webkit-text-stroke: var(--itab-title-stroke) currentColor;
+  pointer-events: auto;
+  user-select: none;
+  text-shadow:
+    0 0 4px rgba(255, 255, 255, 0.8),
+    0 0 12px rgba(255, 255, 255, 0.6),
+    0 0 32px rgba(255, 255, 255, 0.4);
+}
+.nora-moss-topbar-back.is-hidden {
+  display: none;
+}
+/* The hover beep — same nora-kanji-pulse motion (and the same syncPulseDelay phase-lock) as every
+   other hover-pulse in this app, same white family as its own idle color/text-shadow above (no
+   recolor needed — the animation itself, cycling opacity 0.08→0.75, is what reads as "beeping"). */
+.nora-moss-topbar-back.is-pulsing {
+  animation: nora-kanji-pulse 1.6s ease-in-out infinite;
+}
+
+.nora-moss-topbar {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: 12px 12px 0 0;
+  /* Deliberately NOT the same blur amount as .nora-moss-bottombar (4px) despite looking related —
+     .nora-moss-title sits BEHIND this layer in stacking order (label-wrap is z-index:0, this is
+     z-index:1), so whatever blur is set here blurs the title text itself, not just the 3D scene
+     behind the box. The bottombar has no such problem: its marquee text is z-index:3, in FRONT of
+     the bottombar's own blur, so a heavier blur there only ever touches the scene behind it. At
+     0.5px this was imperceptible; matching it to 4px visibly blurred the title text — a real bug,
+     not a look. Back to --itab-blur/--itab-brightness/--itab-saturate (0.5px/1.38/1.08). */
+  background: var(--itab-bg);
+  -webkit-backdrop-filter: blur(var(--itab-blur)) brightness(var(--itab-brightness)) saturate(var(--itab-saturate));
+  backdrop-filter: blur(var(--itab-blur)) brightness(var(--itab-brightness)) saturate(var(--itab-saturate));
+  transition: all 0.2s ease;
+  pointer-events: none;
+}
+
+/* .nora-moss-box:hover .nora-moss-topbar (a hover-brightens-the-topbar rule) removed by explicit
+   request — hovering anywhere over the box/topbar shouldn't change the topbar's own glass at all;
+   only .nora-moss-topbar-back (the back arrow specifically) still has its own hover response, via
+   its own separate .is-pulsing beep (main.js), unaffected by this. --itab-hover-* itself is left
+   declared in :root, unremoved, even though nothing in this file currently uses it (its one real
+   caller, .auth-input:focus, was removed along with the rest of the now-gone login/signup forms) —
+   only THIS specific hover-brighten rule was ever the actual ask to remove, not the variables
+   themselves. */
+
+/* Small pulsing glyph in the topbar's corner, under the glass layer (z-index 0, same layer as
+   .nora-moss-topbar-label-wrap) — moss's own version shows its "苔" brand mark here; this shows
+   whatever character the box is currently about instead. */
+.nora-moss-topbar-kanji {
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%) translateZ(0);
+  font-family: 'Shippori Mincho', serif;
+  font-size: 14px;
+  line-height: 1;
+  color: #fff;
+  filter: blur(0.7px);
+  -webkit-text-stroke: 0.6px currentColor;
+  pointer-events: none;
+  user-select: none;
+  text-shadow:
+    0 0 4px rgba(255, 255, 255, 0.9),
+    0 0 12px rgba(255, 255, 255, 0.7),
+    0 0 28px rgba(255, 255, 255, 0.4);
+  animation: nora-kanji-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes nora-kanji-pulse {
+  0%, 100% { opacity: 0.08; }
+  50% { opacity: 0.75; }
+}
+
+/* ── Content ────────────────────────────────────────────────────────────────── */
+
+.nora-moss-content {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  overflow: auto;
+  background: transparent;
+  /* EXPERIMENTAL history: this container itself carried the bleed-through backdrop-filter for a
+     while (amplifying the 3D scene across the WHOLE content rect, empty space included) — reverted
+     by request, "too much," and moved to the individual elements instead (.info-character,
+     .info-subtitle/.related-title, .related-kanji — see each one's own comment): the SAME
+     --content-bleed-* vars, just scoped to each element's own rect specifically, so only the actual
+     UI elements react/glow and the box's own background stays as it always was. Nothing applied
+     here now — nothing needed. */
+  /* Scrollbar hidden entirely (not just restyled) — mouse wheel/trackpad/keyboard scrolling still
+     works via plain overflow:auto, there's just no visible track/thumb taking up space. Hiding it
+     this way (vs. e.g. scrollbar-gutter:stable) also means content gets the full width back
+     instead of a permanent ~8px gutter reserved for a bar that's never drawn. */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* old Edge */
+  /* No native scrolling here at all — heavyScroll() in main.js takes over via wheel events and
+     drives scrollTop itself for the "old school" weighted feel (scroll-snap read as glitchy in
+     practice and was dropped). Kept as a fallback: if JS fails to attach for any reason, plain
+     overflow:auto scrolling still works, just without the weighted easing. */
+}
+.nora-moss-content::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+/* ── Bottombar + marquee ────────────────────────────────────────────────────── */
+
+.nora-moss-bottombar {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  width: 100%;
+  height: 32px;
+  overflow: hidden;
+  border-radius: 0 0 12px 12px;
+  background: rgba(255, 255, 255, 0.03);
+  -webkit-backdrop-filter: blur(4px) brightness(1.12) saturate(1.08);
+  backdrop-filter: blur(4px) brightness(1.12) saturate(1.08);
+  pointer-events: none;
+}
+
+.nora-moss-marquee-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 7%, black 93%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 7%, black 93%, transparent 100%);
+  pointer-events: none;
+}
+
+/* moss's own marquee loop uses hand-tuned keyframe percentages (pause points at 20%, 47%, 75%...)
+   calibrated to its exact "moss 苔" text's repeat count and width — reusing those numbers verbatim
+   for arbitrary future box text would stutter at the wrong points. Same visual recipe (mask fade,
+   glow stack, scaleY squash) instead driven by a generic, content-length-agnostic technique: the
+   text is duplicated once (mossBox.js's setMarquee) and slides exactly -50% linearly forever,
+   which is seamless for any string, not just moss's specific one. */
+.nora-moss-marquee-text {
+  display: inline-flex;
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-family: Arial, sans-serif;
+  font-size: var(--marquee-size);
+  letter-spacing: 0.03em;
+  color: #fff;
+  opacity: var(--marquee-opacity);
+  -webkit-font-smoothing: antialiased;
+  transform-origin: center;
+  filter: blur(var(--marquee-blur));
+  -webkit-text-stroke: var(--marquee-stroke) currentColor;
+  text-shadow:
+    0 0 3px rgba(255, 255, 255, 1),
+    0 0 8px rgba(255, 255, 255, 0.9),
+    0 0 18px rgba(255, 255, 255, 0.72),
+    0 0 40px rgba(255, 255, 255, 0.5),
+    0 0 70px rgba(255, 255, 255, 0.28),
+    0 0 110px rgba(255, 255, 255, 0.12);
+  animation: nora-moss-marquee-loop linear infinite;
+  animation-duration: var(--marquee-duration, 12s);
+  will-change: transform;
+}
+
+.nora-moss-marquee-text > span {
+  padding-right: 2.5em;
+}
+
+@keyframes nora-moss-marquee-loop {
+  from { transform: scaleY(0.58) translateX(0) translateZ(0); }
+  to   { transform: scaleY(0.58) translateX(-50%) translateZ(0); }
+}
+
+/* ── Related-kanji box content (its own thing — not part of the reusable chrome above) ────── */
+
+#info-panel {
+  box-sizing: border-box; /* moss has a global border-box reset kanji-terrarium doesn't; without
+  this the 350px width + padding render ~38px wider than moss's own box */
+  width: 350px;
+  max-height: 67vh;
+}
+#info-panel .nora-moss-content {
+  padding: 17px 19px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.info-character {
+  font: 45px/1 'Shippori Mincho', serif;
+  /* Same --content-glow-blur/-stroke + glow recipe as .info-subtitle and .related-kanji (see
+     :root) — one matched material across the headline glyph, its English name, and every related-
+     kanji tile. Pulled back from an earlier, stronger version: the outer 96px/64px glow layers and
+     the full 0.4px blur were bleeding together on denser kanji, muddying their strokes rather than
+     just glowing at the edges. */
+  filter: blur(var(--content-glow-blur));
+  -webkit-text-stroke: var(--content-glow-stroke) currentColor;
+  text-shadow:
+    0 0 3px rgba(206, 255, 218, 0.7),
+    0 0 8px rgba(206, 255, 218, 0.5),
+    0 0 18px rgba(206, 255, 218, 0.3),
+    0 0 36px rgba(206, 255, 218, 0.16);
+  /* A backdrop-filter (the --content-bleed-* reactive glow — see :root's own comment) was tried
+     directly on this element and reverted by request: backdrop-filter fills the element's whole
+     RECTANGULAR box, not the glyph's actual shape — on a block-level text element like this one
+     (real width/line-height, not clipped to anything), that reads as an obvious glowing box sitting
+     behind the line, not a glow ON the character. `.related-kanji` (below) keeps its own version —
+     that one's already an intentional square glass tile, so a filtered rect is correct there, not
+     an artifact; the same treatment just doesn't work on plain text. */
+}
+/* The exact .nora-moss-title recipe (topbar/bottombar's English-text style) — same size, squash,
+   glow, and lowercase transform, so the gloss line and "also appears in..." read as the same
+   typography as the tabs instead of a plain smaller label. */
+.info-subtitle,
+.related-title {
+  margin: 7px 0 12px;
+  font-family: Arial, sans-serif;
+  font-size: 13px; /* related-title's size; .info-subtitle overrides below — it's the kanji's actual
+  English title, related-title is more a description line, so it gets to read a bit bigger */
+  letter-spacing: var(--itab-title-spacing);
+  color: #fff;
+  opacity: var(--itab-title-opacity);
+  filter: blur(var(--itab-title-blur));
+  -webkit-text-stroke: var(--itab-title-stroke) currentColor;
+  user-select: none;
+  white-space: nowrap;
+  transform: scaleY(0.58);
+  transform-origin: center;
+  /* Same 5-layer falloff/blur/text-stroke as the tab's own title (that combination is the "lo-fi
+     grain" — untouched here), just recolored from white to the same jade used everywhere else in
+     the box (.info-character, .related-kanji) and boosted a bit stronger at every tier, so these
+     two lines glow like they belong with the kanji around them instead of reading as plain UI text. */
+  text-shadow:
+    0 0 4px rgba(206, 255, 218, 0.85),
+    0 0 12px rgba(206, 255, 218, 0.65),
+    0 0 32px rgba(206, 255, 218, 0.45),
+    0 0 64px rgba(206, 255, 218, 0.28),
+    0 0 96px rgba(206, 255, 218, 0.16);
+  /* Same --content-bleed-* backdrop-filter .info-character tried and reverted — see that rule's
+     own comment. Same reason here: a block-level text line, filtered as its whole rectangular box,
+     read as an obvious glowing box behind the line rather than a glow on the text itself. */
+}
+/* related-title stays lowercase, matching the tabs' own convention exactly. info-subtitle instead
+   capitalizes only its actual first character (::first-letter, not text-transform: capitalize —
+   that would title-case every word of a multi-word gloss, not just the start of the string) and
+   leaves the rest of KANJIDIC2's own lowercase gloss text as-is. */
+.related-title {
+  text-transform: lowercase;
+}
+.info-subtitle {
+  font-size: 16px;
+  /* Matches .info-character's actual brightness — the glyph has no opacity dimming of its own
+     (it just inherits rgba(255,255,255,0.8) from .nora-moss-content), so the shared
+     opacity: var(--itab-title-opacity) (0.55) this overrides was making the title read dimmer
+     than the glyph above it. related-title keeps that dimmer, washed-out look as-is. */
+  opacity: 1;
+  color: rgba(255, 255, 255, 0.8);
+  /* Same lighter --content-glow-blur/-stroke + glow recipe as .info-character/.related-kanji —
+     related-title (sharing a base rule with this element above) deliberately keeps the original,
+     stronger --itab-title-blur/-stroke values; only this trio got tuned down. */
+  filter: blur(var(--content-glow-blur));
+  -webkit-text-stroke: var(--content-glow-stroke) currentColor;
+  text-shadow:
+    0 0 3px rgba(206, 255, 218, 0.7),
+    0 0 8px rgba(206, 255, 218, 0.5),
+    0 0 18px rgba(206, 255, 218, 0.3),
+    0 0 36px rgba(206, 255, 218, 0.16);
+}
+.info-subtitle::first-letter {
+  text-transform: uppercase;
+}
+/* Turned off for now — not deleted, and main.js still builds this element every time, just hidden.
+   The useful/noise verdict badge; toggle this off to bring it back. */
+.info-kind {
+  display: none;
+  margin: 7px 0 12px;
+  color: rgba(223, 255, 227, 0.82);
+  font: 10px Arial, sans-serif;
+  letter-spacing: 0.13em;
+}
+/* kanji-terrarium's own useful/noise distinction (not in moss's source — that box has no
+   equivalent "noise" concept) layered on top of the ported .info-kind base style. */
+.info-kind.noise {
+  color: rgba(255, 176, 168, 0.85);
+}
+/* Turned off for now — not deleted, main.js still builds this row (the node's KanjiVG SVG id,
+   e.g. "06d77-g1") every time, just hidden. Change display back to flex to bring it back. */
+.info-row {
+  display: none;
+  justify-content: space-between;
+  padding: 5px 0;
+  font: 12px Arial, sans-serif;
+}
+.info-row span:first-child {
+  color: rgba(255, 255, 255, 0.43);
+}
+.related-list {
+  display: flex;
+  flex-wrap: wrap;
+  /* Left-aligned (the default, not centered — an earlier attempt at "even margins" via
+     justify-content:center actually made things worse, shifting tiles away from the same left
+     edge every other line in the box starts at). 10px instead of 6px is a deliberate width fit,
+     not just "more breathing room": 7 tiles × 36px + 6 gaps × 10px = 312px exactly, the content
+     area's full usable width (350px box − 19px padding × 2) — so a full row runs flush from the
+     text's own left edge to the box's own right padding edge with zero leftover, instead of
+     stopping short and leaving dead space only visible on one side. */
+  gap: 10px;
+}
+/* Lesson mode omits #search-examples' own title line entirely now (main.js's own comment on
+   `searchExamplesTitle`/the `#search-examples` markup — "{series} lesson N kanji" removed as
+   redundant with the searchBox's own topbar title) — `.related-list` ends up the box's sole/first
+   child there, losing the real breathing room the (now-absent) title's own margin-top + line-height
+   + margin-bottom used to put between the topbar and the first row of tiles. Real dictionary mode
+   never has this problem (its own title is still there, so `.related-list` is never actually
+   `:first-child`) — this rule fires ONLY in the lesson-mode case, restoring the lost gap directly on
+   the list rather than reintroducing an empty spacer element or the text itself.
+
+   32px, not the title's own bare 12px margin-bottom — a first pass used 12px and undershot, because
+   `#search-examples`'s own 8px margin-top PARENT-COLLAPSES with whatever margin its first child
+   carries (no padding/border of its own to block it): the effective gap is always
+   `max(examples' 8px, list's own margin-top)`, never the SUM of the two, so 12px only ever won by
+   4px over the 8px it was replacing — measured 29px total (topbar to tile grid), visibly still tight.
+   32px is reverse-engineered from real dictionary mode's OWN still-intact title+list gap, measured
+   live: title height (~9px) + its own trailing gap into the list (~15px) ≈ 24px of "real" spacing on
+   top of that same 8px collapse baseline dictionary mode also has for free → 8 + 24 = 32, landing
+   lesson mode's total gap back at parity with dictionary mode's, not just "bigger than before." */
+#search-examples > .related-list:first-child {
+  margin-top: 32px;
+}
+.related-kanji {
+  /* a true square tile (fixed width AND height, centered content) rather than an inline button
+     sized by its own padding — that was reading as an elongated rectangle, not a tile. No border:
+     .nora-moss-topbar/.nora-moss-bottombar don't have one either, just the glass fill below. */
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 9px; /* rounder, closer to the box's own 14px corner radius (see .nora-moss-box) */
+  overflow: hidden; /* keeps content clipped to the tile's own rounded shape */
+  color: #fff;
+  cursor: pointer;
+  font: 18px 'Shippori Mincho', serif;
+  /* Same glass-tab recipe as .nora-moss-topbar/.nora-moss-bottombar (--itab-bg + backdrop-filter
+     blur/brightness/saturate) instead of a flat fill — every tile is a tiny glass tab of its own,
+     which is what actually makes the glow underneath it read instead of sitting on a flat chip.
+     EXPERIMENTAL: the blur/brightness/saturate half now uses --content-bleed-* instead of the
+     plain --itab-* tier — same reactive 3D bleed-through .info-character/.info-subtitle carry (see
+     :root's own comment for the full history), scoped to just this tile's own rect. Doesn't need a
+     second, separate backdrop-filter declaration — swapping the values in this one is enough, and
+     it still gives the tile its normal resting "glass" look the rest of the time (a dim 3D scene
+     multiplied by --content-bleed-* is still dim; only when something genuinely bright passes
+     underneath does the SAME formula amplify it). --itab-bg (the actual background TINT) is
+     unrelated and stays exactly as it was. */
+  background: var(--itab-bg);
+  -webkit-backdrop-filter: blur(var(--content-bleed-blur)) brightness(var(--content-bleed-brightness)) saturate(var(--content-bleed-saturate));
+  backdrop-filter: blur(var(--content-bleed-blur)) brightness(var(--content-bleed-brightness)) saturate(var(--content-bleed-saturate));
+  transition: background 0.2s ease, backdrop-filter 0.2s ease;
+  /* Same --content-glow-blur/-stroke + glow recipe as .info-character/.info-subtitle — a matched
+     1:1 trio, still not scaled down or dimmed relative to each other. Pulled back from a stronger
+     first pass (0.4px blur, glow out to 96px): on denser related kanji that much blur/bloom was
+     muddying strokes rather than reading as a glow, especially with tiles packed edge to edge. */
+  filter: blur(var(--content-glow-blur));
+  -webkit-text-stroke: var(--content-glow-stroke) currentColor;
+  text-shadow:
+    0 0 3px rgba(206, 255, 218, 0.7),
+    0 0 8px rgba(206, 255, 218, 0.5),
+    0 0 18px rgba(206, 255, 218, 0.3),
+    0 0 36px rgba(206, 255, 218, 0.16);
+}
+/* Replaces an earlier hover treatment (background brighten + stronger glow — a "the box lights up"
+   effect that read as a modern UI hover state, not this box's own vocabulary) with the exact same
+   beep the corner topbar-kanji already does: nora-kanji-pulse, and — this is the actual point —
+   phase-locked to it, not an independent copy that happens to share keyframes. `.is-pulsing` is
+   added by main.js's mouseover/mouseout delegation (a plain CSS :hover can't compute the
+   synced animation-delay a fresh mouseover handler can — see mossBox.js's syncPulseDelay), which
+   sets a freshly-computed animation-delay right before adding this class, every time hover starts. */
+.related-kanji.is-pulsing {
+  animation: nora-kanji-pulse 1.6s ease-in-out infinite;
+}
+/* A static version of `.kanji-token.is-selected`'s own halo (brighter fill + a permanent
+   box-shadow glow) was tried here — given to every related-kanji tile in this box's own
+   click-through list, always on — and reverted by request: "too much," and not actually what was
+   wanted. The REACTIVE version — tiles lighting up only while the detach-zoomed 3D structure is
+   genuinely passing underneath, fading once it's gone — needs no new mechanism at all: every
+   `.related-kanji` tile already carries its own `backdrop-filter` (the shared `--itab-blur/
+   -brightness/-saturate` glass recipe, this rule's own block above), and `.nora-moss-content`
+   itself picked up the SAME recipe (see that rule's own EXPERIMENTAL comment) specifically so the
+   3D scene's brightness bleeds through and amplifies live, every frame, with zero JS — a tile
+   sitting in that content area already inherits this for free. Removing the static halo here is
+   the whole fix; nothing needs adding back. */
+
+/* #info-panel's own max-height (67vh, above) is the "sensible box length" — big enough to read
+   comfortably, capped well short of the viewport so it never dominates the screen. Anything past
+   that scrolls inside .nora-moss-content (overflow:auto) rather than the box growing unbounded. */
+
+/* ── Search box (replaces the old top #controls bar) ───────────────────────────────────────── */
+
+#search-panel {
+  box-sizing: border-box;
+  width: 320px;
+  /* Used to override .nora-moss-box--float-right's own `right: 40px` to `right: 320px`, clearing a
+     docked #sidebar (280px, fixed, non-floating) that used to sit at the viewport's right edge —
+     that sidebar (the old plain-text "structure panel," a leftover test view of the classification
+     data, fully superseded by this box's own #search-selected section) is gone now, so this box
+     just uses the shared class's own default 40px, reading symmetrically with #info-panel's
+     left: 40px. */
+}
+#search-panel .nora-moss-content {
+  padding: 17px 19px;
+  /* Same body-default color #info-panel's own content container sets — most of what's inside
+     overrides it with a more specific rule anyway, but it's part of the recipe being copied here,
+     not just the properties that happen to end up visible. */
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Both given an explicit, fixed height rather than letting it be intrinsic (font/content-driven) —
+   a real bug was traced to exactly that: a native <input>'s OWN used height doesn't purely follow
+   its declared font-size/line-height the way a normal block element's would; it can vary by several
+   px depending on which ACTUAL font renders the characters present (kanji stays in Shippori Mincho,
+   but Latin/kana in a mixed string falls back to generic serif, with different ascent/descent
+   metrics at the same font-size) — measured directly: a value of "海" alone produced a 73px used
+   height, not the 53px (4+45+4 padding+font+padding) the CSS numbers alone would suggest. Since
+   #kanji-search-display/#kanji-search-caret both position themselves relative to this box, that
+   made the caret's tuned position correct for one string's content and wrong for another's — "make
+   it fit every scenario" means the box's own height can't be allowed to vary WITH scenario at all.
+   Forcing a fixed height here removes that variable entirely: every measurement below it (the
+   flex-centered glyph, the caret's top/height) is now against a number that never changes. */
+.search-field {
+  position: relative;
+  height: 53px;
+}
+#kanji-search-input {
+  display: block;
+  width: 100%;
+  height: 53px;
+  box-sizing: border-box;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 4px 2px;
+  /* Same font/size as .info-character's recipe (45px/1 Shippori Mincho) so its caret's height and
+     per-character advance line up exactly with #kanji-search-display below — but its OWN text is
+     invisible. This isn't the visible glyph anymore; it exists purely to keep real typing/caret/
+     IME working, while #kanji-search-display (a plain div) is what's actually seen. Applying
+     filter/-webkit-text-stroke directly to a native <input>'s own text was the actual cause of the
+     grey box: Chrome rasterizes the control (native chrome included) to composite those effects,
+     and on at least some Chrome/GPU combinations that backing paints non-transparent — confirmed
+     to persist on committed text, not just mid-composition, so it wasn't a placeholder-only quirk.
+     A plain div has no such native-control baggage, hence the split. */
+  color: transparent;
+  -webkit-text-fill-color: transparent; /* belt-and-suspenders: some WebKit builds need this
+  explicitly, `color: transparent` alone isn't always enough to fully hide a form control's text */
+  /* The native caret is hidden entirely — #kanji-search-caret (below) is the real one now.
+     caret-color can only ever change a native caret's COLOR, never its width/glow/blink rhythm, so
+     there's no way to get this box's "fatter, lo-fi glass/glow" look out of the native one. */
+  caret-color: transparent;
+  font: 45px/1 'Shippori Mincho', serif;
+}
+/* The actually-visible glyph — reuses .info-character verbatim (the left box's own headline-glyph
+   class), so every property (font, blur, stroke, jade glow) is the exact same CSS rule, not a
+   re-derived copy. Positioned to exactly overlay #kanji-search-input's own text position/padding;
+   synced to the input's value AND scrollLeft by main.js's syncSearchField (a long typed string
+   scrolls the real input horizontally to keep the caret visible, and this separate div needs that
+   same offset applied manually via transform or it drifts out of sync with the caret). */
+#kanji-search-display {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 2px;
+  right: 2px;
+  /* Vertically centers the text's own line box within this fixed-height container — without this
+     it just top-aligns (default block flow), and Shippori Mincho's line-box metrics don't fill
+     their nominal box evenly, so top-alignment left visibly more dead space below the glyph than
+     above it (measured: glyph ink was flush with the very top of this box, ~14px of empty space
+     below). Flex-centering the line box is what actually balances that, not a hand-tuned offset
+     tied to one font's specific metrics. */
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  white-space: pre;
+  pointer-events: none;
+}
+/* A boxed, clickable kanji — built by main.js's renderSearchDisplay, one per kanji character
+   found anywhere in the field (English/kana/romaji stay plain inert text, no box). Every token
+   carries class="related-kanji kanji-token" — .related-kanji is the exact same glass-tile recipe
+   the left box's own related-kanji tiles use (36×36 glass square, jade content-glow, its own
+   hover-pulse — see main.js's mouseover/mouseout delegation, the same syncPulseDelay treatment as
+   over there), reused **verbatim** for a genuine 1:1 match, not a re-derived copy — "the exact same
+   glass box." .kanji-token only adds what .related-kanji's own tiles never needed:
+   pointer-events:auto (this lives inside #kanji-search-display, which is pointer-events:none so
+   clicks elsewhere fall through to the real <input> underneath — only these tokens need to
+   actually capture a click) and .is-selected (a concept that tile system never needed, since
+   clicking one there navigates away entirely rather than needing to show "this one is currently
+   active" alongside its siblings). A 36px tile comfortably fits #kanji-search-display's 45px
+   content-height with room to spare, so no clipping risk the way a taller custom box would have
+   had. */
+.kanji-token {
+  pointer-events: auto;
+}
+/* The currently-loaded one — brighter glass + a stronger version of the tile's own jade glow, same
+   "brighter/cooler confirmed" relationship the 3D pin has over its own hover preview (see
+   viewer/theme.js's MATERIALS) — intensifying the SAME jade tone .related-kanji already glows in,
+   not introducing a mismatched accent color. */
+.kanji-token.is-selected {
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 0 4px rgba(206, 255, 218, 0.9),
+    0 0 12px rgba(206, 255, 218, 0.7),
+    0 0 28px rgba(206, 255, 218, 0.42);
+}
+/* Kana, and any kanji past KANJI_TOKEN_LIMIT (main.js's renderSearchDisplay puts those in here
+   too, not in a tile) — still fundamentally Japanese-script content, so it stays in the glyph font
+   (.info-character's inherited Shippori Mincho), just smaller. That inherited 45px is sized for a
+   single centerpiece glyph with no descenders (Chinese/Japanese ideographs don't have them); at
+   that size on a fixed 45px-tall container (#kanji-search-display, overflow:hidden), some kana
+   glyphs were tall enough to get clipped at the very edge. 26px leaves real headroom within that
+   same fixed box — chosen empirically (screenshotted directly, not computed from font metrics —
+   this font's actual ascent/descent isn't published anywhere reliable enough to trust blindly). */
+.search-plain-text {
+  font-size: 26px;
+}
+/* Genuinely Latin/English text (romaji while composing, or any plain English typed/pasted in) —
+   reuses .related-title verbatim (the SAME Arial + scaleY(0.58) squish + jade glow every other
+   piece of English in this app uses — the topbar title, the gloss lines, the placeholder), not a
+   re-derived approximation of it. Only override: margin:0 — .related-title's own block-flow margin
+   (7px 0 12px) doesn't belong on an inline run sitting in the middle of a flex row alongside kanji
+   tiles and kana, the same reason #kanji-search-placeholder needed the same override. */
+.search-latin-text {
+  margin: 0;
+}
+/* The custom cursor bar — real element, not the native caret (see #kanji-search-input's own
+   caret-color: transparent). Positioned at left:2px, same base as #kanji-search-display, then moved
+   to the actual cursor's x-offset entirely via `transform` (main.js's syncSearchField) — `left`
+   itself never changes, so it stays a plain number here instead of being fought over by two
+   different positioning systems. `top`/`height` are deliberately shorter than the full 45px glyph
+   line-box (4px–49px) and centered within it — Shippori Mincho's actual ink sits well inside its em
+   box, so a bar spanning the FULL line-box read as taller than the character itself, off-center
+   against the visible strokes. White (not jade) — unlike the rest of the box's content trio, this
+   is chrome/UI, not "content" glowing the same color as the kanji. Fatter than a native caret
+   (4px vs. 1-2px) but pulled back from an earlier, wider first pass. Built from the same glow +
+   itab glass vocabulary as the rest of the box (a solid fill + the box-shadow version of a
+   text-shadow glow stack, plus a sliver of the tab family's own glass backdrop-filter) rather than
+   a plain flat line. The blink itself is a hard on/off square wave (steps(1, end), not a smooth
+   fade) — the "old-school" part: a modern OS caret typically fades, this snaps, closer to a
+   classic terminal cursor. */
+#kanji-search-caret {
+  position: absolute;
+  /* (.search-field's own fixed 53px height − this bar's 36px) / 2 — centered on the field's real,
+     now-deterministic box. Matches #kanji-search-display's own true center too, since that box
+     (top:4/bottom:4 within the same 53px field) is centered around the identical midpoint. */
+  top: 8.5px;
+  left: 2px;
+  width: 4px;
+  height: 36px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.9);
+  -webkit-backdrop-filter: blur(var(--itab-blur)) brightness(var(--itab-brightness)) saturate(var(--itab-saturate));
+  backdrop-filter: blur(var(--itab-blur)) brightness(var(--itab-brightness)) saturate(var(--itab-saturate));
+  filter: blur(var(--content-glow-blur));
+  box-shadow:
+    0 0 3px rgba(255, 255, 255, 0.7),
+    0 0 8px rgba(255, 255, 255, 0.5),
+    0 0 18px rgba(255, 255, 255, 0.3),
+    0 0 36px rgba(255, 255, 255, 0.16);
+  pointer-events: none;
+  display: none;
+}
+#kanji-search-caret.is-visible {
+  display: block;
+  animation: search-caret-blink 1s steps(1, end) infinite;
+}
+@keyframes search-caret-blink {
+  0%, 49% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
+  }
+}
+/* The placeholder — #kanji-search-placeholder — is likewise a real element, not ::placeholder,
+   for the same reason (that pseudo-element has the identical filter/text-stroke compositing bug).
+   It carries class="related-title" directly, so every text property (font, blur, stroke, scaleY
+   squash, jade glow, lowercase) is the exact same CSS rule the "also appears in..." line uses — a
+   real 1:1 match, not a re-derived approximation. Only its BOX behavior is overridden here:
+   .related-title's own block-flow margin doesn't apply to an absolutely-positioned overlay sitting
+   on top of the input, and it needs to not intercept clicks meant for the field underneath it. */
+#kanji-search-placeholder {
+  position: absolute;
+  inset: 0;
+  left: 2px; /* match #kanji-search-input's own left padding, so the text starts flush with typed text */
+  display: flex;
+  align-items: center;
+  margin: 0;
+  pointer-events: none;
+}
+#kanji-search-placeholder.is-hidden {
+  display: none;
+}
+
+/* A handful of hand-picked starting points, shown only while the field is empty (main.js's
+   syncSearchField toggles .is-hidden here, same moment it already toggles
+   #kanji-search-placeholder) — see the markup's own comment in main.js for why these specific
+   picks. margin-top gives it real separation from whatever's directly above it — #search-selected
+   now (moved to sit BEFORE this element in the DOM, main.js's own comment on that has the real bug
+   this fixed), collapsed to 0 height in the common case nothing's selected, so this still reads as
+   "separation from .search-field" in practice; .related-title's own built-in margin (7px 0 12px)
+   already handles the gap to .related-list below it. */
+#search-examples {
+  margin-top: 8px;
+}
+#search-examples.is-hidden {
+  display: none;
+}
+
+/* The "whatever's actually selected" section, below .search-field but still inside the same box
+   (see main.js's updateSearchSelected) — collapsed by default, bump-expands open every time a
+   character loads. Same overshoot easing/duration as mossBox.js's spawnFrom uses for the left
+   box's own bump-expand ("drop down animation as left box load") — a deliberately similar feel,
+   not identical code, since spawnFrom itself clears+rebuilds the whole box's content on every call,
+   which would wipe out the input field sitting right above this.
+
+   Real bug, reported directly: backspacing to empty (removing .is-visible) used to reuse that SAME
+   overshoot curve to collapse back to 0 — and an overshoot/"back" easing curve doesn't stay within
+   [0,1] progress, it briefly exceeds 1 partway through. For a GROWING value that reads as the
+   intended bump-past-target-then-settle pop; for a SHRINKING value (280px → 0) that same overshoot
+   computes a genuinely NEGATIVE height partway through, which the browser clamps to 0 early —  an
+   abrupt snap-to-collapsed well before the transition's own nominal duration was up, not a smooth
+   shrink, which is exactly what read as "drops down and glitches out." Fixed the same way
+   `regenerateBox`'s own Phase 1 already documents for the identical class of problem elsewhere in
+   this app (`mossBox.js` — "deliberately NOT the overshoot bounce spawnFrom uses; a bounce on a
+   CLOSING box read as a wobble, not a pop"): the bounce stays on `.is-visible` (OPENING only, when
+   the class is ADDED); the base/closed rule below gets its own separate, plain, non-bouncy
+   transition instead — `cubic-bezier(.4,0,.2,1)`, the exact SAME "closing" curve/family this app's
+   OWN convention already uses everywhere else (`mossBox.js`'s own `easeTransition`, "so every
+   closing motion in this app reads as one consistent feel"), not a newly invented number. Which
+   curve actually governs a transition is which rule matches the ELEMENT'S style AT EITHER END of
+   the change — removing `.is-visible` reverts to this base rule, so its own `transition` declaration
+   is what plays; nothing here needed to change in JS, this is a pure CSS split. */
+#search-selected {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 280ms cubic-bezier(.4, 0, .2, 1);
+}
+#search-selected.is-visible {
+  /* The bump-expand OPENING curve lives here now, not on the shared base rule above — this is what
+     actually keeps it scoped to opening only; the base rule's own plain transition is what plays on
+     the way back down. */
+  transition: max-height 340ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* Some KANJIDIC2 glosses run to a whole short phrase, not just one word — genuinely variable
+     length, not "fixed" the way an earlier version of this comment assumed. Rather than measuring
+     real content height, this is just set comfortably larger than any realistic wrapped gloss
+     (see #search-selected-gloss's own white-space:normal below) ever needs — overflow:hidden still
+     protects against a truly pathological case, but for anything reasonable this behaves like
+     "however tall the content actually is," not a tight-fitting box. */
+  max-height: 280px;
+}
+/* The glyph glows up from nothing — a plain opacity fade, reversible for free (removing
+   .is-revealed just plays this same transition backward, so closing needs no separate rule).
+   REWORKED from a "zoom into focus" version (opacity+scale(0.4→1)+blur(16px→resting) all
+   animating together, "a light igniting into focus") — cut entirely by explicit request, reported
+   as reading like a generic "guffy AI" swoop-in-blur, the same complaint category the 3D viewer's
+   own load-in swoop already got for the same reason (see scene.js's LOAD_SWOOP history). No
+   transform/filter here at all any more — .info-character's own filter: blur(var(--content-glow-
+   blur)) (its base rule, unconditional) already applies at every opacity, so the glyph is always in
+   full, correct focus with its full jade glow (text-shadow/-webkit-text-stroke, both untouched
+   throughout) — it just isn't VISIBLE until opacity ramps up. Reuses this app's own established
+   "glow" vocabulary (nora-kanji-pulse's identical opacity-only recipe, style.css's own :root) rather
+   than inventing a new motion — the explicit ask, "our same hover glow effect," just a one-shot
+   transition instead of that pulse's infinite loop. */
+#search-selected-character {
+  opacity: 0;
+  transition: opacity 420ms ease-out;
+}
+#search-selected.is-revealed #search-selected-character {
+  opacity: 1;
+}
+/* The gloss gets NO opacity/transform reveal of its own at all — see main.js's typeGloss(), which
+   reveals it by literally typing the real text in letter by letter instead, at the same time as
+   the glyph above resolves into focus. Left with its FULL, untouched .info-subtitle styling
+   throughout (blur, jade glow, and — this is specifically what an earlier version of this broke —
+   the scaleY(0.58) "squish" .info-subtitle/.related-title share, clobbered back then by a
+   `transform: translateY(...)` override sitting on the exact same property at higher specificity;
+   removing that reveal-by-transform approach entirely, in favor of typing the text in instead, is
+   what actually fixes it rather than patching the old approach). Only override left: normal
+   wrapping instead of .info-subtitle's inherited nowrap, since a long KANJIDIC2 gloss (some run to
+   a whole short phrase) would otherwise run past the box's right edge instead of wrapping. */
+#search-selected-gloss {
+  white-space: normal;
+  word-break: break-word; /* safety net if a single "word" (no spaces) is still too wide on its own */
+}
+/* #search-selected-stats carries class="related-title" in the HTML (main.js) — the exact same
+   class the placeholder uses, for a genuine 1:1 style match (font, blur, text-stroke, jade glow,
+   the scaleY(0.58) squish), not a re-derived approximation. An earlier version of this line used
+   a bespoke plain-dim-Arial-no-glow look instead ("secondary metadata, not content") — exactly
+   what didn't actually match "our styling" as asked. No opacity/transform override needed here at
+   all (an earlier version had one) — the reveal IS main.js's typeStats typewriter now, the same
+   effect the gloss line already uses, so there's nothing left to separately fade in; the element
+   just sits at its class's own default (fully visible) and types into view. */
+
+/* Lesson mode's reveal-gate (main.js's loadChar/showRevealPrompt) — #search-selected-reveal-prompt
+   and #search-selected-content are siblings inside #search-selected, always both present in the
+   DOM (both modes); only #search-selected's own `reveal-pending` class (added/removed in main.js,
+   never set at all outside lesson mode) decides which one actually shows. Real dictionary mode never
+   touches this class, so `#search-selected-reveal-prompt` stays at its own plain `display:none`
+   default there — genuinely inert, not just unused. */
+#search-selected-reveal-prompt {
+  display: none;
+}
+#search-selected.reveal-pending #search-selected-reveal-prompt {
+  display: block;
+}
+#search-selected.reveal-pending #search-selected-content {
+  display: none;
+}
+
+/* Known gap, not fixed here: on the stacked mobile layout below, #info-panel and #search-panel
+   both collapse onto the exact same fixed rect (bottom sheet) — fine when there was only one
+   floating box, now a real overlap with two. Out of scope for this pass (desktop search-box
+   functionality); revisit if/when this app is actually used on a narrow viewport. */
+@media (max-width: 700px) {
+  .nora-moss-box--float-left,
+  .nora-moss-box--float-right {
+    top: auto;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    width: calc(100vw - 30px);
+  }
+  #info-panel,
+  #search-panel {
+    width: calc(100vw - 30px);
+  }
+}
+
+/* ── Home page (terrarium + mode picker) ────────────────────────────────────────────────────────
+   No header/nav yet by design — see the grilling-session summary this was built from. Desktop-only
+   for this pass, same as the rest of the app (the mobile query above is dictionary-mode-specific). */
+
+/* #app's own grid (above) is dictionary mode's layout, not home's — home has nothing to dock in a
+   grid at all, so it's switched to a plain block box instead of overriding every grid property
+   individually. */
+#app.is-home {
+  display: block;
+  height: 100%;
+}
+
+#terrarium-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+/* The canvas mountTerrarium's own scene.js appends here fills the container exactly the same way
+   #viewer-canvas fills #viewer-container in dictionary mode. */
+#terrarium-container canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Pipeline-visualization dev tool (main.js's mountPipelineDemoScreen, viewer/pipelineDemo.js) — a
+   genuinely separate mount from every real screen, so it gets its own minimal container/canvas
+   rules rather than reusing #terrarium-container/#viewer-container (neither is semantically this
+   screen, even though the rules are near-identical). #app has no .is-home here, so it's still the
+   plain single-cell grid dictionary mode uses — one child, fills the cell by default either way. */
+#pipeline-demo-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+#pipeline-demo-container canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+/* Plain, deliberately unstyled beyond basic legibility/position — same "can never be mistaken for
+   part of the real UI" reasoning the welcome screen's own hidden dev buttons already follow. */
+#pipeline-demo-back {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 50;
+  background: #000;
+  color: #fff;
+  border: 1px solid #fff;
+  padding: 8px 14px;
+  font-family: Arial, sans-serif;
+  cursor: pointer;
+}
+
+/* Sleep mode / screensaver (main.js's enterSleepMode) — a plain full-viewport overlay appended
+   straight to <body>, sibling of #app rather than a child of it (see enterSleepMode's own header
+   comment for why): it's "pasted over" whatever screen is currently mounted, not a real state in
+   that screen's own tree, so there's nothing here to transition — it just appears/disappears.
+   #07090b matches the home terrarium/dictionary scene background (viewer/theme.js's own
+   COLORS.background) so the overlay reads as the same black the rest of the app already uses, not a
+   new one. cursor:none is deliberate screensaver styling — this whole surface has no click targets
+   at all (any input wakes it, main.js's own onUserActivity), so there's nothing a cursor would ever
+   need to point at. */
+#sleep-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: #07090b;
+  cursor: none;
+  overflow: hidden;
+}
+/* The drifting box itself — fixed footprint, moved purely via `transform: translate()` every frame
+   (main.js's own driftTick), never resized. position:fixed + left/top:0 means the translate values
+   main.js computes are real viewport pixel coordinates, not relative to some other offset parent. */
+#sleep-drift-box {
+  position: fixed;
+  top: 0;
+  left: 0;
+  will-change: transform;
+}
+#sleep-drift-box canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Character picker (main.js's mountPipelineDemoScreen) — one button per PIPELINE_DEMO_CHARACTERS
+   entry. Same plain/unstyled dev-tool treatment as #pipeline-demo-back above, stacked in a row at
+   the opposite corner so neither ever overlaps the other regardless of how many characters get
+   added later. */
+#pipeline-demo-picker {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 50;
+  display: flex;
+  gap: 8px;
+}
+.pipeline-demo-picker-btn {
+  background: #000;
+  color: #fff;
+  border: 1px solid #fff;
+  padding: 8px 14px;
+  font-family: Arial, sans-serif;
+  cursor: pointer;
+}
+/* Tracks whichever button matches the character currently playing — a plain visual cue, not
+   load-bearing for playback itself (pipelineDemo.js's own playCharacter() is what actually decides
+   what plays). Reuses the same jade this whole app already treats as "actively selected." */
+.pipeline-demo-picker-btn.is-active {
+  background: #ceffda;
+  color: #000;
+  border-color: #ceffda;
+}
+
+/* Sequential-vs-simultaneous mode toggle — same row layout as #pipeline-demo-picker just above,
+   stacked directly under it (fixed top offset, not flow-positioned) so the two rows never overlap
+   regardless of how many character buttons the picker row above ends up with. Buttons themselves
+   reuse .pipeline-demo-picker-btn verbatim (main.js), not a second near-identical class. */
+#pipeline-demo-mode {
+  position: fixed;
+  top: 60px;
+  right: 16px;
+  z-index: 50;
+  display: flex;
+  gap: 8px;
+}
+
+/* Entrance toggle (normal vs. spaceship swoop-in) — same stacked-row treatment as
+   #pipeline-demo-mode just above, one more fixed offset down so all three rows stay clear of each
+   other regardless of button count. */
+#pipeline-demo-entrance {
+  position: fixed;
+  top: 104px;
+  right: 16px;
+  z-index: 50;
+  display: flex;
+  gap: 8px;
+}
+
+#options-panel {
+  /* Same box-sizing note as #info-panel/#search-panel above — moss's own global reset includes
+     border-box, this project's doesn't. */
+  box-sizing: border-box;
+  width: 300px;
+  --options-panel-pad-x: 19px;
+}
+#options-panel .nora-moss-content {
+  padding: 17px var(--options-panel-pad-x);
+}
+
+.mode-option-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+/* Every stage's own row of buttons (welcome's two, select-mode's dictionary/flashcards/exit,
+   flashcards/genki's own lists) — same centering treatment as .auth-submit; plain .mode-option's
+   own default is left-aligned content. */
+.mode-option-list .mode-option {
+  justify-content: center;
+}
+
+/* .mode-option-group/.mode-option-caption (the in-box caption that used to sit above each
+   dictionary/flashcards/genki button) were removed by request — the hover-title at the top of the
+   page (data-label/data-description, main.js) is now the only place that description text shows. */
+
+/* Ported directly from moss x kanji FINAL's public/moss-final.css (.nora-brand-hover-title /
+   .nora-brand-hover-title-text — the exact recipe that showed a brand's name in big glowing white
+   text over the terrarium there), renamed from "brand" since that concept doesn't exist here — this
+   is main.js's own hover-title element, shown for any .mode-option once select-mode is reached (see
+   main.js's own comment on inSelectModeTree for why welcome doesn't get this). Positioning
+   (fixed, top:62%/left:50%, anchored at the top so 1-line and 2-line titles both start from the same
+   baseline) and the whole glow/blur/stroke recipe are unchanged from the source; only the class names
+   differ. Word-wrapping (the source's formatBrandTitle(), greedily wrapping at 10 chars/line) is NOT
+   ported — every label in this app so far ("dictionary", "genki 2", "lesson 23") already fits on one
+   line at this font size, so there's nothing to wrap yet; revisit if a future option's label is
+   longer. */
+.select-hover-title {
+  position: fixed;
+  top: 62%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 36;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+  text-align: center;
+}
+.select-hover-title.visible {
+  opacity: 1;
+}
+/* Lays the big word and its own corresponding kanji out side by side, kanji on the right — the
+   deferred "Deferred mid-implementation" item from this file's own earlier history, finally wired
+   up. .select-hover-title itself still does the actual screen centering (fixed/top/left/
+   translateX(-50%)); this flex row just centers the WORD+KANJI pair as one unit inside that,
+   instead of .select-hover-title-text centering on its own the way it used to. baseline alignment so
+   the kanji (a different font/size entirely) sits on the same text baseline as the big word, not
+   vertically centered against its much taller line-box. */
+.select-hover-title-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.35em;
+}
+.select-hover-title-text {
+  font-family: Arial, sans-serif;
+  font-size: clamp(32px, 5vw, 72px);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  opacity: 0.72;
+  filter: blur(0.8px);
+  -webkit-text-stroke: 1.2px currentColor;
+  user-select: none;
+  white-space: normal;
+  text-align: center;
+  text-shadow:
+    0 0 4px rgba(255, 255, 255, 0.9),
+    0 0 12px rgba(255, 255, 255, 0.7),
+    0 0 32px rgba(255, 255, 255, 0.5),
+    0 0 64px rgba(255, 255, 255, 0.3),
+    0 0 96px rgba(255, 255, 255, 0.15);
+  line-height: 1.1;
+}
+/* The option's own corresponding kanji (e.g. 単語 for "flashcards"), sitting to the right of the big
+   word via .select-hover-title-row's flex gap above. Deliberately NOT this app's usual "real kanji
+   gets Shippori Mincho" rule (.info-character, .related-kanji, .nora-moss-topbar-kanji all follow
+   that) — matched instead, by explicit request, to how moss x kanji FINAL's own sibling source
+   (spotify-store) mixed English + kanji in one spot: `.nora-moss-brand-item`'s brand list has a
+   couple of entries doing exactly that in a single string ("CHËNG 鳴室", "OIOI器契"), styled by ONE
+   shared class with a plain `Arial, sans-serif` font-family for the whole thing. Arial has no CJK
+   glyphs, so the kanji characters fall back to the platform's own default sans-serif CJK font —
+   that fallback is where the "more blocky" look actually comes from, not a specific font choice of
+   its own; nothing to import, this is what Arial already does for kanji with no explicit CJK
+   font-family override. Copied 1:1 here: same font-family AND same font-size as
+   .select-hover-title-text (word and kanji now genuinely the same size, not a smaller companion),
+   plus the identical glow/stroke/shadow recipe so the two read as one continuous piece of text
+   rather than two different weights sitting next to each other. `duality terrarium`
+   (showIdleHoverTitle, main.js) never sets this — :empty hides it entirely rather than leaving a
+   dangling gap/space next to the word. */
+.select-hover-title-kanji {
+  font-family: Arial, sans-serif;
+  font-size: clamp(32px, 5vw, 72px);
+  letter-spacing: 0.06em;
+  color: #fff;
+  opacity: 0.72;
+  filter: blur(0.8px);
+  -webkit-text-stroke: 1.2px currentColor;
+  user-select: none;
+  line-height: 1.1;
+  text-shadow:
+    0 0 4px rgba(255, 255, 255, 0.9),
+    0 0 12px rgba(255, 255, 255, 0.7),
+    0 0 32px rgba(255, 255, 255, 0.5),
+    0 0 64px rgba(255, 255, 255, 0.3),
+    0 0 96px rgba(255, 255, 255, 0.15);
+}
+.select-hover-title-kanji:empty {
+  display: none;
+}
+/* The one-sentence description — its OWN separate fixed element now, not a child stacked under the
+   title (that was the first version of this); moved to the TOP of the screen instead, at the SAME
+   `top: 80px` #options-panel itself sits at (.nora-moss-box--float-left, above), so it lines up with
+   the box's own top edge — landing just above the terrarium's glass-box/orb in practice. Still
+   centered horizontally, still shown/hidden in lockstep with the title (both toggled together in
+   main.js's showHoverTitle/hideHoverTitle), just an independent element so its position isn't tied
+   to the title's own top:62%. */
+.select-hover-desc {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 36;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+  text-align: center;
+}
+.select-hover-desc.visible {
+  opacity: 1;
+}
+/* Same recipe as .select-hover-title-text (family/letter-spacing/color/opacity/shadow shape
+   unchanged), just at a fraction of the size, with blur/stroke scaled down to match (a straight 1:1
+   blur at this much smaller size reads as smudgy, not crisp — the same "lighter recipe for smaller
+   glowing text" already established elsewhere in this app, e.g. --content-glow-blur/-stroke vs
+   --itab-title-blur/-stroke). Deliberately NOT uppercase, unlike the title — a genuine readability
+   call, not a stylistic drift: a whole sentence in caps reads as shouting and is measurably harder to
+   scan than a single dramatic title word is. */
+.select-hover-desc-text {
+  font-family: Arial, sans-serif;
+  font-size: clamp(13px, 1.3vw, 19px);
+  letter-spacing: 0.06em;
+  color: #fff;
+  opacity: 0.72;
+  filter: blur(0.3px);
+  -webkit-text-stroke: 0.5px currentColor;
+  user-select: none;
+  white-space: normal;
+  text-align: center;
+  /* The same squish every other UI label in this app has (.related-title's own transform, verbatim)
+     — font-family here was already Arial like .related-title, this was the one thing missing for a
+     genuine 1:1 match, per explicit request. transform-origin: center keeps it squishing in place
+     rather than shifting, same as .related-title's own reasoning. */
+  transform: scaleY(0.58);
+  transform-origin: center;
+  text-shadow:
+    0 0 2px rgba(255, 255, 255, 0.85),
+    0 0 6px rgba(255, 255, 255, 0.6),
+    0 0 16px rgba(255, 255, 255, 0.4);
+  line-height: 1.3;
+}
+/* Any hover-desc's own trailing "." (main.js's blinkTrailingDot, wrapping it in this span once
+   typing genuinely finishes) — "beep on and off," per explicit request, now on every option's own
+   description AND the idle tagline (every one of them was given a trailing period specifically so
+   this applies uniformly), not just the one it started on. Reuses search-caret-blink verbatim
+   (below, originally built for #kanji-search-caret) rather than a second near-identical keyframe —
+   same hard on/off square wave (steps(1, end), not a smooth fade), the same "old-school terminal"
+   read that keyframe was already built for. Inherits .select-hover-desc-text's own font/glow (no
+   separate styling of its own) since it's still visually part of that same sentence, just one
+   character animating. */
+.hover-desc-dot {
+  animation: search-caret-blink 1s steps(1, end) infinite;
+}
+/* Deliberately NOT .related-kanji's fixed 36×36 tile (that's sized for a single glyph, not a
+   text row) — a plain full-width glass row instead, using the same --itab-bg glass fill every
+   other resting surface in this box family uses, so it reads as the same material even though
+   the shape is different. 10px vertical padding is a fixed, deliberate value (not derived from
+   anything else) — the ask was for every .mode-option button, in every stage (welcome, select-mode,
+   flashcards, genki), to come out the SAME short height uniformly. That only holds if the label's
+   own box-model doesn't add height of its own — see .mode-option-label's own margin:0 below, which
+   matters just as much as this padding value. This used to be 14px vertical with the height-defining
+   work actually done by .mode-option-label's inherited (non-zero) margin; both are gone now,
+   uniformly, across every stage — see OPTIONS_LIST_MAX_HEIGHT's comment in main.js for the knock-on
+   effect on the genki lesson lists' scroll cap. */
+.mode-option {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 10px;
+  background: var(--itab-bg);
+  cursor: pointer;
+  transition: background 0.2s ease, backdrop-filter 0.2s ease, -webkit-backdrop-filter 0.2s ease;
+}
+/* The box's own hover state — "turns on" up to the tabs' own REGULAR resting glass (--itab-bg/-blur/
+   -brightness/-saturate, the same tier .nora-moss-topbar/.nora-moss-bottombar always sit at), not
+   their old hover-escalated tier — that "tab while being hovered" state was itself removed
+   (.nora-moss-box:hover .nora-moss-topbar, above) per the same explicit request this corrects: a
+   resting .mode-option has no glass at all (flat --itab-bg, no backdrop-filter), so hover is what
+   activates real glass here — it's just the tabs' ordinary look now, not an extra-brightened one
+   that no longer exists as a concept anywhere else in this box family either. Plain CSS :hover (no
+   JS) since this is a static material swap, nothing here needs the phase-synced animation-delay math
+   a hover-beep would. The word keeps its own separate beep, see
+   .mode-option.is-pulsing .mode-option-label below. This does NOT reintroduce the "box lights up"
+   generic-hover-state look .related-kanji.is-pulsing's own comment documents rejecting — that was a
+   bespoke brighten invented for the occasion; this is literally this app's own existing glass
+   material, the same one the topbar/bottombar always show, not a new look. */
+.mode-option:hover {
+  background: var(--itab-bg);
+  -webkit-backdrop-filter: blur(var(--itab-blur)) brightness(var(--itab-brightness)) saturate(var(--itab-saturate));
+  backdrop-filter: blur(var(--itab-blur)) brightness(var(--itab-brightness)) saturate(var(--itab-saturate));
+}
+/* The word's own beep — nora-kanji-pulse, phase-locked to the topbar's own corner glyph via
+   syncPulseDelay (main.js's mouseover/mouseout delegation on optionsBox.content, unchanged: still
+   toggles .is-pulsing on the BUTTON, same as before). Only the difference: the animation itself now
+   targets the descendant label, not .mode-option directly — the button's own background/backdrop-
+   filter is the plain :hover transition above now, so pulsing the button's own opacity on top of
+   that would fight it. "The word does the same glow it's doing now," per explicit request — this is
+   that same beep, just no longer also carrying the box along with it. */
+.mode-option.is-pulsing .mode-option-label {
+  animation: nora-kanji-pulse 1.6s ease-in-out infinite;
+}
+/* .mode-option-label reuses .related-title verbatim below (font, squish, jade glow) — see main.js.
+   margin:0 overrides .related-title's own inherited margin: 7px 0 12px — fine for a standalone line,
+   but a flex-item margin still pads out .mode-option's own auto height, so it was quietly the bigger
+   driver of button height than .mode-option's padding was, in every stage. With it zeroed,
+   .mode-option's padding is the ONLY thing sizing any of these buttons, uniformly. */
+.mode-option-label {
+  margin: 0;
+  font-size: 15px;
+}
+/* A leftover name from the now-removed login/signup forms this was originally built for (their own
+   submit button) — kept for its one real rule, not renamed, since #back-to-home-btn (main.js, the
+   dictionary view) is its only remaining caller: plain .mode-option's own default is left-aligned
+   content (no justify-content of its own), and this button isn't flanked by a sibling to balance
+   against, so it needs its own centering directly. */
+.auth-submit {
+  justify-content: center;
+}
+
+/* Was position:fixed in the page's own top-left corner (rough/unstyled placeholder). Now the last
+   element in #search-panel's own content (main.js) — plain .mode-option styling handles the button
+   itself (verbatim reuse); margin-top is the only thing the BUTTON needs of its own, giving it real
+   separation from whatever's directly above it (#search-selected, whether collapsed at max-height:0
+   or expanded to its own ~280px) — same reasoning as #search-examples's own margin-top just above it
+   in this file. Being last in flow, after every other piece of this box's content, is what keeps it
+   "always at the bottom" of the search box, in every state. */
+#back-to-home-btn {
+  margin-top: 12px;
+}
+/* The label itself is plain .related-title (main.js) for a genuine 1:1 match to this box's own other
+   English text (the placeholder, "or try one of these", the stats line) — same font-family/size/
+   letter-spacing/opacity/blur/text-stroke/jade-glow/scaleY(0.58) squish, not a re-derived
+   approximation. The ONE thing scoped to just this instance: .related-title's own block-flow margin
+   (7px 0 12px, meant for a standalone line in normal flow) reads lopsided centered inside a flex
+   button (.mode-option is display:flex/align-items:center) — asymmetric top/bottom margin shifts the
+   text's own margin box off-center within the button instead of the text itself sitting centered.
+   Zeroed here, scoped to this button only, so every OTHER .related-title in the app (block context,
+   where that margin is exactly what spaces it from its neighbors) is untouched. */
+#back-to-home-btn .related-title {
+  margin: 0;
+}
+
+/* #search-selected-reveal-btn — same "plain .mode-option/.related-title, matching #back-to-home-btn"
+   button as that comment (main.js, the reveal-prompt template) describes, so it gets the SAME margin
+   zeroing for the SAME reason: without it, .related-title's own block-flow margin (7px 0 12px) was
+   quietly doubling this button's real height against every other .mode-option on the page (the same
+   bug #back-to-home-btn's own rule above already fixes for itself). */
+#search-selected-reveal-btn .related-title {
+  margin: 0;
+}
+/* Idle pulse — explicit request, to draw the eye toward a button that would otherwise look identical
+   to any other resting `.mode-option` and easy to miss. Inverts the usual hover convention on
+   purpose: EVERY other `.is-pulsing` use in this app (.mode-option.is-pulsing .mode-option-label,
+   above) is a hover-triggered beep — pulses only while the cursor is actually over it. Here it's the
+   opposite: `.is-pulsing` is added once the reveal prompt appears (main.js's showRevealPrompt) and
+   left on for as long as the button sits there un-revealed, so it's pulsing BY DEFAULT, precisely
+   when nothing's hovering it — that's the whole point, guiding a learner who hasn't found the button
+   yet. Reuses the exact same `nora-kanji-pulse` keyframe/timing as every other pulse in the app, just
+   scoped by this button's own ID rather than the generic `.mode-option-label` class, since this
+   button's label is plain `.related-title` (see the margin rule just above for why). */
+#search-selected-reveal-btn.is-pulsing .related-title {
+  animation: nora-kanji-pulse 1.6s ease-in-out infinite;
+}
+/* On hover, the pulse STOPS rather than starting (the reverse of the hover-triggered pattern
+   elsewhere) — freezes at the animation's own bright peak (nora-kanji-pulse's 50%-keyframe opacity,
+   0.75) instead of wherever mid-cycle the cursor happened to land, so hovering always reads as "lit
+   up," never as an arbitrary half-faded frame. Same specificity as the `.is-pulsing` rule above
+   (one ID + one class/pseudo-class + one descendant class) — this rule wins on hover purely by
+   coming AFTER it in the cascade, same as `.mode-option:hover` following `.mode-option` elsewhere in
+   this file; `.is-pulsing` itself is left on underneath (not removed), so moving the cursor back off
+   simply lets the animation resume, mid-cycle position lost as an animation restart, which reads as
+   "picking back up," not as a bug. */
+#search-selected-reveal-btn:hover .related-title {
+  animation: none;
+  opacity: 0.75;
+}
+
+/* ── Radio box content (home page, right side) ──────────────────────────────────────────────
+   Migrated from moss x kanji FINAL's own sibling source, spotify-store (public/index.html's "NORA
+   Music Player") — a real, working player (play/pause/prev/next, volume, track title/artist/cover,
+   elapsed/total time), not a placeholder. The OUTER box there was hand-built raw HTML with its own
+   topbar/bottombar; here it's a plain createMossBox() instance (`#radio-panel`, main.js) instead —
+   that's what actually gives it "our current selection box"'s exact chrome (glass topbar, corner
+   glyph, marquee, pulse-on-hover) for free, rather than re-deriving it. Only the CONTENT below —
+   what used to be spotify-store's own `.nora-player-content` and everything inside it — is actually
+   ported; the class names are kept (still `.nora-player-*`, not renamed) since nothing here
+   conflicts with this project's own naming, and matching them made diffing against the source
+   trivial. What changed, not just carried over verbatim: backgrounds now use this app's own
+   `--itab-bg` glass variable instead of the source's hardcoded `rgba(255,255,255,0.04)` — same
+   "shared glass vocabulary" rule as everywhere else in this box family (see mossBox.js's own header
+   comment) — and the source's own expand/collapse toggle (`.nora-player.sliding`,
+   `#nora-player-expand`, sliding between a right-docked and a center-docked X position) was dropped
+   entirely: this box is meant to land once (main.js's spawnFrom, on entering select mode) and stay put — "stuck
+   there" was the explicit ask — so there's nothing here to collapse or re-dock. `#radio-panel` itself
+   reuses `.nora-moss-box--float-right` unmodified (see that class's own comment above — it was
+   sitting there specifically for "a future box that doesn't collide with the sidebar," and the home
+   page has no sidebar at all, so this is exactly that box), width matched to `#options-panel`'s own
+   300px for a consistent pair of home-page boxes, not the source's one-off 380px. */
+#radio-panel {
+  box-sizing: border-box;
+  width: 300px;
+  /* A real length, not left to default to `none` — spawnFrom's own bump-expand (mossBox.js) animates
+     THIS box's max-height from its closed (topbar+bottombar-only) height up to whatever
+     getComputedStyle reports at spawn time on the box's initial entrance (spawnRadioBox, main.js,
+     when select mode is first entered); `#info-panel`'s own 67vh is why that's worked so far, but
+     `none` (the default with no max-height rule at all) isn't reliably animatable by CSS transitions
+     in most browsers, so this box needs an explicit one too. Was 220px (headroom over the single-row
+     player alone, back when the track list was a nested reveal inside this same stage); bumped to
+     560px, later explicit request, once the track list became its own full STAGE
+     (trackListStageHtml(), main.js) that this same box's content collapses/flashes/reopens into
+     (openTrackSelectStage/selectTrack's own regenerate() calls — see main.js's own comment on that
+     rework for why it isn't a shard flight) — regenerate() only ever animates `.nora-moss-content`'s
+     own height, never this outer box's, but the box's own CSS max-height is still a hard ceiling on
+     top of whatever content grows to, so it has to be raised regardless of which transition is
+     driving the content underneath it. 560px gives enough headroom for 6 rows (~330px) + this box's
+     own chrome, not just the player row. Only ever a CEILING, not a fixed height: the player stage
+     still renders at its own real (much shorter) natural height every time it's showing — this number
+     only matters when the taller track-list stage is what's actually open. */
+  max-height: 560px;
+  /* Doesn't fight spawnFrom's OWN max-height animation on entrance (mossBox.js: sets
+     `box.style.transition` inline for the duration of its own sequence, clears it back to `''` when
+     done) — this class-level rule only takes effect at other times. Kept mainly so this box's
+     max-height doesn't jump instantly if anything else ever nudges it outside that sequence. */
+  transition: max-height 0.3s ease;
+}
+#radio-panel .nora-moss-content {
+  padding: 14px 16px;
+}
+/* The track list ("the EP") — its own full stage now, main.js's trackListStageHtml(), swapped in via
+   this box's own regenerate() (collapse-to-tabs, white flash, reopen — openTrackSelectStage/
+   selectTrack) rather than a collapsible reveal nested inside the player stage's own markup (see
+   main.js's own comment on that rework for why). Just a plain flex column, always full height/opacity
+   the instant it's mounted — there's no separate open/closed state to gate here any more, regenerate()
+   itself is what's hiding/showing this content, under cover of its own flash. 8px gap slightly
+   tighter than `.mode-option-list`'s own 10px since each row is visually heavier (a 40px art tile,
+   not just a text line). */
+.radio-track-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+/* Each row reads as a small "featured song" preview — explicit request, reusing `.nora-player-art`/
+   `.nora-player-title`'s own look verbatim (main.js gives each row's children BOTH classes: the
+   shared one for the real styling, this one as a scoping hook for the rules below) rather than
+   `.mode-option`'s pill/button chrome. Plain `<button>` for real click/keyboard semantics, but reset
+   to a bare, transparent, left-aligned row — nothing here should read as a button visually. */
+.radio-track-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+}
+/* .radio-track-option-art's own 40px/5px-radius/--itab-bg sizing all comes from the shared
+   `.nora-player-art` class already — nothing to re-declare here. flex-shrink:0 is the one thing this
+   row specifically needs that the now-playing display never did (that one has nothing else in its
+   own flex row competing for space the same way a long track title here could). */
+.radio-track-option-art {
+  flex-shrink: 0;
+}
+/* .nora-player-art img has no opacity of its own (the now-playing display is never dimmed) — this
+   row needs one specifically so the hover-pulse below reads as brightening/glowing, not dimming: a
+   pulse oscillates up to nora-kanji-pulse's own 0.75 peak, so resting ABOVE that (the shared class's
+   default, fully opaque) would make hovering look like a flicker-DOWN instead. 0.7 matches
+   `.nora-player-title`'s own resting opacity exactly, so art and title read as the same visual
+   weight at rest, not just once both are pulsing. */
+.radio-track-option-art img {
+  opacity: 0.7;
+  transition: opacity 0.15s ease;
+}
+/* .radio-track-option-title's font/glow/opacity all come from the shared `.nora-player-title` class
+   — this override drops that class's OWN nowrap/ellipsis truncation (tuned for the now-playing
+   display's much narrower `.nora-player-meta` column) since every track title here comfortably fits
+   this wider row without needing to truncate. `flex: 1` (later explicit request, added alongside the
+   new index/duration elements below) is what actually makes the row layout work now: this is the
+   ONE element that grows to consume whatever width the other three don't claim, which is what pins
+   `.radio-track-option-dur` flush against the row's own right edge regardless of title length —
+   using the exact same `gap` (`.radio-track-option`, above) between all four elements, rather than a
+   separate margin-left:auto just on the duration to "push it to the end." */
+.radio-track-option-title {
+  white-space: normal;
+  flex: 1;
+  min-width: 0;
+}
+/* The "Track N:" index label and the per-track duration — both later explicit request, reusing
+   `.nora-player-dur` verbatim in the markup (main.js) for the same small/dim/Arial secondary-text
+   treatment the main player's own "0:00 / 4:06" readout already uses. That shared class's own
+   resting opacity (0.32) is tuned for a single always-visible readout sitting on its own, though —
+   too dim to read as part of THIS row's own "resting-dim, brightens together on hover" system
+   (art/title, above), so both get the same 0.7 override here instead, joining that system rather
+   than looking like a separately-styled afterthought. */
+.radio-track-option-index,
+.radio-track-option-dur {
+  opacity: 0.7;
+  transition: opacity 0.15s ease;
+}
+/* Marks whichever track is actually loaded right now (main.js's renderTrackList, re-run on every
+   real track change so this never goes stale) — explicit request: opening the list mid-playback
+   should give real orientation, not just a plain unordered stack. All four elements bumped to full
+   opacity so it reads as distinct even at rest, not just on hover (below) — targets the SAME
+   elements the resting-dim/hover-pulse rules do (the art's own `img`, not its wrapper span), so this
+   genuinely overrides them instead of just multiplying on top. */
+.radio-track-option.is-current .radio-track-option-art img,
+.radio-track-option.is-current .radio-track-option-title,
+.radio-track-option.is-current .radio-track-option-index,
+.radio-track-option.is-current .radio-track-option-dur {
+  opacity: 1;
+}
+/* Hovering ANY of the four elements glows the WHOLE row — explicit request. `.is-pulsing` toggles on
+   the row itself (main.js's mouseover/mouseout delegation); this rule fires the SAME nora-kanji-pulse
+   beep every other hover-glow in this app uses on all four together, phase-locked to each other via
+   syncPulseDelay (main.js) so they breathe in unison, not just independently coincidental. */
+.radio-track-option.is-pulsing .radio-track-option-art img,
+.radio-track-option.is-pulsing .radio-track-option-title,
+.radio-track-option.is-pulsing .radio-track-option-index,
+.radio-track-option.is-pulsing .radio-track-option-dur {
+  animation: nora-kanji-pulse 1.6s ease-in-out infinite;
+}
+
+/* The flashcard session's two boxes (main.js mountFlashcardSession) — neither had ANY box-specific
+   CSS of its own, which is a real, confirmed bug, not a style-polish gap: with no `width` rule at
+   all (only `.nora-moss-box`'s shared position/glass rules apply — see that class above, no width in
+   it), both boxes rendered at whatever `display:flex` happened to collapse to. `#flashcard-lesson-
+   panel` specifically also needs its own real `max-height` — it's a spawnFrom() user (mountScene's
+   startAutoSpin/onMiss in main.js), and spawnFrom's own bump-expand animates FROM `getComputedStyle`
+   TO whatever that resolves to; with no max-height rule at all it resolves to `none`, which — see
+   `#radio-panel`'s own comment just above, the first box this was caught on — isn't reliably
+   animatable, so the box never visibly grew past its closed (topbar+bottombar-only) height: the
+   readings/example-compound/component content was genuinely being set (setContent, onMiss), just
+   clipped to invisible by a box stuck at ~64px. `#flashcard-panel` uses regenerate() instead (not
+   spawnFrom), which measures real content `scrollHeight` directly rather than depending on a CSS
+   max-height at all — so it didn't have the SAME bug, but still needed its own width for the same
+   "nothing here has a `.nora-moss-box`-inherited default" reason. */
+#flashcard-panel {
+  box-sizing: border-box;
+  width: 320px;
+}
+#flashcard-parts-panel {
+  box-sizing: border-box;
+  width: 350px;
+  max-height: 67vh; /* same value/reasoning as #info-panel's own — "big enough to read comfortably,
+  scrolls past that" (.nora-moss-content's own overflow:auto), not tuned to this box's exact content */
+}
+/* Neither box had its OWN `.nora-moss-content` padding/color either — same missing-override bug
+   class as width/max-height above, not a separate issue. #info-panel/#search-panel's own recipe,
+   copied verbatim (17px 19px / rgba(255,255,255,0.8)) — this box family's real established padding,
+   not a value invented for these two. */
+#flashcard-panel .nora-moss-content,
+#flashcard-parts-panel .nora-moss-content {
+  padding: 17px 19px;
+  color: rgba(255, 255, 255, 0.8);
+}
+/* `.info-row` (readings, example compounds — main.js's lessonHtml, RIGHT box only now — the parts
+   box no longer has any) is `display: none` by GLOBAL DEFAULT — see that rule's own comment:
+   dictionary mode built it for a raw debug field (the KanjiVG node_id) and deliberately hid it
+   there, but never deleted it. Reusing the class for real, user-facing content without knowing that
+   was a real bug, not a missing-style gap — the content was genuinely being generated every time,
+   just suppressed by CSS. Re-enabling `.info-row` GLOBALLY would also un-hide dictionary mode's own
+   debug row, which was hidden on purpose — scoped here to just this box instead, so dictionary
+   mode's own deliberate choice stays untouched. `.info-row`'s own base rule (style.css, search
+   ".info-row {") is still that plain 12px Arial debug look — never restyled itself, since
+   dictionary's hidden usage should stay exactly what it always was. Two real gaps found and fixed
+   going through this retrofit property-by-property against the rest of this box's own established
+   chrome, not guessed:
+   1. Text glow/blur/squish (the span rule below) — matching .info-subtitle/.related-title's own
+      "content-glow" family (see :root) rather than inventing a fourth recipe.
+   2. "Under the glass" — text glow alone was never the whole story: every OTHER piece of chrome in
+      this box (`.mode-option` buttons' own `--itab-bg` background, the topbar/bottombar) sits on an
+      actual glass TILE, background tint plus `backdrop-filter`, not just glowing text floating on
+      the box's plain transparent content background. This row had none of that either, found on
+      further explicit report ("it feels like it's not under the glass" — first caught on
+      `.lesson-progress-stat`, just below, then applied here too). Each row (on'yomi, kun'yomi, every
+      example-compound line) gets its own tile now: SAME `--itab-bg`/`--itab-blur`/`--itab-brightness`/
+      `--itab-saturate` recipe `.nora-moss-topbar` and `.mode-option`'s own hover state both already
+      use, matched to the topbar's ALWAYS-ON version specifically, since this is static,
+      non-interactive chrome with no hover state of its own. Overrides the base rule's plain
+      `padding: 5px 0` with real horizontal padding too (0 before — nothing enclosing it made that
+      visible until now) and a small `margin-bottom` so stacked rows read as separate tiles, not one
+      fused block. */
+#flashcard-panel .info-row {
+  display: flex;
+  box-sizing: border-box;
+  padding: 8px 16px;
+  margin-bottom: 6px;
+  border-radius: 10px;
+  background: var(--itab-bg);
+  -webkit-backdrop-filter: blur(var(--itab-blur)) brightness(var(--itab-brightness)) saturate(var(--itab-saturate));
+  backdrop-filter: blur(var(--itab-blur)) brightness(var(--itab-brightness)) saturate(var(--itab-saturate));
+}
+/* Was a bare `#flashcard-panel .info-row span` selector, matching EVERY span including the plain
+   wrapper span main.js's examples row nests a reading + gloss pair inside (below) — changed to name
+   the two real content classes explicitly instead: matching every span meant that wrapper ALSO got
+   its own filter:blur()/text-shadow, which — since CSS filters render a whole subtree, including
+   already-filtered children, as one pass — would have double-blurred/double-shadowed its two real
+   children rather than just grouping them. `.info-row-label`/`.info-row-value` opt IN instead, so a
+   pure structural wrapper with no text of its own gets nothing. */
+#flashcard-panel .info-row-label,
+#flashcard-panel .info-row-value {
+  font-family: Arial, sans-serif;
+  /* THE ACTUAL REMAINING "wrong font" BUG, found going through this rule property-by-property
+     against .info-subtitle/.related-title's own computed styles (getComputedStyle, not guessed) —
+     an EARLIER pass here already fixed the scaleY(0.58) squish (comment just below, kept for
+     history) and declared it done, but never diffed these two: `.info-row`'s own base rule (above,
+     "font: 12px Arial, sans-serif") sets font-size via a SHORTHAND — this span was never given its
+     own font-size, so it just inherited that 12px, next to `.info-subtitle`'s 16px / `.related-
+     title`'s 13px everywhere else in the SAME box. And `font` the shorthand does NOT cover
+     letter-spacing — nothing here was setting it AT ALL, so it sat at the browser default (0
+     tracking) while literally every other UI label in this app (.info-subtitle/.related-title's own
+     base rule, :root's own --itab-title-spacing) carries 0.14em tracking. Squish alone was never
+     going to fully fix "reads like a different font" — size and tracking are at least as much of
+     that read as the transform was. Matched to .related-title's 13px, not .info-subtitle's 16px:
+     these rows are supporting/detail text (on'yomi/kun'yomi, example compounds), not a headline. */
+  font-size: 13px;
+  letter-spacing: var(--itab-title-spacing);
+  color: rgba(255, 255, 255, 0.8);
+  filter: blur(var(--content-glow-blur));
+  -webkit-text-stroke: var(--content-glow-stroke) currentColor;
+  text-shadow:
+    0 0 3px rgba(206, 255, 218, 0.7),
+    0 0 8px rgba(206, 255, 218, 0.5),
+    0 0 18px rgba(206, 255, 218, 0.3),
+    0 0 36px rgba(206, 255, 218, 0.16);
+}
+/* Real, confirmed bug, caught via getBoundingClientRect against a live render: an example word like
+   続ける was wrapping MID-WORD ("続け" / "る" on its own line) whenever its sibling gloss (long
+   English, e.g. "- to continue (something)") needed to wrap. Neither span had anything stopping a
+   flex row from shrinking it — CJK text has no inherent word boundaries the way English does, so a
+   browser will happily break between any two characters to fit a squeezed flex item, unlike English
+   which only ever breaks at whitespace. `.info-row-value` (the word AND the reading — never English)
+   gets `white-space: nowrap` + `flex-shrink: 0` so it ALWAYS reserves its own full natural width and
+   never breaks internally; the wrapping burden lands entirely on `.info-row-label` (the English
+   gloss), which is exactly where ordinary word-boundary wrapping is safe and expected. */
+#flashcard-panel .info-row-value {
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+/* THE SQUISH ITSELF, split off the shared rule above by further explicit request: scaleY(0.58) is a
+   Latin-alphabet font choice (matches every English UI label elsewhere in this app), and applying it
+   to every span here — genuine Japanese content included (readings, the example word itself) — was
+   ALSO squishing hiragana/kanji, which read as "terrible," a real visual defect, not a style choice
+   extending too far. `.info-row-label` (main.js — "on'yomi"/"kun'yomi", and the " - gloss" half of
+   an example line) is English UI copy and squishes; `.info-row-value` (readings, the example word)
+   is real Japanese content and stays unsquished, `transform: none`. Originally confirmed via
+   getComputedStyle that EVERY span here was missing this squish entirely (comment right below, kept
+   for history) — that fix was correct as far as it went, just too broad once it actually shipped. */
+#flashcard-panel .info-row-label {
+  /* Confirmed via getComputedStyle, not guessed: this rule had every OTHER content-glow property
+     but was missing the scaleY(0.58) squish .info-subtitle/.related-title/.nora-moss-title all
+     carry — real, measured difference (rows rendering at `transform: none` next to everything else
+     around them at `matrix(1,0,0,0.58,0,0)`), not a full font-family mismatch (font-family was
+     already Arial everywhere) — but a real enough visual mismatch on its own to read as "wrong
+     font" at a glance. */
+  transform: scaleY(0.58);
+  transform-origin: center;
+}
+/* The component breakdown (main.js's partsHtml) — the LEFT box's only content, ever (a genuine
+   category-1/3 kanji never opens this box at all). STACKED, one per line — NOT side by side, a real
+   confirmed bug in an earlier version: several kanji's own real KANJIDIC2 gloss for a part runs long
+   (close to a full sentence), and a second column next to it was running clean off the box. Each
+   part still prints as a full headline (.info-character/.info-subtitle, reused VERBATIM, not a
+   smaller re-derived copy), just one to a row now — real left-to-right/top-to-bottom meaning (which
+   part is actually on which side of the character) is still preserved by bundle.groups' own order,
+   just expressed top-to-bottom in this box instead of left-to-right. Each one is its own
+   .lesson-part hover/click target for the pinNodeId wiring in mountFlashcardSession. */
+.lesson-parts {
+  display: flex;
+  flex-direction: column;
+  gap: 36px; /* bumped up from 20px per explicit request — stacked one-per-line needs real breathing
+  room between them, not just enough to avoid touching */
+  margin: 4px 0 16px;
+}
+.lesson-part {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+}
+/* The "this is clickable" hover beep — same nora-kanji-pulse glow-up-glow-down every other
+   clickable tile in this app uses (.related-kanji's own identical rule, above), phase-locked via
+   syncPulseDelay (main.js). Applied to the whole part (glyph + gloss together), same as
+   .related-kanji's own tile — unlike .mode-option, which pulses just an inner label specifically to
+   avoid fighting a hover background this element doesn't have. */
+.lesson-part.is-pulsing {
+  animation: nora-kanji-pulse 1.6s ease-in-out infinite;
+}
+/* .info-character/.info-subtitle are reused VERBATIM inside .lesson-part (see partsHtml's own
+   comment) — this only trims the bottom margin the headline pair's OWN usage doesn't need repeated
+   twice per part, it doesn't touch either class's actual look (glow/blur/squish untouched). */
+.lesson-part .info-subtitle {
+  margin-bottom: 0;
+}
+/* The "used in these words" header above the example compounds (main.js's lessonHtml) — real
+   breathing room above it (beyond .related-title's own small 7px top margin, shared with every
+   OTHER .related-title use, not enough on its own here per explicit request), separating it from
+   whatever came before (readings, or the duality-detected button). A dedicated class, not
+   `#flashcard-panel .related-title` — that broader selector would also catch the got-it/didn't-get-
+   it/duality-detected buttons' own labels just below (same class, reused there for its glow). */
+.lesson-examples-title {
+  margin-top: 20px;
+}
+/* Real gap between the box's actual content and its trailing got-it/didn't-get-it button — `.mode-
+   option-list` has no margin of its own (see that rule's own comment: just `gap` between ITS OWN
+   children), which is correct for every OTHER context it's used in (e.g. select-mode, where a
+   title's own margin already separates it), but this box's content directly above it is .info-row —
+   flex rows with no margin at all — so nothing was providing any gap here. Scoped to `lessonHtml()`'s
+   own list specifically (`.lesson-grade-list`, main.js), NOT every `.mode-option-list` inside
+   `#flashcard-panel` — that broader selector used to also catch `frontHtml()`'s own list (the single
+   `reveal` button), which has nothing above it to separate from: a real, confirmed bug, caught after
+   `frontHtml()` lost its "what is this kanji?" caption — this exact margin-top was left pushing
+   `reveal` down off-center, unbalanced against `.nora-moss-content`'s own symmetric 17px top/bottom
+   padding (just below). `frontHtml()`'s list keeps zero extra margin, same as `.mode-option-list`'s
+   own base rule already gives every other context. */
+#flashcard-panel .lesson-grade-list {
+  margin-top: 16px;
+}
+/* `duality detected` (main.js, dualityButtonHtml) — a real, confirmed bug, caught with
+   getBoundingClientRect against a live render: this list's own bottom edge and the on'yomi row's own
+   top edge landed at the EXACT same y — zero gap, visibly touching. Same root cause as
+   `.lesson-grade-list` just above (`.mode-option-list` has no margin of its own by design), just a
+   different neighbor: THIS list needs space below it, not above, since content keeps going after it
+   (on'yomi) rather than ending the box. 16px, matching every other established gap in this box family
+   (`.lesson-grade-list`'s own margin-top, `.info-row`'s own margin-bottom is a smaller 6px since
+   those rows are already visually grouped together as one block, unlike this standalone button). */
+#flashcard-panel .duality-toggle-list {
+  margin-bottom: 16px;
+}
+/* The front prompt's own progress readout (`n / n`, main.js's frontHtml/progressStatus — used to
+   spell out "X / Y mastered · Z left this round", trimmed down to the bare count by further explicit
+   request) — moved out of the box's bottombar marquee entirely, per explicit request (that ticker
+   treatment is for a short, fixed kanji+English label like every OTHER box's own marquee (no longer
+   dash-separated — every marquee's own hyphen was later removed app-wide, main.js's welcomeHtml etc.
+   — but "short and fixed" is still the relevant property here), not a live-updating count). `.info-subtitle` look/glow every other headline text in this box family
+   already carries, plus its own top margin (matching `.lesson-grade-list`'s own 16px above, for the
+   same reason: the generic `.mode-option-list` has no margin of its own, and nothing else here
+   provides one).
+   THE REAL REMAINING GAP, found on further explicit report ("it feels like it's not under the
+   glass"): text glow alone was never the whole story — every other piece of chrome in this box
+   (`.mode-option` buttons' own `--itab-bg` background, the topbar/bottombar) sits on an actual GLASS
+   TILE — a background tint plus `backdrop-filter` blur/brightness/saturate — not just glowing text
+   floating on the box's own plain transparent content background. This div had none of that at all.
+   Given its own tile now: SAME `--itab-bg`/`--itab-blur`/`--itab-brightness`/`--itab-saturate`
+   recipe `.nora-moss-topbar` (style.css, "under the glass") and `.mode-option`'s own hover state
+   both already use — matched to the topbar's ALWAYS-ON version specifically (not `.mode-option`'s
+   resting-flat/hover-activates-glass split), since this is static, non-interactive chrome with no
+   hover state of its own, same as the topbar. `box-sizing: border-box` so the new padding can't push
+   it wider than the `reveal` button immediately above (no ambient border-box reset in this codebase
+   — `#info-panel`'s own comment, further up, already flags the same gap). */
+.lesson-progress-stat {
+  margin-top: 16px;
+  box-sizing: border-box;
+  padding: 10px 16px;
+  border-radius: 10px;
+  text-align: center;
+  background: var(--itab-bg);
+  -webkit-backdrop-filter: blur(var(--itab-blur)) brightness(var(--itab-brightness)) saturate(var(--itab-saturate));
+  backdrop-filter: blur(var(--itab-blur)) brightness(var(--itab-brightness)) saturate(var(--itab-saturate));
+}
+
+.nora-player-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nora-player-art {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  background: var(--itab-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.nora-player-art svg {
+  opacity: 0.2;
+}
+.nora-player-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+  display: block;
+}
+
+.nora-player-meta {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* Same white-glow recipe (family, opacity, stroke, text-shadow tiers) as .select-hover-title-text —
+   this is non-kanji UI text same as that title is, so it stays in the same white vocabulary rather
+   than the jade one .related-title/.mode-option-label use, just at a much smaller, label-sized scale
+   (12px, not a 32-72px hero title). */
+.nora-player-title {
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  color: #fff;
+  opacity: 0.7;
+  filter: blur(0.3px);
+  -webkit-text-stroke: 0.7px currentColor;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow:
+    0 0 4px rgba(255, 255, 255, 0.8),
+    0 0 12px rgba(255, 255, 255, 0.6),
+    0 0 32px rgba(255, 255, 255, 0.4),
+    0 0 64px rgba(255, 255, 255, 0.2);
+}
+/* .nora-player-artist (artist name, under the title) was removed by request — title only now.
+   Still in RADIO_PLAYLIST's own data (main.js), just not rendered; nothing to restyle if it comes
+   back later, only markup + a loadRadioTrackAudio()/syncTrackDisplay() line to re-add. */
+
+/* Shared by BOTH ends of the track-picker's own open/close toggle now — "track select"
+   (radioPlayerHtml's own trigger, a real always-visible `.mode-option`, not a small icon; explicit
+   request — the old chevron-only trigger was too easy to miss) AND "current track"
+   (trackListStageHtml's own trailing button, main.js's closeTrackSelectStage — added later, explicit
+   request, so opening the list is no longer a one-way door). Reuses this app's own established
+   "click this to proceed/reveal" look verbatim (the SAME class `#back-to-home-btn`/dictionary's own
+   "reveal" button use) rather than a bespoke style — `justify-content: center` added explicitly
+   since plain `.mode-option`'s own default is left-aligned content (same reason `#back-to-home-btn`
+   needs its own `.auth-submit` for this, style.css's own comment on that class), not centered the
+   way `.mode-option-list .mode-option` gets for free — neither button sits inside a
+   `.mode-option-list`. No `.is-hidden` state on either — main.js's own `regenerate()`-based
+   collapse/flash/reopen is what actually swaps `radioPlayerHtml()` and `trackListStageHtml()` in and
+   out of the box wholesale (openTrackSelectStage/closeTrackSelectStage), so each button simply isn't
+   part of the OTHER stage's markup at all — there's nothing to hide. */
+.radio-track-select-btn {
+  margin-top: 10px;
+  justify-content: center;
+}
+
+.nora-player-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex: 1;
+}
+
+.nora-player-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.55;
+  filter:
+    drop-shadow(0 0 2px rgba(255, 255, 255, 0.7))
+    drop-shadow(0 0 5px rgba(255, 255, 255, 0.35));
+  transition: opacity 0.15s ease;
+}
+/* Same nora-flash hover this project already ships (mode-option's own hover is a phase-locked pulse
+   instead — this keeps the source's own quick strobe for the transport buttons specifically, since
+   that's the recipe @keyframes nora-flash was actually built for). */
+.nora-player-btn:hover {
+  animation: nora-flash 0.5s steps(1, end) infinite;
+}
+@keyframes nora-flash {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0.4; }
+}
+.nora-player-btn.play-btn {
+  opacity: 0.8;
+  filter:
+    drop-shadow(0 0 3px rgba(255, 255, 255, 0.9))
+    drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
+}
+
+.nora-player-volume {
+  width: 100%;
+  margin-top: 5px;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+.nora-player-volume::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow:
+    0 0 4px rgba(255, 255, 255, 0.9),
+    0 0 10px rgba(255, 255, 255, 0.5),
+    0 0 20px rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+}
+.nora-player-volume::-moz-range-thumb {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow:
+    0 0 4px rgba(255, 255, 255, 0.9),
+    0 0 10px rgba(255, 255, 255, 0.5),
+    0 0 20px rgba(255, 255, 255, 0.2);
+  border: none;
+  cursor: pointer;
+}
+
+.nora-player-dur {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: #fff;
+  opacity: 0.32;
+  filter: blur(0.3px);
+  -webkit-text-stroke: 0.4px currentColor;
+  flex-shrink: 0;
+  text-shadow:
+    0 0 4px rgba(255, 255, 255, 0.7),
+    0 0 14px rgba(255, 255, 255, 0.4);
+}

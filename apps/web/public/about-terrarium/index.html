@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>二面性製作所</title>
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="page-loaded">
+
+    <div id="scanline-overlay"></div>
+
+    <section id="landing-page" class="about sticky">
+    <div class="empty"></div>
+    <article>
+        <header class="duality-title">
+            Duality Terrarium
+        </header>
+        <h2 class="duality-subtitle" id="dualitySubtitle" > Designed and developed by Jordan Levi Sax, built on KanjiVG and rendered with Three.js </h2>
+      <div class="title">
+      </div>
+
+      <div class="description">
+        <div class="terra-block">
+        <div id="terra-def">
+
+            <p><strong>Terrarium (Noun)</strong></p>
+
+            <p class="terra-italic">terra “earth” + arium “vessel”</p>
+
+            <p>
+              A bespoke archive of botanical flora and fauna, delicately encased within an ornate
+              glass vessel where life is sustained through a finely tuned composition of
+              light and soil.
+            </p>
+
+            <p>
+              A slice of nature, suspended and illuminated in an ethereal other-world where the
+              organic and the artificial coexist in an elegant living embodiment of duality:
+            </p>
+
+            <p class="terra-italic">
+              intricate engineering seamlessly intertwined with artistic cultivation.
+            </p>
+
+            <p>
+              Guided by this ethos, Duality Terrarium by Jordan Levi Sax is a project devoted to
+              crafting immersive, avant-garde digital experiences.
+            </p>
+
+            <p>
+              <strong>Scroll down to learn more.</strong>
+            </p>
+
+                        <div class="scroll-hint" aria-hidden="true">
+              <div class="scroll-hint-arrow"></div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </article>
+
+    <div class="terrarium-underlay">
+        <img src="img/ter1.png" class="main-terra-pic" width="500">
+        <img src="img/ter2.png" class="terra-2" width="2000">
+    </div>
+
+        <canvas id="loader-canvas"></canvas>
+
+        <div id="about-loading">読み込み中...</div>
+
+        <script src="https://cdn.babylonjs.com/babylon.js" defer></script>
+    <script src="terrarium.js" defer></script>
+
+  </section>
+
+    <section id="services1" class="services services-creative sticky">
+    <figure>
+      <img id="pic1" src="img/技術性.png" width="400" />
+    </figure>
+    <div class="text">
+      <div class="problem-space-body">
+        <h2 class="style-match-header">Problem Space</h2>
+        <h3>Students lack the subconscious infrastructure for character acquisition.</h3>
+        <h4>
+          Japanese learners around the world are often faced with a fundamental issue that learners of
+          many other languages never encounter; learning to recognise thousands of complex Kanji
+          characters. Most university Japanese programs or language schools will use a textbook series
+          like Genki and expect students to learn over 20 new characters a week for each lesson with
+          very little direct guidance on how to do so.
+        </h4>
+        <h4>
+          For Japanese children entering elementary school this approach works well as native born
+          students have grown up being constantly exposed to Kanji all around them, leading to the
+          development of a deep subconscious infrastructure for character pattern recognition.
+          Foreigners have no such infrastructure and are often thrown in the deep end and expected to
+          learn through rote memorisation, this method is incredibly ineffective as an untrained brain
+          has no mechanism to grasp these complex patterns and relationships, leading to an extremely
+          steep learning curve
+          where kanji is just treated by the brain as random noise.
+        </h4>
+        <h4>
+          This poses the question, what if there was a way to fast track the mental adoption of this
+          subconscious infrastructure by creating a visual representation of what is going on inside the
+          brain of someone who already recognises these complex patterns?
+        </h4>
+      </div>
+    </div>
+  </section>
+
+    <section id="services2" class="services services-phyical sticky">
+    <figure>
+      <img src="img/capsule.png" width="378" />
+    </figure>
+    <div class="text">
+      <div class="core-concept-body">
+        <h2 class="style-match-header">Core Concept</h2>
+        <h3>An interactive 3D environment that intuitively strengthens pattern recognition.</h3>
+        <h4>
+          Duality Terrarium attempts to answer this question with a first of its kind approach. An in
+          depth, 3D
+          environment that allows users to interact with Kanji through a truly novel and deeply
+          tactile interface, while
+          simultaneously breaking each character apart into its components with real time data like
+          component meanings and related characters. Duality Terrarium provides a particularly unique
+          tool for beginner to intermediate learners who
+          are making the jump from romanisation and Kana, to Kanji, providing a means to accelerate their
+          progress towards developing a robust mental framework for character acquisition.
+        </h4>
+        <h4>
+          The dictionary feature acts as an open world sandbox for Kanji, allowing learners to enter over
+          6000 unique characters, interact with them in real time and break them apart, helping to
+          intuitively strengthen their mental map of how different components interact. This feature also includes a
+          fully integrated glossary of Kanji that share any given component, allowing inquisitive
+          learners to go down a potentially endless rabbit hole of new characters as they continue to
+          strengthen their subconscious infrastructure.
+        </h4>
+        <h4>
+          The textbook feature is fully integrated with the Genki and Minna No Nihongo textbooks,
+          giving students who are taking introductory Japanese classes a real edge right at the
+          beginning when picking up the skill of Kanji acquisition is most crucial.
+        </h4>
+      </div>
+    </div>
+  </section>
+
+    <section id="services3" class="services services-trend sticky">
+    <figure>
+      <img src="img/地球.png" width="500" />
+    </figure>
+    <div class="text">
+      <div class="design-language-body">
+        <h2 class="style-match-header">Design Philosophy</h2>
+        <h3>An experience that evokes curiosity and invites learners to rabbit-hole deeply.</h3>
+        <h4>
+          For the better part of a decade, education technology has been heavily dominated by a
+          particular kind of user experience: The gamification, dopamine addiction model,
+          often characterized by flat, corporate art styles and ultra-minimalism. Duality Terrarium
+          rejects this approach, in favour of retro-futurism as its design philosophy.
+        </h4>
+        <h4>
+          The prevalent digital design language of the 2000s treated technology as
+          something that can integrate into the natural world and enrich our lives, evoking a feeling
+          of Millennial Optimism; the idea that technological advancements are something to look forward
+          to.
+        </h4>
+        <h4>
+          A terrarium is a man made technology that preserves and nurtures the beauty of the natural
+          world, evoking wonder and curiosity in the spectator. With this sentiment in mind, Duality
+          Terrarium’s design language was born.
+        </h4>
+        <h4>
+          An intricate choreography of translucent glass windows, continuously interacting with lush
+          green moss and the colossal Kanji mega structures that fly beneath their luminescent
+          surface. The user is invited to explore the environment as elements expand and transform
+          with every click, allowing them to learn intuitively without the need for any explicit
+          lessons.
+        </h4>
+      </div>
+    </div>
+  </section>
+
+      <section id="alt" class="services services-trend sticky no-radius-section">
+    <figure>
+      <div class="text">
+        <img src="img/mouse.png" class="mouse" width="400">
+      </div>
+    </figure>
+    <div class="text">
+      <img src="img/boots.jpg.png" class="light-mute" width="500">
+    </div>
+
+        <div class="scroll-hint scroll-hint--alt" aria-hidden="true">
+      <div class="scroll-hint-arrow"></div>
+    </div>
+  </section>
+
+    <section id="case-study" class="case-study">
+        <div class="case-left">
+      <h2 class="stack-title stack-title--sub" id="stack-duality">Duality Terrarium</h2>
+      <div class="stack-title stack-title--main" id="stack-technology">Rendering<br>Engine</div>
+      <div class="stack-title stack-title--main" id="stack-architecture">System<br>Overview</div>
+      <div class="stack-title stack-title--main" id="stack-flow">Flow<br>Diagram</div>
+    </div>
+
+        <div class="case-right">
+      <div class="case-block">
+
+                <div class="flow-strip">
+          <div class="flow-strip-tagline">Reactive, robust, client side 3D kanji generation, with zero pre-made assets or backend dependencies.</div>
+          <div class="flow-strip-row">
+            <div class="flow-step">
+              <div class="flow-step-main">Kanji Input</div>
+              <div class="flow-step-sub">(Unicode)</div>
+            </div>
+            <div class="flow-arrow"></div>
+            <div class="flow-step">
+              <div class="flow-step-main">Stroke Data</div>
+              <div class="flow-step-sub">(KanjiVG)</div>
+            </div>
+            <div class="flow-arrow"></div>
+            <div class="flow-step flow-step--api">
+              <div class="flow-step-main">Mesh API</div>
+              <div class="flow-step-sub">(Three.js)</div>
+            </div>
+            <div class="flow-arrow"></div>
+            <div class="flow-step">
+              <div class="flow-step-main">3D Render</div>
+              <div class="flow-step-sub">(WebGL)</div>
+            </div>
+            <div class="flow-arrow"></div>
+            <div class="flow-step">
+              <div class="flow-step-main">User Interaction</div>
+              <div class="flow-step-sub">(Raycasting)</div>
+            </div>
+          </div>
+        </div>
+
+        <p class="invert-text">
+          <strong>LAYER 1: DATA SOURCE</strong>
+          <br><br>
+          Duality Terrarium's foundation and single source of truth is the KanjiVG dataset. Created in
+          2009 and published on GitHub under free use, this data set contains the pure stroke geometry
+          for 6703 individual Kanji characters and has become an industry standard, used by official
+          dictionary websites and apps like Duolingo. Every character has an entry that contains an SVG
+          path file that follows the physical geometry of a given stroke, in the form of a 2D vector.
+          Each stroke within a given character is also grouped together into nested components,
+          allowing the complete character to be broken apart and act as its own decomposition tree. A
+          supplementary dataset called KANJIDIC2 was also used for displaying additional metadata like
+          a character's English meaning or JLPT level, and integrated with KanjiVG using a given
+          character's raw character glyph as its universal unique identifier.
+          <br><br>
+          <strong>LAYER 2: CLASSIFICATION SYSTEM</strong>
+          <br><br>
+          A custom built classification system was used to split each KanjiVG entry from being a static
+          sculpture to two named halves that could become their own independently addressable object
+          that also carries KANJIDIC2 meta data. The system classifies every KanjiVG entry into one of
+          three groups based on its own nested component data. Characters made up of only a single
+          component are tagged as group one, so that they can't be split apart at all. Group two
+          characters make up over 75% of entries, and are used for characters that contain a clearly
+          defined duality of only two components, allowing group two characters to not only be broken
+          apart but also display an index of all other characters that contain a given component. Group
+          three characters were mostly reserved for a small subset of obscure edge-case characters that
+          contain more than two components, for example, avoiding the existence of any inaccurate or
+          made-up splits.
+          <br><br>
+          <strong>LAYER 3: RENDERING ENGINE</strong>
+          <br><br>
+          This layer is what turns a given character's authentic SVG brush stroke vector into a
+          physical 3D object that learners can see and touch. A custom built API was used to convert
+          each SVG vector into a three-dimensional mesh. samplePathPoints() converts each stroke from
+          SVG into a clean polyline. strokeToMesh() then takes the polyline and pushes the original
+          point outward along the perpendicular by half the stroke's width in each direction creating
+          two parallel curves that trace along both sides of the stroke. It then traces a connecting
+          line down the left edge, then back up the right edge in reverse in order to create a full
+          two-dimensional outline of the stroke. It then pushes the flat outline up along the z-axis,
+          turning it into a real solid three-dimensional structure with thickness, rounded edges, and a
+          surface that catches light.
+          <br><br>
+          <strong>LAYER 4: USER INTERFACE</strong>
+          <br><br>
+          Sitting directly on top of the render engine is the user interface itself, built entirely
+          from one reusable translucent "glass" component. By using CSS properties like backdrop-blur,
+          brightness and saturation, the glass boxes are able to behave visually like a physical pane of
+          glass that can obscure the live render behind it in real time, allowing the user interface
+          itself to take on the role as the glass structure that encases terrarium itself. The
+          functionality of the interface is also designed to be extremely easy to use, with interactive
+          elements that glow when hovered over, and display additional information about a given
+          feature.
+          <br><br>
+          The interface also includes a radio feature that allows the user to select any track from
+          the Duality Terrarium EP: an electronic music project created to enhance the user
+          experience by auditorily complementing the retro-futurist design of the UI. The EP was
+          produced using Ableton Live 12.2 and integrates chopped and looped drum breaks over
+          compositions written and played on a Wavestation VTS, a first-of-its-kind synthesizer
+          released in 1990 that used wave sequencing and vector synthesis to constantly fade between
+          different digital waveforms, creating its distinctive glassy, shimmering, slowly evolving
+          atmospheric sound.
+          <br><br>
+          <strong>RUNTIME ENVIRONMENT</strong>
+          <br><br>
+          The rendering engine and user interface execute natively in-browser over WebGL, allowing the
+          GPU to handle the 3D renders in real time as the user breaks apart characters and manipulates
+          them in any way they please. Any one of 6703 fully interactive three-dimensional objects are
+          generated on demand within a single page Javascript application.
+        </p>
+
+                <div class="case-textbox">
+          <div class="layer-diagram">
+            <div class="layer-diagram-tier pyramid-data">
+              <strong>LAYER 1: DATA SOURCE</strong>
+              <div class="layer-diagram-item">KanjiVG (Stroke Geometry)</div>
+              <div class="layer-diagram-item">KANJIDIC2 (Linguistic Data)</div>
+            </div>
+            <div class="layer-diagram-tier pyramid-classification">
+              <strong>LAYER 2: CLASSIFICATION SYSTEM</strong>
+              <div class="layer-diagram-item">Custom Built Structural Classifier</div>
+              <div class="layer-diagram-item">Component Cross-Reference Index</div>
+            </div>
+            <div class="layer-diagram-tier pyramid-rendering">
+              <strong>LAYER 3: RENDERING ENGINE</strong>
+              <div class="layer-diagram-item">Three.js / WebGL</div>
+              <div class="layer-diagram-item">Mesh API</div>
+            </div>
+            <div class="pyramid-top-row">
+              <div class="layer-diagram-tier pyramid-interface">
+                <strong>LAYER 4: USER INTERFACE</strong>
+                <div class="layer-diagram-item">Interactive Glass-Panel UI</div>
+                <div class="layer-diagram-item">Soundtrack Navigation</div>
+              </div>
+              <div class="pyramid-runtime">
+                <strong>RUNTIME ENVIRONMENT</strong>
+                <div class="layer-diagram-item">Single Page Application</div>
+                <div class="layer-diagram-item">Client-Side Rendering</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <script src="main.js"></script>
+
+</body>
+</html>

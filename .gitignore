@@ -1,0 +1,28 @@
+# JS
+node_modules/
+dist/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Vendored third-party data — fetched, not hand-authored. See each folder's README.md
+data-pipeline/kanjivg-source/*
+!data-pipeline/kanjivg-source/.gitkeep
+!data-pipeline/kanjivg-source/README.md
+data-pipeline/kanjidic-source/*
+!data-pipeline/kanjidic-source/README.md
+
+# Generated pipeline output at every stage — regenerate from scripts, don't hand-edit or commit.
+# apps/web/public/data/ is the ONE exception: it's the shippable per-character dataset the deployed
+# site actually fetches at runtime, not a throwaway intermediate — tracked so it's part of what
+# gets pushed/deployed. Regenerate it locally (data-pipeline/export/build_bundle.py) and commit the
+# result whenever the classification pipeline changes; nothing about deployment re-runs Python.
+data-pipeline/extract/out/
+data-pipeline/enrich/out/
+data-pipeline/export/out/
+data-pipeline/gloss/gloss_index.json
+
+# OS
+.DS_Store
